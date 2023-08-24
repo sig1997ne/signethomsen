@@ -54,10 +54,10 @@ nav img{
 /* header */
 .header {
     position: relative;
-    background-image: url(images/banner2.png); /* Replace 'images/banner2.png' with the actual path to your image */
+    background-image: url(images/banner.png); /* Replace 'images/banner2.png' with the actual path to your image */
     background-size: cover;
     background-position: center;
-    height: 40vh;
+    height: 30vh;
 }
 
 .text-box {

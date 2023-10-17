@@ -1,0 +1,191 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+/* navlinks */
+
+nav {
+    display: flex;
+    padding: 2& 6%; /* Use the correct percentage sign */
+    align-items: center;
+    background-color: rgba(126, 131, 114, 0.7);
+}
+
+nav img {
+    width: 50px;
+}
+
+/* Adjust the styles for the logo and navigation bar */
+.logo-nav {
+    display: flex;
+    align-items: center;
+    margin-right: auto; /* Push the logo to the left */
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+/* Add styling for the logo image if needed */
+.logo-nav img {
+    max-width: 50px; /* Adjust the size as needed */
+    height: auto;
+}
+
+/* Add other navigation styles as needed */
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-links ul li a{
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+}
+.nav-links {
+    display: flex;
+}
+
+/* Style for dropdown menu */
+.dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 150px;
+    z-index: 2; /* Add z-index to ensure the dropdown appears in front */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+
+
+/* header */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(images/IMG_31631%202.JPG);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional: This keeps the background fixed while scrolling. */
+    height: 100vh;
+    position: relative; /* Set the body to a relative position to enable absolute positioning of the overlay */
+}
+
+
+header {
+    position: relative;
+    /* Your header styles */
+    /* You can adjust the height and other styles for the header as needed */
+}
+
+
+.text-box {
+    width: 99%;
+    color: #000;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(126, 131, 114, 0.5); /* Transparent white background */
+    padding: 10px; /* Add some padding for spacing */
+}
+
+.text-box h1 {
+    font-size: 62px;
+    margin-bottom: 10px;
+}
+
+.text-box p {
+    margin: 0;
+    font-size: 14px;
+    color: #000;
+}
+
+
+h1{
+    font-size: 36px;
+    font-weight: 600;
+    color: #000;
+}
+
+h4{
+    color: #000;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+
+
+.button-container {
+    text-align: center; /* Center align the buttons horizontally */
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0; /* Add some padding for spacing */
+}
+
+.rounded-button {
+    background-color: rgba(126, 131, 114, 0.7);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+/*--------footer----*/
+.footer {
+    text-align: center;
+    background-color: rgba(126, 131, 114, 0.5);
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Style the icons container */
+.icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; /* Add margin to the top and bottom of the icons container */
+}
+
+/* Style individual icons */
+.icons i {
+    margin: 0 20px; /* Add margin around each icon */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

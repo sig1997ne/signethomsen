@@ -1,135 +1,318 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-	/* customizable snowflake styling */
-	.snowflake {
-	  color: #fff;
-	  font-size: 1em;
-	  font-family: Arial, sans-serif;
-	  text-shadow: 0 0 5px #000;
-	}
-	
-
-	@-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes snowflakes-shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}}@keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes snowflakes-shake{0%,100%{transform:translateX(0)}50%{transform:translateX(80px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}.snowflake:nth-of-type(10){left:25%;-webkit-animation-delay:2s,0s;animation-delay:2s,0s}.snowflake:nth-of-type(11){left:65%;-webkit-animation-delay:4s,2.5s;animation-delay:4s,2.5s}
-	</style>
-	<div class="snowflakes" aria-hidden="true">
-        <!----CHANGE THE LOGO FOR NEW HOLIDAY OR SEASON - https://graphemica.com/ ---->
-	  <div class="snowflake">
-	  🎃
-	  </div>
-	  <div class="snowflake">
-	  🍂
-	  </div>
-	  <div class="snowflake">
-	  🍁
-	  </div>
-	  <div class="snowflake">
-	  🎃
-	  </div>
-	  <div class="snowflake">
-	  🍂
-	  </div>
-	  <div class="snowflake">
-	  🍁
-	  </div>
-	  <div class="snowflake">
-	    🎃
-	  </div>
-	  <div class="snowflake">
-	    🍂
-	  </div>
-	  <div class="snowflake">
-	    🍁
-	  </div>
-	  <div class="snowflake">
-	    🎃
-	  </div>
-	  <div class="snowflake">
-	    🍂
-	  </div>
-	  <div class="snowflake">
-	    🍁
-	  </div>
-	</div> 
- <!------------------------fonts, icons mm. ------------------>   
- <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Signes Portfolio</title>    
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
-    </head>
-<!-------------------------------navlinks------------------>
+<html lang="da">
 <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script>
-        function showmenu() {
-            document.getElementById("navLinks").style.right = "0";
-        }
-        
-        function hidemenu() {
-            document.getElementById("navLinks").style.right = "-200px";
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signes Portfolio</title>
+  <!-- Google Fonts og Lineicons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
+  
+  <style>
+    /* Generelle stilarter og reset */
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+    }
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    /* Hver sektion fylder hele viewporten */
+    section {
+      width: 100%;
+      height: 100vh;
+    }
+    
+    /* Header Sektion */
+    .header {
+      position: relative;
+      overflow: hidden;
+      background: #eee;
+    }
+    .header .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+    }
+    .text-box {
+      width: 99%;
+      color: #000;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(255,255,255,0.5);
+      padding: 10px;
+    }
+    .text-box h1 {
+      font-size: 62px;
+      margin-bottom: 10px;
+    }
+    .text-box p {
+      font-size: 14px;
+      color: #000;
+    }
+    
+    /* Slideshow Sektion */
+    #slideshow-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ddd;
+    }
+    .slideshow-container {
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      position: relative;
+    }
+    .slide img {
+      width: 100%;
+      height: 495px;
+      object-fit: contain;
+    }
+    .slide-text {
+      color: black;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .slide-subtext {
+      color: black;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+      height: 138px;
+    }
+    .read-more-button {
+      text-align: center;
+      padding: 10px;
+      background-color: #000;
+      color: white;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      width: 20%;
+      margin: 10px auto;
+      display: block;
+    }
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 375px;
+      padding: 18px;
+      color: black;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      user-select: none;
+    }
+    .prev {
+      left: -40px;
+    }
+    .next {
+      right: -40px;
+    }
+    .prev:hover,
+    .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    /* Kontakt Sektion */
+    #contact-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ccc;
+    }
+    #contact-form {
+      max-width: 700px;
+      width: 90%;
+      padding: 20px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-align: center;
+    }
+    #contact-form h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    #contact-form p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    #contact-form label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+    }
+    #contact-form input,
+    #contact-form textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 5px auto 15px auto;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      display: block;
+    }
+    #contact-form button {
+      background-color: rgba(126,131,114,0.7);
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-
-<section class="sub-header">
-    <nav>
-        <div class="logo-nav">
-            <a href="index.html"><img src="images/logo.png"></a>
-        </div>
-        <div class="nav-links" id="navLinks">
-            <ul>
-                <li><a href="index.html">HJEM</a></li>
-                <li><a href="om.html">OM</a></li>
-                <li class="dropdown">
-    <a href="bygningskonstruktør.html">BYGNINGSKONSTRUKTØR</a>
-    <ul class="dropdown-menu">
-        <li><a href="semester1.html">SEMESTER 1</a></li>
-        <li><a href="semester2.html">SEMESTER 2</a></li>
-        <li><a href="semester3.html">SEMESTER 3</a></li>
-        <li><a href="semester4.html">SEMESTER 4</a></li>
-        <li><a href="semester5.html">SEMESTER 5</a></li>
-        <li><a href="semester6.html">SEMESTER 6</a></li>
-        <li><a href="semester7.html">SEMESTER 7</a></li>
-    </ul>
-</li>
-
-                   <li><a href="kreativitet.html">KREATIVITET</a></li>
-                    <li><a href="kontakt.html">KONTAKT</a></li>
-                 </ul>
-        </div>  
-    </nav>
-</section>
-
-</body>
-
-
-<!--------------------------forside  (ÆNDRES TIL NOGET PÆNERE) -------------------------->  
-<body>
-    <section class="header">
-        <div class="overlay"></div>
-        <div class="text-box">
-            <p> VELKOMMEN TIL </p>
-            <h1>S I G N E S &nbsp P O R T F O L I O</h1>
-            <p>SIGNE THOMSEN - 26 ÅR - 8781 STENDERUP <br>BYGNINGSKONSTRUKTØR STUDERENDE</p>
-        </div>
-        
-       <div class="button-container">
-        <a href="om.html"><button class="rounded-button">OM MIG</button></a>
-        <a href="bygningskonstruktør.html"><button class="rounded-button">BYGNINGSKONSTRUKTØR</button></a>
-        <a href="kreativitet.html"><button class="rounded-button">KREATIVITET</button></a>
+  <!-- Header Sektion -->
+  <section class="header">
+    <div class="overlay"></div>
+    <div class="text-box">
+      <h1>S I G N E  &nbsp; T H O M S E N</h1>
+      <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
     </div>
-    </section>
+  </section>
+  
+  <!-- Slideshow Sektion -->
+  <section id="slideshow-section">
+    <div class="slideshow-container">
+      <!-- Slide 1 -->
+      <div class="slide">
+        <div class="slide-text">1. SEMESTER</div>
+        <div class="slide-subtext">
+          Første semester indledtes med en fokus på tegneteknik, herunder isometrisk tegning og skjulte linjer, med det formål at etablere en grundlæggende forståelse. Herefter påbegyndte vi en opgave vedrørende et dispositionsforslag, hvori vi skulle ideudvikle vores individuelle bolighusdesign. Denne proces resulterede i en præsentationsplanche.
+        </div>
+        <img src="images/1sem.png" alt="1. Semester">
+        <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide">
+        <div class="slide-text">2. SEMESTER</div>
+        <div class="slide-subtext">
+          Andet semester præsenterede os for en enkeltfamiliebolig med kælder og første sal. Vi startede med et dispositionsforslag med særligt fokus på kælderetagen – med hensyn til opbygning og overholdelse af forskrifter – før vi fortsatte med at analysere stueetagen og første sal.
+        </div>
+        <img src="images/2sem.png" alt="2. Semester">
+        <button class="read-more-button">Læs mere</button>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide">
+        <div class="slide-text">3. SEMESTER</div>
+        <div class="slide-subtext">
+          I tredje semester blev vi introduceret til præfabrikation. Vi påtog os roller som projekteringsleder, produktionsleder og byggeleder samt arbejdede med iBinder-platformen for at koordinere med en anden studiegruppe.
+        </div>
+        <img src="images/3sem.png" alt="3. Semester">
+        <button class="read-more-button">Læs mere</button>
+      </div>
+      
+      <!-- Slide 4 -->
+      <div class="slide">
+        <div class="slide-text">4. SEMESTER</div>
+        <div class="slide-subtext">
+          tekst kommer
+        </div>
+        <img src="images/4sem.png" alt="4. Semester">
+        <button class="read-more-button">Read more</button>
+      </div>
+      
+      <!-- Slide 5 -->
+      <div class="slide">
+        <div class="slide-text">5. SEMESTER</div>
+        <div class="slide-subtext">
+          tekst kommer
+        </div>
+        <img src="images/5sem.png" alt="5. Semester">
+        <button class="read-more-button">Read more</button>
+      </div>
+      
+      <!-- Navigation-pile -->
+      <a href="#" class="prev" onclick="plusSlides(-1); return false;">❮</a>
+      <a href="#" class="next" onclick="plusSlides(1); return false;">❯</a>
+    </div>
+  </section>
+  
+  <!-- Kontakt Sektion -->
+  <section id="contact-section">
+    <div id="contact-form">
+      <h1>Kontakt</h1>
+      <p>Du kan komme i kontakt med mig, ved at udfylde formularen nedenfor.</p>
+      <form action="https://formspree.io/f/xnqklrbr" method="POST">
+        <label for="email">Din email:</label>
+        <input type="email" name="email" required>
+        <label for="message">Besked:</label>
+        <textarea name="message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+  
+  <!-- JavaScript til glidende scrolling -->
+  <script>
+    // Finder alle sektioner
+    const sections = document.querySelectorAll("section");
+    let currentSectionIndex = 0;
+    let isScrolling = false;
+    
+    // Lyt til wheel events
+    window.addEventListener("wheel", function(e) {
+      if (isScrolling) return; // Forhindr gentagne triggers
+      e.preventDefault();
+      
+      if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
+        // Scroll ned
+        currentSectionIndex++;
+        scrollToSection(currentSectionIndex);
+      } else if (e.deltaY < 0 && currentSectionIndex > 0) {
+        // Scroll op
+        currentSectionIndex--;
+        scrollToSection(currentSectionIndex);
+      }
+    }, { passive: false });
+    
+    function scrollToSection(index) {
+      isScrolling = true;
+      sections[index].scrollIntoView({ behavior: "smooth" });
+      // Juster timeout (i ms) alt efter hvor lang tid du ønsker overgangen skal vare
+      setTimeout(() => {
+        isScrolling = false;
+      }, 1000);
+    }
+    
+    // Eksempel på slideshow-kode (samme som tidligere)
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("slide");
+      if (n > slides.length) { slideIndex = 1; }
+      if (n < 1) { slideIndex = slides.length; }
+      for (let slide of slides) {
+        slide.style.display = "none";
+      }
+      slides[slideIndex - 1].style.display = "block";
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-

@@ -15,12 +15,15 @@
     * {
       margin: 0;
       padding: 0;
-      font-family: 'Quicksand', sans-serif;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
     }
     html, body {
       height: 100%;
       overflow-y: auto;
       scroll-behavior: smooth;
+      background-color: #fff;
+      color: #333;
     }
     /* Hver sektion fylder hele viewporten */
     section {
@@ -32,34 +35,29 @@
     .header {
       position: relative;
       overflow: hidden;
-      background: #eee;
+      background: #fff;
     }
     .header .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.3);
+      display: none; /* Fjernet overlay for et rent, hvidt look */
     }
     .text-box {
-      width: 99%;
-      color: #000;
+      width: 90%;
+      color: #333;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      background-color: rgba(255,255,255,0.5);
-      padding: 10px;
+      background-color: rgba(255,255,255,0.8);
+      padding: 20px;
+      border-radius: 0px;
     }
     .text-box h1 {
-      font-size: 62px;
+      font-size: 3rem;
       margin-bottom: 10px;
     }
     .text-box p {
-      font-size: 14px;
-      color: #000;
+      font-size: 1rem;
     }
     
     /* Slideshow Sektion */
@@ -67,7 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #ddd;
+      background: #fff;
     }
     .slideshow-container {
       max-width: 700px;
@@ -81,45 +79,53 @@
     }
     .slide img {
       width: 100%;
-      height: 495px;
+      height: auto;
       object-fit: contain;
     }
     .slide-text {
-      color: black;
-      font-size: 20px;
+      color: #333;
+      font-size: 1.25rem;
       text-align: center;
       margin-top: 20px;
     }
     .slide-subtext {
-      color: black;
-      font-size: 14px;
+      color: #555;
+      font-size: 1rem;
       text-align: center;
       margin-top: 10px;
-      height: 138px;
+      padding: 0 20px;
     }
     .read-more-button {
       text-align: center;
-      padding: 10px;
-      background-color: #000;
-      color: white;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
       border: none;
-      font-size: 14px;
+      font-size: 1rem;
       cursor: pointer;
-      width: 20%;
-      margin: 10px auto;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      margin: 20px auto 0 auto;
       display: block;
+    }
+    .read-more-button:hover {
+      background-color: #555;
     }
     .prev,
     .next {
       cursor: pointer;
       position: absolute;
-      top: 375px;
-      padding: 18px;
-      color: black;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 12px;
+      color: #333;
       font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
+      font-size: 1.5rem;
+      transition: background-color 0.3s ease;
       user-select: none;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.8);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .prev {
       left: -40px;
@@ -129,7 +135,7 @@
     }
     .prev:hover,
     .next:hover {
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(200,200,200,0.8);
     }
     
     /* Kontakt Sektion */
@@ -137,46 +143,53 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #ccc;
+      background: #fff;
     }
     #contact-form {
       max-width: 700px;
       width: 90%;
       padding: 20px;
-      background: #f9f9f9;
-      border: 1px solid #ccc;
+      background: #fff;
+      border: 1px solid #ddd;
       border-radius: 6px;
       text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     #contact-form h1 {
-      font-size: 24px;
+      font-size: 1.5rem;
       margin-bottom: 10px;
     }
     #contact-form p {
-      font-size: 16px;
+      font-size: 1rem;
       margin-bottom: 20px;
     }
     #contact-form label {
       display: block;
       margin-top: 15px;
       text-align: left;
+      font-size: 0.9rem;
     }
     #contact-form input,
     #contact-form textarea {
-      width: 90%;
+      width: 100%;
       padding: 10px;
-      margin: 5px auto 15px auto;
+      margin: 5px 0 15px 0;
       border: 1px solid #ccc;
-      border-radius: 3px;
-      display: block;
+      border-radius: 4px;
+      font-size: 1rem;
     }
     #contact-form button {
-      background-color: rgba(126,131,114,0.7);
+      background-color: #333;
       color: #fff;
       border: none;
       padding: 10px 30px;
-      border-radius: 3px;
+      border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+    #contact-form button:hover {
+      background-color: #555;
     }
   </style>
 </head>
@@ -197,7 +210,7 @@
       <div class="slide">
         <div class="slide-text">1. SEMESTER</div>
         <div class="slide-subtext">
-          Første semester indledtes med en fokus på tegneteknik, herunder isometrisk tegning og skjulte linjer, med det formål at etablere en grundlæggende forståelse. Herefter påbegyndte vi en opgave vedrørende et dispositionsforslag, hvori vi skulle ideudvikle vores individuelle bolighusdesign. Denne proces resulterede i en præsentationsplanche.
+          Første semester indledtes med fokus på tegneteknik, herunder isometrisk tegning og skjulte linjer, for at etablere en grundlæggende forståelse. Herefter startede opgaven med et dispositionsforslag til individuelt bolighusdesign, som resulterede i en præsentationsplanche.
         </div>
         <img src="images/1sem.png" alt="1. Semester">
         <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
@@ -207,7 +220,7 @@
       <div class="slide">
         <div class="slide-text">2. SEMESTER</div>
         <div class="slide-subtext">
-          Andet semester præsenterede os for en enkeltfamiliebolig med kælder og første sal. Vi startede med et dispositionsforslag med særligt fokus på kælderetagen – med hensyn til opbygning og overholdelse af forskrifter – før vi fortsatte med at analysere stueetagen og første sal.
+          Andet semester præsenterede os for en enkeltfamiliebolig med kælder og første sal. Vi startede med et dispositionsforslag med særligt fokus på kælderetagen – med hensyn til opbygning og overholdelse af forskrifter – før vi fortsatte med analysen af stueetagen og første sal.
         </div>
         <img src="images/2sem.png" alt="2. Semester">
         <button class="read-more-button">Læs mere</button>
@@ -230,7 +243,7 @@
           tekst kommer
         </div>
         <img src="images/4sem.png" alt="4. Semester">
-        <button class="read-more-button">Read more</button>
+        <button class="read-more-button">Læs mere</button>
       </div>
       
       <!-- Slide 5 -->
@@ -240,7 +253,7 @@
           tekst kommer
         </div>
         <img src="images/5sem.png" alt="5. Semester">
-        <button class="read-more-button">Read more</button>
+        <button class="read-more-button">Læs mere</button>
       </div>
       
       <!-- Navigation-pile -->
@@ -253,7 +266,7 @@
   <section id="contact-section">
     <div id="contact-form">
       <h1>Kontakt</h1>
-      <p>Du kan komme i kontakt med mig, ved at udfylde formularen nedenfor.</p>
+      <p>Du kan komme i kontakt med mig ved at udfylde formularen nedenfor.</p>
       <form action="https://formspree.io/f/xnqklrbr" method="POST">
         <label for="email">Din email:</label>
         <input type="email" name="email" required>
@@ -264,7 +277,7 @@
     </div>
   </section>
   
-  <!-- JavaScript til glidende scrolling -->
+  <!-- JavaScript til glidende scrolling og slideshow -->
   <script>
     // Finder alle sektioner
     const sections = document.querySelectorAll("section");
@@ -273,15 +286,13 @@
     
     // Lyt til wheel events
     window.addEventListener("wheel", function(e) {
-      if (isScrolling) return; // Forhindr gentagne triggers
+      if (isScrolling) return;
       e.preventDefault();
       
       if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-        // Scroll ned
         currentSectionIndex++;
         scrollToSection(currentSectionIndex);
       } else if (e.deltaY < 0 && currentSectionIndex > 0) {
-        // Scroll op
         currentSectionIndex--;
         scrollToSection(currentSectionIndex);
       }
@@ -290,13 +301,10 @@
     function scrollToSection(index) {
       isScrolling = true;
       sections[index].scrollIntoView({ behavior: "smooth" });
-      // Juster timeout (i ms) alt efter hvor lang tid du ønsker overgangen skal vare
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1000);
+      setTimeout(() => { isScrolling = false; }, 1000);
     }
     
-    // Eksempel på slideshow-kode (samme som tidligere)
+    // Slideshow funktionalitet
     let slideIndex = 1;
     showSlides(slideIndex);
     

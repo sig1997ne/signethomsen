@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signes Portfolio - Dark Mode</title>
+  <!-- Google Fonts og Lineicons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
+  
+  <style>
+    /* Generelle stilarter og reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+    html, body {
+      height: 100%;
+      background-color: #222933;
+      color: #ccc;
+    }
+    section {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+    
+    /* Header Sektion */
+    .header {
+      position: relative;
+      overflow: hidden;
+      background: #222933;
+    }
+    .header .overlay {
+      display: none;
+    }
+    .text-box {
+      width: 90%;
+      color: #ccc;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 20px;
+    }
+    .logo {
+      width: 280px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 1s forwards;
+    }
+    .text-box h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeUp 1s forwards;
+      animation-delay: 0.3s;
+    }
+    .text-box p {
+      font-size: 1rem;
+      opacity: 0;
+      animation: fadeUp 1s forwards;
+      animation-delay: 0.6s;
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .scroll-indikator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+    
+    /* Slideshow Sektion */
+    #slideshow-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #222933;
+      flex-direction: column;
+      padding: 40px 0;
+    }
+    .slideshow-container {
+      position: relative;
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+      overflow: visible;
+    }
+    .slide {
+      display: none;
+      position: relative;
+    }
+    .slide.active {
+      display: block;
+    }
+    .slide picture img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    /* Begræns billedets højde for slide 2 */
+    #slideshow-section .slide:nth-of-type(2) img {
+      max-height: 400px; /* Juster højden efter behov */
+    }
+    .slide-text {
+      color: #ccc;
+      font-size: 1.25rem;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .slide-subtext {
+      color: #aaa;
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 10px;
+      padding: 0 20px;
+    }
+    .read-more-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      padding: 10px 20px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .read-more-button:hover {
+      background-color: #666;
+    }
+    
+    /* Navigation-pile styling */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 12px;
+      color: #ccc;
+      font-size: 1.5rem;
+      background: none;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      z-index: 10;
+    }
+    .prev:hover, .next:hover {
+      background: none;
+    }
+    .prev {
+      left: -60px;
+    }
+    .next {
+      right: -60px;
+    }
+    
+    /* Dot-indikator styling */
+    .dots {
+      text-align: center;
+      padding: 10px 0;
+    }
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 4px;
+      background-color: #555;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .dot.active {
+      background-color: #ccc;
+    }
+    
+    /* Kontakt Sektion */
+    #contact-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #222933;
+    }
+    #contact-form {
+      max-width: 700px;
+      width: 90%;
+      padding: 20px;
+      background: #222933;
+      border-radius: 6px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+      color: #ccc;
+    }
+    #contact-form h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    #contact-form p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    #contact-form label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: #222;
+      color: #ccc;
+    }
+    #contact-form button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+    #contact-form button:hover {
+      background-color: #666;
+    }
+    
+    /* Mobile tilpasninger */
+    @media (max-width: 768px) {
+      .text-box {
+        width: 95%;
+        padding: 15px;
+      }
+      .text-box h1 {
+        font-size: 2.5rem;
+      }
+      .text-box p {
+        font-size: 1rem;
+      }
+      .slideshow-container {
+        max-width: 100%;
+      }
+      .slide-text {
+        font-size: 1.1rem;
+      }
+      .slide-subtext {
+        font-size: 0.9rem;
+        padding: 0 10px;
+      }
+      .prev, .next {
+        font-size: 1.2rem;
+        padding: 8px;
+        left: -40px;
+        right: -40px;
+      }
+      #contact-form {
+        width: 95%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Sektion -->
+  <section class="header">
+    <div class="overlay"></div>
+    <div class="text-box">
+      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
+      <h1>S I G N E  &nbsp; T H O M S E N</h1>
+      <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
+    </div>
+    <div class="scroll-indikator" onclick="scrollDown()">
+      <i class="lni lni-arrow-down"></i>
+    </div>
+  </section>
+  
+  <!-- Slideshow Sektion -->
+  <section id="slideshow-section">
+    <div class="slideshow-container">
+      <!-- Slide 1 -->
+      <div class="slide active">
+        <div class="slide-text">1. SEMESTER</div>
+        <div class="slide-subtext">
+          Første semester indledtes med fokus på tegneteknik, herunder isometrisk tegning og skjulte linjer, for at etablere en grundlæggende forståelse. Herefter startede opgaven med et dispositionsforslag til individuelt bolighusdesign, som resulterede i en præsentationsplanche.
+        </div>
+        <picture>
+          <img src="images/1sem.png" alt="1. Semester">
+        </picture>
+        <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide">
+        <div class="slide-text">2. SEMESTER</div>
+        <div class="slide-subtext">
+          Andet semester præsenterede os for en enkeltfamiliebolig med kælder og første sal. Vi startede med et dispositionsforslag med særligt fokus på kælderetagen – med hensyn til opbygning og overholdelse af forskrifter – før vi fortsatte med analysen af stueetagen og første sal.
+        </div>
+        <picture>
+          <img src="images/2sem.png" alt="2. Semester">
+        </picture>
+        <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide">
+        <div class="slide-text">3. SEMESTER</div>
+        <div class="slide-subtext">
+          I tredje semester blev vi introduceret til præfabrikation. Vi påtog os roller som projekteringsleder, produktionsleder og byggeleder samt arbejdede med iBinder-platformen for at koordinere med en anden studiegruppe.
+        </div>
+        <picture>
+          <img src="images/3sem.png" alt="3. Semester">
+        </picture>
+        <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Slide 4 -->
+      <div class="slide">
+        <div class="slide-text">4. SEMESTER</div>
+        <div class="slide-subtext">
+          tekst kommer
+        </div>
+        <picture>
+          <img src="images/4sem.png" alt="4. Semester">
+        </picture>
+        <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Slide 5 -->
+      <div class="slide">
+        <div class="slide-text">5. SEMESTER</div>
+        <div class="slide-subtext">
+          igangværende (februar 2025 - juni 2025)
+        </div>
+        <picture>
+          <img src="images/5sem.png" alt="5. Semester">
+        </picture>
+        <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
+      </div>
+      
+      <!-- Navigation-pile -->
+      <a href="#" class="prev" onclick="plusSlides(-1); return false;">❮</a>
+      <a href="#" class="next" onclick="plusSlides(1); return false;">❯</a>
+    </div>
+    
+    <div class="dots">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+    </div>
+    
+    <div class="scroll-indikator" onclick="scrollDown()">
+      <i class="lni lni-arrow-down"></i>
+    </div>
+  </section>
+  
+  <!-- Kontakt Sektion -->
+  <section id="contact-section">
+    <div id="contact-form">
+      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
+      <h1>Kontakt</h1>
+      <p>Du kan komme i kontakt med mig ved at udfylde formularen nedenfor.</p>
+      <form action="https://formspree.io/f/xnqklrbr" method="POST">
+        <label for="email">Din email:</label>
+        <input type="email" name="email" required>
+        <label for="message">Besked:</label>
+        <textarea name="message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+  
+  <script>
+    const sections = document.querySelectorAll("section");
+    let currentSectionIndex = 0;
+    let debounceTimeout;
+    function debounceScroll(callback, delay) {
+      if (debounceTimeout) return;
+      callback();
+      debounceTimeout = setTimeout(() => { debounceTimeout = null; }, delay);
+    }
+    window.addEventListener("wheel", function(e) {
+      e.preventDefault();
+      debounceScroll(() => {
+        if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
+          currentSectionIndex++;
+        } else if (e.deltaY < 0 && currentSectionIndex > 0) {
+          currentSectionIndex--;
+        }
+        sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
+      }, 700);
+    }, { passive: false });
+    function scrollDown() {
+      if (sections.length > 1) {
+        currentSectionIndex = 1;
+        sections[1].scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    function showSlide(index) {
+      if (index >= slides.length) { index = 0; }
+      if (index < 0) { index = slides.length - 1; }
+      slideIndex = index;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === slideIndex);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
+      });
+    }
+    function plusSlides(n) { showSlide(slideIndex + n); }
+    function currentSlide(n) { showSlide(n - 1); }
+  </script>
+</body>
+</html>

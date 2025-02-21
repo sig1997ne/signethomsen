@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mit Filgalleri - 2. SEMESTER</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    header {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    /* Pænere Tilbage-knap */
+    .back-button {
+      padding: 8px 15px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+    .gallery {
+      display: grid;
+      /* Justér antal kolonner efter behov */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 1px;
+    }
+    .gallery-item {
+      padding: 1px;
+      box-sizing: border-box;
+    }
+    /* CSS for billeder */
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+    /* CSS for PDF-filer (hvis du har nogen i 2sem) */
+    .gallery-item object {
+      width: 100%;
+      height: 950px;
+      object-fit: cover;
+      display: block;
+    }
+    /* Modal-styles */
+    .modal {
+      display: none; /* Skjult som standard */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding-top: 60px;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      animation: zoom 0.6s;
+    }
+    @keyframes zoom {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #222;
+        color: #ddd;
+      }
+      header {
+        background-color: #333;
+      }
+      .gallery-item {
+        border-color: #555;
+      }
+      .back-button {
+        background-color: #1E90FF;
+      }
+      .back-button:hover {
+        background-color: #1C86EE;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>2. SEMESTER</h1>
+    <button class="back-button" onclick="window.history.back()">Tilbage</button>
+  </header>
+
+  <div class="gallery">
+    <!-- Billeder fra 2. semester -->
+    <div class="gallery-item">
+      <img src="images/projektering/2sem/2sem.jpg" alt="Facade-tegning">
+    </div>
+    <div class="gallery-item">
+      <img src="images/projektering/2sem/2sem%20(1).jpg" alt="Eksploderet perspektiv">
+    </div>
+    <div class="gallery-item">
+      <img src="images/projektering/2sem/2sem%20(2).jpg" alt="Plantegninger">
+    </div>
+  </div>
+
+  <!-- Modal til forstørrede billeder -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+  </div>
+
+  <script>
+    // Hent modal-elementerne
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    const closeBtn = document.querySelector(".close");
+
+    // Tilføj klik-event til alle billeder i galleriet
+    const images = document.querySelectorAll(".gallery-item img");
+    images.forEach(img => {
+      img.addEventListener("click", function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      });
+    });
+
+    // Luk modal ved klik på krydset
+    closeBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    // Luk modal ved klik uden for billedet
+    modal.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mit Filgalleri - 3. SEMESTER</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    header {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      border-bottom: 2px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    .back-button {
+      padding: 8px 15px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 20px;
+    }
+    .gallery-item {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 550px;
+      overflow: hidden;
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    .gallery-item object {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      animation: zoom 0.6s;
+    }
+    @keyframes zoom {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .close:hover {
+      color: #bbb;
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #222;
+        color: #ddd;
+      }
+      header {
+        background-color: #333;
+        border-bottom: 2px solid #444;
+      }
+      .back-button {
+        background-color: #1E90FF;
+      }
+      .back-button:hover {
+        background-color: #1C86EE;
+      }
+      .gallery-item {
+        background-color: #2a2a2a;
+        border: 1px solid #444;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>3. SEMESTER</h1>
+    <button class="back-button" onclick="window.history.back()">Tilbage</button>
+  </header>
+
+  <div class="gallery">
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (1).pdf">
+      <object data="images/projektering/3sem/3sem (1).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (2).pdf">
+      <object data="images/projektering/3sem/3sem (2).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (3).pdf">
+      <object data="images/projektering/3sem/3sem (3).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (4).pdf">
+      <object data="images/projektering/3sem/3sem (4).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (5).pdf">
+      <object data="images/projektering/3sem/3sem (5).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (6).pdf">
+      <object data="images/projektering/3sem/3sem (6).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (7).pdf">
+      <object data="images/projektering/3sem/3sem (7).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (9).pdf">
+      <object data="images/projektering/3sem/3sem (9).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (10).pdf">
+      <object data="images/projektering/3sem/3sem (10).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (11).pdf">
+      <object data="images/projektering/3sem/3sem (11).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (12).pdf">
+      <object data="images/projektering/3sem/3sem (12).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (13).pdf">
+      <object data="images/projektering/3sem/3sem (13).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (14).pdf">
+      <object data="images/projektering/3sem/3sem (14).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (15).pdf">
+      <object data="images/projektering/3sem/3sem (15).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (16).pdf">
+      <object data="images/projektering/3sem/3sem (16).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (17).pdf">
+      <object data="images/projektering/3sem/3sem (17).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (18).pdf">
+      <object data="images/projektering/3sem/3sem (18).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (19).pdf">
+      <object data="images/projektering/3sem/3sem (19).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (20).pdf">
+      <object data="images/projektering/3sem/3sem (20).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (21).pdf">
+      <object data="images/projektering/3sem/3sem (21).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (22).pdf">
+      <object data="images/projektering/3sem/3sem (22).pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (23).pdf">
+      <object data="images/projektering/3sem/3sem (23).pdf" type="application/pdf"></object>
+    </div>
+  </div>
+      
+  <!-- Modal til forstørret visning -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <div id="modal-content-container"></div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const modalContentContainer = document.getElementById("modal-content-container");
+    const closeBtn = document.querySelector(".close");
+
+    // Funktion til at rydde modalens indhold
+    function clearModalContent() {
+      modalContentContainer.innerHTML = "";
+    }
+
+    // Tilføj klik-event til alle galleriets elementer
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    galleryItems.forEach(item => {
+      item.addEventListener("click", function() {
+        const type = this.getAttribute("data-type");
+        const src = this.getAttribute("data-src");
+        clearModalContent();
+        modal.style.display = "block";
+
+        if (type === "pdf") {
+          // Opret et <object>-element for PDF-filen
+          const objectEl = document.createElement("object");
+          objectEl.setAttribute("data", src);
+          objectEl.setAttribute("type", "application/pdf");
+          objectEl.style.width = "100%";
+          objectEl.style.height = "80vh";
+          objectEl.innerHTML = '<p>Din browser understøtter ikke visning af PDF-filer. <a href="' + src + '">Download PDF</a></p>';
+          modalContentContainer.appendChild(objectEl);
+        } else {
+          // Opret et <img>-element for billeder
+          const imgEl = document.createElement("img");
+          imgEl.src = src;
+          imgEl.className = "modal-content";
+          modalContentContainer.appendChild(imgEl);
+        }
+      });
+    });
+
+    // Luk modal ved klik på krydset
+    closeBtn.addEventListener("click", function() {
+      modal.style.display = "none";
+      clearModalContent();
+    });
+
+    // Luk modal ved klik uden for indholdet
+    modal.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        clearModalContent();
+      }
+    });
+  </script>
+</body>
+</html>

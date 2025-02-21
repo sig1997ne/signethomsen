@@ -119,6 +119,26 @@
         border: 1px solid #444;
       }
     }
+    /* Responsive tilpasninger */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item {
+        height: 300px;
+      }
+      header h1 {
+        font-size: 1.5em;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item {
+        height: auto;
+      }
+    }
   </style>
 </head>
 <body>

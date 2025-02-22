@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signes Portfolio - Dark Mode</title>
+  <title>Signes Portfolio</title>
   <!-- Google Fonts og Lineicons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,38 +18,94 @@
       box-sizing: border-box;
       font-family: 'Open Sans', sans-serif;
     }
-    html, body {
+    html {
+      height: 100%;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth; /* Glidende scroll mellem sektionerne */
+    }
+    body {
       height: 100%;
       background-color: #222933;
       color: #ccc;
+      overflow-y: scroll;
     }
+    
+    /* Animation ved scroll */
     section {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Navigationspile i hver sektion */
+    .nav-arrow {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 10; /* Sikrer at pilene ligger øverst */
+    }
+    .nav-arrow.up {
+      top: 20px;
+    }
+    .nav-arrow.down {
+      bottom: 20px;
+    }
+    
+    /* Navigationspile inde i slideshowet */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 12px;
+      color: #ccc;
+      font-size: 1.5rem;
+      background: none;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      z-index: 20;
+      text-decoration: none;
+    }
+    .prev:hover, .next:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .prev {
+      left: 10px;
+    }
+    .next {
+      right: 10px;
     }
     
     /* Header Sektion */
-    .header {
-      position: relative;
-      overflow: hidden;
-      background: #222933;
-    }
-    .header .overlay {
-      display: none;
+    #header-section {
+      background: #000; /* Original farve */
+      flex-direction: column;
     }
     .text-box {
-      width: 90%;
       color: #ccc;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+      max-width: 90%;
+      margin: auto;
       padding: 20px;
     }
     .logo {
-      width: 280px;
+      width: 480px;
       margin-bottom: 20px;
       opacity: 0;
       animation: fadeUp 1s forwards;
@@ -77,42 +133,78 @@
         transform: translateY(0);
       }
     }
-    .scroll-indikator {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #ccc;
-      cursor: pointer;
-      animation: bounce 2s infinite;
+    
+    /* Om mig Sektion - Opdateret layout */
+    #about-section {
+      background: #36322f; /* Ændret baggrundsfarve */
     }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateX(-50%) translateY(0);
-      }
-      40% {
-        transform: translateX(-50%) translateY(-10px);
-      }
-      60% {
-        transform: translateX(-50%) translateY(-5px);
-      }
+    .about-container {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+    /* Venstre side med tekst og kompetencer */
+    .about-text {
+      flex: 1;
+      color: #ccc;
+    }
+    .about-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .about-text h3 {
+      margin-top: 30px;
+      font-size: 1.5rem;
+    }
+    .about-text .skills {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .about-text .skills li {
+      background: #444;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    /* Højre side med profilbilledet */
+    .about-image {
+      position: relative; /* For at placere overlay */
+      flex-shrink: 0;
+      display: inline-block;
+    }
+    .about-image .profile-img {
+      width: 300px;
+      border-radius: 10%;
+      display: block;
     }
     
     /* Slideshow Sektion */
     #slideshow-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #222933;
+      background: #222933; /* Ændret baggrundsfarve */
       flex-direction: column;
-      padding: 40px 0;
     }
     .slideshow-container {
       position: relative;
       max-width: 700px;
       width: 100%;
-      margin: 0 auto;
+      margin: auto;
       overflow: visible;
     }
     .slide {
@@ -128,26 +220,23 @@
       object-fit: contain;
       border-radius: 8px;
     }
-    /* Begræns billedets højde for slide 2 */
     #slideshow-section .slide:nth-of-type(2) img {
-      max-height: 400px; /* Juster højden efter behov */
+      max-height: 400px;
     }
     .slide-text {
       color: #ccc;
       font-size: 1.25rem;
-      text-align: center;
       margin-top: 20px;
     }
     .slide-subtext {
       color: #aaa;
       font-size: 1rem;
-      text-align: center;
       margin-top: 10px;
       padding: 0 20px;
     }
     .read-more-button {
       display: block;
-      margin: 20px auto 0 auto;
+      margin: 20px auto 0;
       padding: 10px 20px;
       background-color: #444;
       color: #fff;
@@ -161,64 +250,17 @@
       background-color: #666;
     }
     
-    /* Navigation-pile styling */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 12px;
-      color: #ccc;
-      font-size: 1.5rem;
-      background: none;
-      border-radius: 50%;
-      transition: background-color 0.3s ease;
-      z-index: 10;
-    }
-    .prev:hover, .next:hover {
-      background: none;
-    }
-    .prev {
-      left: -60px;
-    }
-    .next {
-      right: -60px;
-    }
-    
-    /* Dot-indikator styling */
-    .dots {
-      text-align: center;
-      padding: 10px 0;
-    }
-    .dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 4px;
-      background-color: #555;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .dot.active {
-      background-color: #ccc;
-    }
-    
     /* Kontakt Sektion */
     #contact-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #222933;
+      background: #000; /* Ændret baggrundsfarve */
     }
     #contact-form {
-      max-width: 700px;
+      max-width: 600px;
       width: 90%;
       padding: 20px;
-      background: #222933;
+      margin: auto;
+      background: #000;
       border-radius: 6px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
       color: #ccc;
     }
     #contact-form h1 {
@@ -239,7 +281,7 @@
     #contact-form textarea {
       width: 100%;
       padding: 10px;
-      margin: 5px 0 15px 0;
+      margin: 5px 0 15px;
       border: 1px solid #555;
       border-radius: 4px;
       font-size: 1rem;
@@ -259,54 +301,44 @@
     #contact-form button:hover {
       background-color: #666;
     }
-    
-    /* Mobile tilpasninger */
-    @media (max-width: 768px) {
-      .text-box {
-        width: 95%;
-        padding: 15px;
-      }
-      .text-box h1 {
-        font-size: 2.5rem;
-      }
-      .text-box p {
-        font-size: 1rem;
-      }
-      .slideshow-container {
-        max-width: 100%;
-      }
-      .slide-text {
-        font-size: 1.1rem;
-      }
-      .slide-subtext {
-        font-size: 0.9rem;
-        padding: 0 10px;
-      }
-      .prev, .next {
-        font-size: 1.2rem;
-        padding: 8px;
-        left: -40px;
-        right: -40px;
-      }
-      #contact-form {
-        width: 95%;
-        padding: 15px;
-      }
-    }
+
   </style>
 </head>
 <body>
   <!-- Header Sektion -->
-  <section class="header">
-    <div class="overlay"></div>
+  <section id="header-section">
     <div class="text-box">
-      <img src="images/logo.png" alt="Logo" class="logo">
-      <h1>S I G N E  &nbsp; T H O M S E N</h1>
+      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
+      <h1>P  O  R  T  F  O  L  I  O</h1>
       <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
     </div>
-    <div class="scroll-indikator" onclick="scrollDown()">
-      <i class="lni lni-arrow-down"></i>
+    <!-- Kun nedadpil i header -->
+    <a href="#about-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
+  </section>
+    
+  <!-- Om mig Sektion -->
+  <section id="about-section">
+    <div class="about-container">
+      <div class="about-text">
+        <h2>Om mig</h2>
+        <p>
+          Hej, jeg hedder Signe, og jeg er bygningskonstruktørstuderende med en passion for design og bæredygtige løsninger. Jeg er dygtig til at arbejde i programmer som Revit, Photoshop og Officepakken – værktøjer, der hjælper mig med at omdanne komplekse ideer til klare, innovative projekter.
+        </p>
+        <h3>Mine kompetencer</h3>
+        <ul class="skills">
+          <li><i class="lni lni-building"></i> Revit</li>
+          <li><i class="lni lni-brush"></i> Photoshop</li>
+          <li><i class="lni lni-layout-grid"></i> Officepakken</li>
+          <li><i class="lni lni-pencil-alt"></i> Illustrator</li>
+        </ul>
+      </div>
+      <div class="about-image">
+        <img src="images/profile.jpg" alt="Profilbillede af Signe" class="profile-img">
+      </div>
     </div>
+    <!-- Pil-navigation: opad til header og nedad til slideshow -->
+    <a href="#header-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
+    <a href="#slideshow-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
   </section>
   
   <!-- Slideshow Sektion -->
@@ -372,28 +404,19 @@
         <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
       </div>
       
-      <!-- Navigation-pile -->
+      <!-- Navigationspile for slides -->
       <a href="#" class="prev" onclick="plusSlides(-1); return false;">❮</a>
       <a href="#" class="next" onclick="plusSlides(1); return false;">❯</a>
     </div>
-    
-    <div class="dots">
-      <span class="dot active" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-      <span class="dot" onclick="currentSlide(4)"></span>
-      <span class="dot" onclick="currentSlide(5)"></span>
-    </div>
-    
-    <div class="scroll-indikator" onclick="scrollDown()">
-      <i class="lni lni-arrow-down"></i>
-    </div>
+    <!-- Pil-navigation: opad til Om mig og nedad til Kontakt -->
+    <a href="#about-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
+    <a href="#contact-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
   </section>
   
   <!-- Kontakt Sektion -->
   <section id="contact-section">
     <div id="contact-form">
-      <img src="images/logo.png" alt="Logo" class="logo">
+      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
       <h1>Kontakt</h1>
       <p>Du kan komme i kontakt med mig ved at udfylde formularen nedenfor.</p>
       <form action="https://formspree.io/f/xnqklrbr" method="POST">
@@ -404,37 +427,33 @@
         <button type="submit">Send</button>
       </form>
     </div>
+    <!-- Kun opadpil i kontaktsektionen -->
+    <a href="#slideshow-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
   </section>
-  
+
+  <!-- JavaScript: Intersection Observer til scroll-animation og slideshow navigation -->
   <script>
-    const sections = document.querySelectorAll("section");
-    let currentSectionIndex = 0;
-    let debounceTimeout;
-    function debounceScroll(callback, delay) {
-      if (debounceTimeout) return;
-      callback();
-      debounceTimeout = setTimeout(() => { debounceTimeout = null; }, delay);
-    }
-    window.addEventListener("wheel", function(e) {
-      e.preventDefault();
-      debounceScroll(() => {
-        if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-          currentSectionIndex++;
-        } else if (e.deltaY < 0 && currentSectionIndex > 0) {
-          currentSectionIndex--;
-        }
-        sections[currentSectionIndex].scrollIntoView({ behavior: "smooth" });
-      }, 700);
-    }, { passive: false });
-    function scrollDown() {
-      if (sections.length > 1) {
-        currentSectionIndex = 1;
-        sections[1].scrollIntoView({ behavior: "smooth" });
-      }
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+      const sections = document.querySelectorAll("section");
+      const observerOptions = {
+        threshold: 0.1
+      };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target); // Fjern observering, når animationen er kørt
+          }
+        });
+      }, observerOptions);
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+    
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
     function showSlide(index) {
       if (index >= slides.length) { index = 0; }
       if (index < 0) { index = slides.length - 1; }
@@ -442,12 +461,10 @@
       slides.forEach((slide, i) => {
         slide.classList.toggle('active', i === slideIndex);
       });
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === slideIndex);
-      });
     }
-    function plusSlides(n) { showSlide(slideIndex + n); }
-    function currentSlide(n) { showSlide(n - 1); }
+    function plusSlides(n) { 
+      showSlide(slideIndex + n); 
+    }
   </script>
 </body>
 </html>

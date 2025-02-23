@@ -268,13 +268,14 @@
       filter: grayscale(100%);
     }
     .slideshow-container {
-      position: relative;
-      max-width: 700px;
-      width: 320%;
-      margin: auto;
-      overflow: visible;
-      height: 650px; /* Fast højde for slideshow */
-    }
+  position: relative;
+  max-width: 700px;
+  width: 100%; /* Ændret fra 320% til 100% */
+  margin: auto;
+  overflow: visible;
+  height: 650px;
+}
+
     .slide {
       position: absolute;
       top: 0;
@@ -288,12 +289,16 @@
       opacity: 1;
       pointer-events: auto;
     }
-    .slide picture img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      border-radius: 8px;
-    }
+    .slide picture,
+.slide picture img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
     .slide-text {
       color: #ccc;
       font-size: 1.25rem;
@@ -325,6 +330,16 @@
       background-color: #666;
     }
     
+      #slideshow-section .slide:nth-of-type(2) picture img {
+  width: auto;         /* Tillader billedet at bestemme sin egen bredde */
+  max-width: 500px;     /* Eller en anden ønsket maksimum bredde */
+  display: block;       /* For at kunne centrere billedet */
+  margin: 0 auto;       /* Centrerer billedet inden for containeren */
+  object-fit: contain;  /* Sikrer at billedet bevarer proportionerne */
+}
+
+      
+      
     /* Kontakt Sektion */
     #contact-section {
       background: #000;
@@ -528,6 +543,7 @@ Der arbejdes med et tværfagligt projekt, hvor man både lærer at kommunikere, 
       </div>
       
       <!-- Slide 2 -->
+        
       <div class="slide">
         <div class="slide-text">2. SEMESTER</div>
         <div class="slide-subtext">

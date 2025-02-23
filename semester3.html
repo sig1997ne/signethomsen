@@ -8,25 +8,27 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fa;
       color: #333;
     }
     header {
+      position: relative;
       padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #fff;
-      border-bottom: 2px solid #ddd;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+        background: #222933;
+        filter: grayscale(100%);
     }
     header h1 {
       margin: 0;
       font-size: 1.8em;
+        color: #fff;
+        
     }
     .back-button {
+      position: absolute;
+      left: 20px;
+      top: 15px;
       padding: 8px 15px;
-      background-color: #007BFF;
+      background-color: #222933;
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -35,19 +37,57 @@
       transition: background-color 0.3s ease;
     }
     .back-button:hover {
-      background-color: #0056b3;
+      background-color: #222933;
+    }
+    .header-image {
+      margin-top: 10px;
+      max-width: 20%;
+      height: auto;
+    }
+    /* Sektion for 3 udvalgte elementer */
+    .featured {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background-color: #222933;
+    }
+    .featured-item {
+      background-color: #222933;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 30%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .featured-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .featured-item textarea {
+      border: none;
+      padding: 10px;
+      box-sizing: border-box;
+      border-top: 1px solid #ddd;
+      resize: vertical;
+      font-family: inherit;
     }
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       padding: 20px;
+    background: #222933;
+        filter: grayscale(100%);
     }
     .gallery-item {
-      background-color: #fff;
+      background-color: #222933;
       border: 1px solid #ddd;
       border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       height: 550px;
@@ -55,7 +95,7 @@
     }
     .gallery-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .gallery-item object {
       width: 100%;
@@ -72,7 +112,7 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: #222933;
     }
     .modal-content {
       margin: auto;
@@ -98,35 +138,16 @@
     .close:hover {
       color: #bbb;
     }
-    /* Dark mode */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #222;
-        color: #ddd;
-      }
-      header {
-        background-color: #333;
-        border-bottom: 2px solid #444;
-      }
-      .back-button {
-        background-color: #1E90FF;
-      }
-      .back-button:hover {
-        background-color: #1C86EE;
-      }
-      .gallery-item {
-        background-color: #2a2a2a;
-        border: 1px solid #444;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
-    <h1>3. SEMESTER</h1>
     <button class="back-button" onclick="window.history.back()">Tilbage</button>
+    <h1>3. SEMESTER</h1>
+    <img src="images/3sem.png" alt="Header Image" class="header-image">
   </header>
 
+  <!-- Dit eksisterende galleri -->
   <div class="gallery">
     <div class="gallery-item" data-type="pdf" data-src="images/projektering/3sem/3sem (1).pdf">
       <object data="images/projektering/3sem/3sem (1).pdf" type="application/pdf"></object>

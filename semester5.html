@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mit Filgalleri - 4. SEMESTER</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mit Filgalleri - 5. SEMESTER</title>
   <style>
     body {
       margin: 0;
@@ -37,9 +37,12 @@
     .back-button:hover {
       background-color: #0056b3;
     }
+    h2 {
+      padding-left: 20px;
+    }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
       padding: 20px;
     }
@@ -50,7 +53,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 550px;
+      height: 400px;
       overflow: hidden;
     }
     .gallery-item:hover {
@@ -62,7 +65,6 @@
       height: 100%;
       border: none;
     }
-    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -98,7 +100,6 @@
     .close:hover {
       color: #bbb;
     }
-    /* Dark mode */
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #222;
@@ -127,13 +128,46 @@
     <button class="back-button" onclick="window.history.back()">Tilbage</button>
   </header>
 
+  <h2>LUE</h2>
   <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (1).pdf">
-      <object data="images/projektering/5sem/5sem (1).pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue1.pdf">
+      <object data="signethomsen/images/projektering/5sem/lue1.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue2.pdf">
+      <object data="signethomsen/images/projektering/5sem/lue2.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue3.pdf">
+      <object data="signethomsen/images/projektering/5sem/lue3.pdf" type="application/pdf"></object>
     </div>
   </div>
-      
-  <!-- Modal til forstørret visning -->
+
+  <h2>Hovedprojekt</h2>
+  <div class="gallery">
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved1.pdf">
+      <object data="signethomsen/images/projektering/5sem/hoved1.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved2.pdf">
+      <object data="signethomsen/images/projektering/5sem/hoved2.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved3.pdf">
+      <object data="signethomsen/images/projektering/5sem/hoved3.pdf" type="application/pdf"></object>
+    </div>
+  </div>
+
+  <h2>VUE</h2>
+  <div class="gallery">
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue1.pdf">
+      <object data="signethomsen/images/projektering/5sem/vue1.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue2.pdf">
+      <object data="signethomsen/images/projektering/5sem/vue2.pdf" type="application/pdf"></object>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue3.pdf">
+      <object data="signethomsen/images/projektering/5sem/vue3.pdf" type="application/pdf"></object>
+    </div>
+  </div>
+
+  <!-- Modal -->
   <div id="modal" class="modal">
     <span class="close">&times;</span>
     <div id="modal-content-container"></div>
@@ -144,47 +178,36 @@
     const modalContentContainer = document.getElementById("modal-content-container");
     const closeBtn = document.querySelector(".close");
 
-    // Funktion til at rydde modalens indhold
     function clearModalContent() {
       modalContentContainer.innerHTML = "";
     }
 
-    // Tilføj klik-event til alle galleriets elementer
     const galleryItems = document.querySelectorAll(".gallery-item");
     galleryItems.forEach(item => {
-      item.addEventListener("click", function() {
+      item.addEventListener("click", function () {
         const type = this.getAttribute("data-type");
         const src = this.getAttribute("data-src");
         clearModalContent();
         modal.style.display = "block";
 
         if (type === "pdf") {
-          // Opret et <object>-element for PDF-filen
           const objectEl = document.createElement("object");
           objectEl.setAttribute("data", src);
           objectEl.setAttribute("type", "application/pdf");
           objectEl.style.width = "100%";
           objectEl.style.height = "80vh";
-          objectEl.innerHTML = '<p>Din browser understøtter ikke visning af PDF-filer. <a href="' + src + '">Download PDF</a></p>';
+          objectEl.innerHTML = `<p>Din browser understøtter ikke visning af PDF-filer. <a href="${src}">Download PDF</a></p>`;
           modalContentContainer.appendChild(objectEl);
-        } else {
-          // Opret et <img>-element for billeder
-          const imgEl = document.createElement("img");
-          imgEl.src = src;
-          imgEl.className = "modal-content";
-          modalContentContainer.appendChild(imgEl);
         }
       });
     });
 
-    // Luk modal ved klik på krydset
-    closeBtn.addEventListener("click", function() {
+    closeBtn.addEventListener("click", () => {
       modal.style.display = "none";
       clearModalContent();
     });
 
-    // Luk modal ved klik uden for indholdet
-    modal.addEventListener("click", function(event) {
+    modal.addEventListener("click", (event) => {
       if (event.target === modal) {
         modal.style.display = "none";
         clearModalContent();

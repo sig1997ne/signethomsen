@@ -3,345 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mit Filgalleri - 4. SEMESTER</title>
+  <title>5. SEMESTER - PDF Galleri</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       color: #333;
     }
     header {
+      background-color: #fff;
       padding: 15px 20px;
+      border-bottom: 1px solid #ccc;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      background-color: #fff;
-      border-bottom: 2px solid #ddd;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      align-items: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
+    h2 {
+      padding-left: 20px;
+      margin-bottom: 0;
     }
-    .back-button {
-      padding: 8px 15px;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    .grade {
+      padding-left: 20px;
+      font-style: italic;
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 20px;
     }
-    .back-button:hover {
-      background-color: #0056b3;
+    .grid-preview {
+      column-count: 4;
+      column-gap: 10px;
+      padding: 0 20px 20px 20px;
     }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      padding: 20px;
-    }
-    .gallery-item {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 550px;
-      overflow: hidden;
-    }
-    .gallery-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-    .gallery-item object {
+    .grid-preview a {
+      break-inside: avoid;
+      display: inline-block;
+      margin-bottom: 10px;
       width: 100%;
-      height: 100%;
-      border: none;
     }
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
+    .grid-preview a img {
       width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .modal-content {
-      margin: auto;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       display: block;
-      max-width: 90%;
-      max-height: 80%;
-      animation: zoom 0.6s;
     }
-    @keyframes zoom {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
-    }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
+    button {
+      background-color: #333;
       color: #fff;
-      font-size: 40px;
-      font-weight: bold;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
       cursor: pointer;
-      transition: color 0.3s ease;
     }
-    .close:hover {
-      color: #bbb;
-    }
-    /* Dark mode */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #222;
-        color: #ddd;
-      }
-      header {
-        background-color: #333;
-        border-bottom: 2px solid #444;
-      }
-      .back-button {
-        background-color: #1E90FF;
-      }
-      .back-button:hover {
-        background-color: #1C86EE;
-      }
-      .gallery-item {
-        background-color: #2a2a2a;
-        border: 1px solid #444;
-      }
-    }
-    /* Responsive tilpasninger */
-    @media (max-width: 768px) {
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .gallery-item {
-        height: 300px;
-      }
-      header h1 {
-        font-size: 1.5em;
-      }
-    }
-    @media (max-width: 480px) {
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-      .gallery-item {
-        height: auto;
-      }
+    button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>4. SEMESTER</h1>
-    <button class="back-button" onclick="window.history.back()">Tilbage</button>
+    <h1>5. SEMESTER</h1>
+    <button onclick="window.history.back()">Tilbage</button>
   </header>
 
-  <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (1).pdf">
-      <object data="images/projektering/4sem/4sem (1).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (2).pdf">
-      <object data="images/projektering/4sem/4sem (2).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (3).pdf">
-      <object data="images/projektering/4sem/4sem (3).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (4).pdf">
-      <object data="images/projektering/4sem/4sem (4).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (5).pdf">
-      <object data="images/projektering/4sem/4sem (5).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (6).pdf">
-      <object data="images/projektering/4sem/4sem (6).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (7).pdf">
-      <object data="images/projektering/4sem/4sem (7).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (8).pdf">
-      <object data="images/projektering/4sem/4sem (8).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (9).pdf">
-      <object data="images/projektering/4sem/4sem (9).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (10).pdf">
-      <object data="images/projektering/4sem/4sem (10).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (11).pdf">
-      <object data="images/projektering/4sem/4sem (11).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (12).pdf">
-      <object data="images/projektering/4sem/4sem (12).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (13).pdf">
-      <object data="images/projektering/4sem/4sem (13).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (14).pdf">
-      <object data="images/projektering/4sem/4sem (14).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (15).pdf">
-      <object data="images/projektering/4sem/4sem (15).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (16).pdf">
-      <object data="images/projektering/4sem/4sem (16).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (17).pdf">
-      <object data="images/projektering/4sem/4sem (17).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (18).pdf">
-      <object data="images/projektering/4sem/4sem (18).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (19).pdf">
-      <object data="images/projektering/4sem/4sem (19).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (20).pdf">
-      <object data="images/projektering/4sem/4sem (20).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (21).pdf">
-      <object data="images/projektering/4sem/4sem (21).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (22).pdf">
-      <object data="images/projektering/4sem/4sem (22).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (23).pdf">
-      <object data="images/projektering/4sem/4sem (23).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (24).pdf">
-      <object data="images/projektering/4sem/4sem (24).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (25).pdf">
-      <object data="images/projektering/4sem/4sem (25).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (26).pdf">
-      <object data="images/projektering/4sem/4sem (26).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (27).pdf">
-      <object data="images/projektering/4sem/4sem (27).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (28).pdf">
-      <object data="images/projektering/4sem/4sem (28).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (29).pdf">
-      <object data="images/projektering/4sem/4sem (29).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (30).pdf">
-      <object data="images/projektering/4sem/4sem (30).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (31).pdf">
-      <object data="images/projektering/4sem/4sem (31).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (32).pdf">
-      <object data="images/projektering/4sem/4sem (32).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (33).pdf">
-      <object data="images/projektering/4sem/4sem (33).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (34).pdf">
-      <object data="images/projektering/4sem/4sem (34).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (35).pdf">
-      <object data="images/projektering/4sem/4sem (35).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (36).pdf">
-      <object data="images/projektering/4sem/4sem (36).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (37).pdf">
-      <object data="images/projektering/4sem/4sem (37).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (38).pdf">
-      <object data="images/projektering/4sem/4sem (38).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (39).pdf">
-      <object data="images/projektering/4sem/4sem (39).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (40).pdf">
-      <object data="images/projektering/4sem/4sem (40).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (41).pdf">
-      <object data="images/projektering/4sem/4sem (41).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (42).pdf">
-      <object data="images/projektering/4sem/4sem (42).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (43).pdf">
-      <object data="images/projektering/4sem/4sem (43).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (44).pdf">
-      <object data="images/projektering/4sem/4sem (44).pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/4sem/4sem (45).pdf">
-      <object data="images/projektering/4sem/4sem (45).pdf" type="application/pdf"></object>
-    </div>
-  </div>
-      
-  <!-- Modal til forstørret visning -->
-  <div id="modal" class="modal">
-    <span class="close">&times;</span>
-    <div id="modal-content-container"></div>
+    <h2>VUE</h2>
+  <p class="grade">Karakter: 12</p>
+  <div class="grid-preview">
+    <!-- VUE (1–40) -->
+    <a href="images/projektering/4sem/VUE (1).pdf" target="_blank"><img src="images/projektering/4sem/VUE (1).jpg" alt="VUE 1"></a>
+    <a href="images/projektering/4sem/VUE (2).pdf" target="_blank"><img src="images/projektering/4sem/VUE (2).jpg" alt="VUE 2"></a>
+    <a href="images/projektering/4sem/VUE (3).pdf" target="_blank"><img src="images/projektering/4sem/VUE (3).jpg" alt="VUE 3"></a>
+    <a href="images/projektering/4sem/VUE (4).pdf" target="_blank"><img src="images/projektering/4sem/VUE (4).jpg" alt="VUE 4"></a>
+    <a href="images/projektering/4sem/VUE (5).pdf" target="_blank"><img src="images/projektering/4sem/VUE (5).jpg" alt="VUE 5"></a>
+    <a href="images/projektering/4sem/VUE (6).pdf" target="_blank"><img src="images/projektering/4sem/VUE (6).jpg" alt="VUE 6"></a>
+    <a href="images/projektering/4sem/VUE (7).pdf" target="_blank"><img src="images/projektering/4sem/VUE (7).jpg" alt="VUE 7"></a>
+    <a href="images/projektering/4sem/VUE (8).pdf" target="_blank"><img src="images/projektering/4sem/VUE (8).jpg" alt="VUE 8"></a>
+    <a href="images/projektering/4sem/VUE (9).pdf" target="_blank"><img src="images/projektering/4sem/VUE (9).jpg" alt="VUE 9"></a>
+    <a href="images/projektering/4sem/VUE (10).pdf" target="_blank"><img src="images/projektering/4sem/VUE (10).jpg" alt="VUE 10"></a>
+    <a href="images/projektering/4sem/VUE (11).pdf" target="_blank"><img src="images/projektering/4sem/VUE (11).jpg" alt="VUE 11"></a>
+    <a href="images/projektering/4sem/VUE (12).pdf" target="_blank"><img src="images/projektering/4sem/VUE (12).jpg" alt="VUE 12"></a>
+    <a href="images/projektering/4sem/VUE (13).pdf" target="_blank"><img src="images/projektering/4sem/VUE (13).jpg" alt="VUE 13"></a>
+    <a href="images/projektering/4sem/VUE (14).pdf" target="_blank"><img src="images/projektering/4sem/VUE (14).jpg" alt="VUE 14"></a>
+    <a href="images/projektering/4sem/VUE (15).pdf" target="_blank"><img src="images/projektering/4sem/VUE (15).jpg" alt="VUE 15"></a>
+    <a href="images/projektering/4sem/VUE (16).pdf" target="_blank"><img src="images/projektering/4sem/VUE (16).jpg" alt="VUE 16"></a>
+    <a href="images/projektering/4sem/VUE (17).pdf" target="_blank"><img src="images/projektering/4sem/VUE (17).jpg" alt="VUE 17"></a>
+    <a href="images/projektering/4sem/VUE (18).pdf" target="_blank"><img src="images/projektering/4sem/VUE (18).jpg" alt="VUE 18"></a>
+    <a href="images/projektering/4sem/VUE (19).pdf" target="_blank"><img src="images/projektering/4sem/VUE (19).jpg" alt="VUE 19"></a>
+    <a href="images/projektering/4sem/VUE (20).pdf" target="_blank"><img src="images/projektering/4sem/VUE (20).jpg" alt="VUE 20"></a>
+    <a href="images/projektering/4sem/VUE (21).pdf" target="_blank"><img src="images/projektering/4sem/VUE (21).jpg" alt="VUE 21"></a>
+    <a href="images/projektering/4sem/VUE (22).pdf" target="_blank"><img src="images/projektering/4sem/VUE (22).jpg" alt="VUE 22"></a>
+    <a href="images/projektering/4sem/VUE (23).pdf" target="_blank"><img src="images/projektering/4sem/VUE (23).jpg" alt="VUE 23"></a>
+    <a href="images/projektering/4sem/VUE (24).pdf" target="_blank"><img src="images/projektering/4sem/VUE (24).jpg" alt="VUE 24"></a>
+    <a href="images/projektering/4sem/VUE (25).pdf" target="_blank"><img src="images/projektering/4sem/VUE (25).jpg" alt="VUE 25"></a>
+    <a href="images/projektering/4sem/VUE (26).pdf" target="_blank"><img src="images/projektering/4sem/VUE (26).jpg" alt="VUE 26"></a>
+    <a href="images/projektering/4sem/VUE (27).pdf" target="_blank"><img src="images/projektering/4sem/VUE (27).jpg" alt="VUE 27"></a>
+    <a href="images/projektering/4sem/VUE (28).pdf" target="_blank"><img src="images/projektering/4sem/VUE (28).jpg" alt="VUE 28"></a>
+    <a href="images/projektering/4sem/VUE (29).pdf" target="_blank"><img src="images/projektering/4sem/VUE (29).jpg" alt="VUE 29"></a>
+    <a href="images/projektering/4sem/VUE (30).pdf" target="_blank"><img src="images/projektering/4sem/VUE (30).jpg" alt="VUE 30"></a>
+    <a href="images/projektering/4sem/VUE (31).pdf" target="_blank"><img src="images/projektering/4sem/VUE (31).jpg" alt="VUE 31"></a>
+    <a href="images/projektering/4sem/VUE (32).pdf" target="_blank"><img src="images/projektering/4sem/VUE (32).jpg" alt="VUE 32"></a>
+    <a href="images/projektering/4sem/VUE (33).pdf" target="_blank"><img src="images/projektering/4sem/VUE (33).jpg" alt="VUE 33"></a>
+    <a href="images/projektering/4sem/VUE (34).pdf" target="_blank"><img src="images/projektering/4sem/VUE (34).jpg" alt="VUE 34"></a>
+    <a href="images/projektering/4sem/VUE (35).pdf" target="_blank"><img src="images/projektering/4sem/VUE (35).jpg" alt="VUE 35"></a>
+    <a href="images/projektering/4sem/VUE (36).pdf" target="_blank"><img src="images/projektering/4sem/VUE (36).jpg" alt="VUE 36"></a>
+    <a href="images/projektering/4sem/VUE (37).pdf" target="_blank"><img src="images/projektering/4sem/VUE (37).jpg" alt="VUE 37"></a>
+    <a href="images/projektering/4sem/VUE (38).pdf" target="_blank"><img src="images/projektering/4sem/VUE (38).jpg" alt="VUE 38"></a>
+    <a href="images/projektering/4sem/VUE (39).pdf" target="_blank"><img src="images/projektering/4sem/VUE (39).jpg" alt="VUE 39"></a>
+    <a href="images/projektering/4sem/VUE (40).pdf" target="_blank"><img src="images/projektering/4sem/VUE (40).jpg" alt="VUE 40"></a>
   </div>
 
-  <script>
-    const modal = document.getElementById("modal");
-    const modalContentContainer = document.getElementById("modal-content-container");
-    const closeBtn = document.querySelector(".close");
+  <h2>LUE</h2>
+  <p class="grade">Karakter: 7 </p>
+  <div class="grid-preview">
+    <!-- LUE (1–5) -->
+    <a href="images/projektering/4sem/lue (1).pdf" target="_blank"><img src="images/projektering/4sem/lue (1).jpg" alt="LUE 1"></a>
+    <a href="images/projektering/4sem/lue (2).pdf" target="_blank"><img src="images/projektering/4sem/lue (2).jpg" alt="LUE 2"></a>
+    <a href="images/projektering/4sem/lue (3).pdf" target="_blank"><img src="images/projektering/4sem/lue (3).jpg" alt="LUE 3"></a>
+    <a href="images/projektering/4sem/lue (4).pdf" target="_blank"><img src="images/projektering/4sem/lue (4).jpg" alt="LUE 4"></a>
+    <a href="images/projektering/4sem/lue (5).pdf" target="_blank"><img src="images/projektering/4sem/lue (5).jpg" alt="LUE 5"></a>
+  </div>
 
-    // Funktion til at rydde modalens indhold
-    function clearModalContent() {
-      modalContentContainer.innerHTML = "";
-    }
+  <h2>Hovedprojekt</h2>
+  <p class="grade">Karakter: 7 </p>
+  <div class="grid-preview">
+    <!-- Hoved (1–8) -->
+    <a href="images/projektering/4sem/Hoved (1).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (1).jpg" alt="Hoved 1"></a>
+    <a href="images/projektering/4sem/Hoved (2).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (2).jpg" alt="Hoved 2"></a>
+    <a href="images/projektering/4sem/Hoved (3).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (3).jpg" alt="Hoved 3"></a>
+    <a href="images/projektering/4sem/Hoved (4).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (4).jpg" alt="Hoved 4"></a>
+    <a href="images/projektering/4sem/Hoved (5).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (5).jpg" alt="Hoved 5"></a>
+    <a href="images/projektering/4sem/Hoved (6).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (6).jpg" alt="Hoved 6"></a>
+    <a href="images/projektering/4sem/Hoved (7).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (7).jpg" alt="Hoved 7"></a>
+    <a href="images/projektering/4sem/Hoved (8).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (8).jpg" alt="Hoved 8"></a>
+  </div>
 
-    // Tilføj klik-event til alle galleriets elementer
-    const galleryItems = document.querySelectorAll(".gallery-item");
-    galleryItems.forEach(item => {
-      item.addEventListener("click", function() {
-        const type = this.getAttribute("data-type");
-        const src = this.getAttribute("data-src");
-        clearModalContent();
-        modal.style.display = "block";
-
-        if (type === "pdf") {
-          // Opret et <object>-element for PDF-filen
-          const objectEl = document.createElement("object");
-          objectEl.setAttribute("data", src);
-          objectEl.setAttribute("type", "application/pdf");
-          objectEl.style.width = "100%";
-          objectEl.style.height = "80vh";
-          objectEl.innerHTML = '<p>Din browser understøtter ikke visning af PDF-filer. <a href="' + src + '">Download PDF</a></p>';
-          modalContentContainer.appendChild(objectEl);
-        } else {
-          // Opret et <img>-element for billeder
-          const imgEl = document.createElement("img");
-          imgEl.src = src;
-          imgEl.className = "modal-content";
-          modalContentContainer.appendChild(imgEl);
-        }
-      });
-    });
-
-    // Luk modal ved klik på krydset
-    closeBtn.addEventListener("click", function() {
-      modal.style.display = "none";
-      clearModalContent();
-    });
-
-    // Luk modal ved klik uden for indholdet
-    modal.addEventListener("click", function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-        clearModalContent();
-      }
-    });
-  </script>
 </body>
 </html>

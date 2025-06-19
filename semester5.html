@@ -53,8 +53,10 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 400px;
+      height: 420px;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .gallery-item:hover {
       transform: translateY(-5px);
@@ -64,6 +66,15 @@
       width: 100%;
       height: 100%;
       border: none;
+      flex-grow: 1;
+    }
+    .gallery-item p {
+      margin: 0;
+      padding: 8px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #f1f1f1;
+      border-top: 1px solid #ddd;
     }
     .modal {
       display: none;
@@ -119,6 +130,11 @@
         background-color: #2a2a2a;
         border: 1px solid #444;
       }
+      .gallery-item p {
+        background-color: #333;
+        color: #ddd;
+        border-top: 1px solid #555;
+      }
     }
   </style>
 </head>
@@ -128,42 +144,51 @@
     <button class="back-button" onclick="window.history.back()">Tilbage</button>
   </header>
 
+    <h2>VUE</h2>
+  <div class="gallery">
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue1.pdf">
+      <object data="images/projektering/5sem/vue1.pdf" type="application/pdf"></object>
+      <p>VUE 1</p>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue2.pdf">
+      <object data="images/projektering/5sem/vue2.pdf" type="application/pdf"></object>
+      <p>VUE 2</p>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue3.pdf">
+      <object data="images/projektering/5sem/vue3.pdf" type="application/pdf"></object>
+      <p>VUE 3</p>
+    </div>
+  </div>
+
   <h2>LUE</h2>
   <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue1.pdf">
-      <object data="signethomsen/images/projektering/5sem/lue1.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue1.pdf">
+      <object data="images/projektering/5sem/lue1.pdf" type="application/pdf"></object>
+      <p>LUE 1</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue2.pdf">
-      <object data="signethomsen/images/projektering/5sem/lue2.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue2.pdf">
+      <object data="images/projektering/5sem/lue2.pdf" type="application/pdf"></object>
+      <p>LUE 2</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/lue3.pdf">
-      <object data="signethomsen/images/projektering/5sem/lue3.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue3.pdf">
+      <object data="images/projektering/5sem/lue3.pdf" type="application/pdf"></object>
+      <p>LUE 3</p>
     </div>
   </div>
 
   <h2>Hovedprojekt</h2>
   <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved1.pdf">
-      <object data="signethomsen/images/projektering/5sem/hoved1.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved1.pdf">
+      <object data="images/projektering/5sem/hoved1.pdf" type="application/pdf"></object>
+      <p>Hovedprojekt 1</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved2.pdf">
-      <object data="signethomsen/images/projektering/5sem/hoved2.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved2.pdf">
+      <object data="images/projektering/5sem/hoved2.pdf" type="application/pdf"></object>
+      <p>Hovedprojekt 2</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/hoved3.pdf">
-      <object data="signethomsen/images/projektering/5sem/hoved3.pdf" type="application/pdf"></object>
-    </div>
-  </div>
-
-  <h2>VUE</h2>
-  <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue1.pdf">
-      <object data="signethomsen/images/projektering/5sem/vue1.pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue2.pdf">
-      <object data="signethomsen/images/projektering/5sem/vue2.pdf" type="application/pdf"></object>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="signethomsen/images/projektering/5sem/vue3.pdf">
-      <object data="signethomsen/images/projektering/5sem/vue3.pdf" type="application/pdf"></object>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved3.pdf">
+      <object data="images/projektering/5sem/hoved3.pdf" type="application/pdf"></object>
+      <p>Hovedprojekt 3</p>
     </div>
   </div>
 

@@ -1,44 +1,23 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mit Filgalleri - 5. SEMESTER</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5. SEMESTER - PDF Galleri</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       color: #333;
     }
     header {
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       background-color: #fff;
-      border-bottom: 2px solid #ddd;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
-    }
-    .back-button {
-      padding: 8px 15px;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .back-button:hover {
-      background-color: #0056b3;
-    }
-    h2 {
-      padding-left: 20px;
+      padding: 15px 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .gallery {
       display: grid;
@@ -47,197 +26,91 @@
       padding: 20px;
     }
     .gallery-item {
-      background-color: #fff;
+      background: #fff;
       border: 1px solid #ddd;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 420px;
+      border-radius: 5px;
       overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
     }
-    .gallery-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
     .gallery-item object {
-      width: 100%;
-      height: 100%;
-      border: none;
       flex-grow: 1;
+      width: 100%;
+      height: 300px;
     }
     .gallery-item p {
       margin: 0;
-      padding: 8px;
+      padding: 10px;
       text-align: center;
       font-weight: bold;
-      background-color: #f1f1f1;
+      background-color: #f0f0f0;
       border-top: 1px solid #ddd;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-      animation: zoom 0.6s;
-    }
-    @keyframes zoom {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
-    }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .close:hover {
-      color: #bbb;
-    }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #222;
-        color: #ddd;
-      }
-      header {
-        background-color: #333;
-        border-bottom: 2px solid #444;
-      }
-      .back-button {
-        background-color: #1E90FF;
-      }
-      .back-button:hover {
-        background-color: #1C86EE;
-      }
-      .gallery-item {
-        background-color: #2a2a2a;
-        border: 1px solid #444;
-      }
-      .gallery-item p {
-        background-color: #333;
-        color: #ddd;
-        border-top: 1px solid #555;
-      }
+    h2 {
+      padding-left: 20px;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>5. SEMESTER</h1>
-    <button class="back-button" onclick="window.history.back()">Tilbage</button>
+    <button onclick="window.history.back()">Tilbage</button>
   </header>
-
-    <h2>VUE</h2>
-  <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue1.pdf">
-      <object data="images/projektering/5sem/vue1.pdf" type="application/pdf"></object>
-      <p>VUE 1</p>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue2.pdf">
-      <object data="images/projektering/5sem/vue2.pdf" type="application/pdf"></object>
-      <p>VUE 2</p>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/vue3.pdf">
-      <object data="images/projektering/5sem/vue3.pdf" type="application/pdf"></object>
-      <p>VUE 3</p>
-    </div>
-  </div>
 
   <h2>LUE</h2>
   <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue1.pdf">
-      <object data="images/projektering/5sem/lue1.pdf" type="application/pdf"></object>
-      <p>LUE 1</p>
+    <!-- LUE (1-5) -->
+    <!-- Entries will be inserted here -->
+        <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue (1).pdf">
+      <object data="images/projektering/5sem/lue (1).pdf" type="application/pdf"></object>
+      <p>LUE (1)</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue2.pdf">
-      <object data="images/projektering/5sem/lue2.pdf" type="application/pdf"></object>
-      <p>LUE 2</p>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue (2).pdf">
+      <object data="images/projektering/5sem/lue (2).pdf" type="application/pdf"></object>
+      <p>LUE (2)</p>
     </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue3.pdf">
-      <object data="images/projektering/5sem/lue3.pdf" type="application/pdf"></object>
-      <p>LUE 3</p>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue (3).pdf">
+      <object data="images/projektering/5sem/lue (3).pdf" type="application/pdf"></object>
+      <p>LUE (3)</p>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue (4).pdf">
+      <object data="images/projektering/5sem/lue (4).pdf" type="application/pdf"></object>
+      <p>LUE (4)</p>
+    </div>
+    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/lue (5).pdf">
+      <object data="images/projektering/5sem/lue (5).pdf" type="application/pdf"></object>
+      <p>LUE (5)</p>
     </div>
   </div>
 
   <h2>Hovedprojekt</h2>
   <div class="gallery">
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved1.pdf">
-      <object data="images/projektering/5sem/hoved1.pdf" type="application/pdf"></object>
-      <p>Hovedprojekt 1</p>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved2.pdf">
-      <object data="images/projektering/5sem/hoved2.pdf" type="application/pdf"></object>
-      <p>Hovedprojekt 2</p>
-    </div>
-    <div class="gallery-item" data-type="pdf" data-src="images/projektering/5sem/hoved3.pdf">
-      <object data="images/projektering/5sem/hoved3.pdf" type="application/pdf"></object>
-      <p>Hovedprojekt 3</p>
-    </div>
+    <!-- Hovedprojekt (1-9) -->
+        " + "
+    ".join([
+        f"<div class=\"gallery-item\" data-type=\"pdf\" data-src=\"images/projektering/5sem/vue ({i}).pdf\">
+"
+        f"      <object data=\"images/projektering/5sem/vue ({i}).pdf\" type=\"application/pdf\"></object>
+"
+        f"      <p>VUE ({i})</p>
+"
+        f"</div>"
+        for i in range(1, 41)
+      ])
+    }
+  ]
+}
   </div>
 
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <span class="close">&times;</span>
-    <div id="modal-content-container"></div>
+  <h2>VUE</h2>
+  <div class="gallery">
+    <!-- VUE (1-40) -->
+    REPLACE_VUE
   </div>
 
   <script>
-    const modal = document.getElementById("modal");
-    const modalContentContainer = document.getElementById("modal-content-container");
-    const closeBtn = document.querySelector(".close");
-
-    function clearModalContent() {
-      modalContentContainer.innerHTML = "";
-    }
-
-    const galleryItems = document.querySelectorAll(".gallery-item");
-    galleryItems.forEach(item => {
-      item.addEventListener("click", function () {
-        const type = this.getAttribute("data-type");
-        const src = this.getAttribute("data-src");
-        clearModalContent();
-        modal.style.display = "block";
-
-        if (type === "pdf") {
-          const objectEl = document.createElement("object");
-          objectEl.setAttribute("data", src);
-          objectEl.setAttribute("type", "application/pdf");
-          objectEl.style.width = "100%";
-          objectEl.style.height = "80vh";
-          objectEl.innerHTML = `<p>Din browser understøtter ikke visning af PDF-filer. <a href="${src}">Download PDF</a></p>`;
-          modalContentContainer.appendChild(objectEl);
-        }
-      });
-    });
-
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-      clearModalContent();
-    });
-
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-        clearModalContent();
-      }
-    });
+    // You can add modal viewer code here if needed later
   </script>
 </body>
 </html>

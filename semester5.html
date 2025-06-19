@@ -8,28 +8,16 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #000; /* Sort baggrund */
-      color: #fff; /* Hvid tekst */
+      background-color: #f8f9fa;
+      color: #333;
     }
     header {
-      background-color: #111;
+      background-color: #fff;
       padding: 15px 20px;
-      border-bottom: 1px solid #444;
+      border-bottom: 1px solid #ccc;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    .grid-preview {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      padding: 0 20px 20px 20px;
-    }
-    .grid-preview a img {
-      width: 100%;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-      display: block;
     }
     h2 {
       padding-left: 20px;
@@ -38,9 +26,27 @@
     .grade {
       padding-left: 20px;
       font-style: italic;
-      color: #ccc;
+      color: #666;
       margin-top: 0;
       margin-bottom: 20px;
+    }
+    .grid-preview {
+      column-count: 4;
+      column-gap: 10px;
+      padding: 0 20px 20px 20px;
+    }
+    .grid-preview a {
+      break-inside: avoid;
+      display: inline-block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .grid-preview a img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: block;
     }
     button {
       background-color: #333;
@@ -61,7 +67,8 @@
     <button onclick="window.history.back()">Tilbage</button>
   </header>
 
-  <h2>VUE</h2>
+    <h2>VUE</h2>
+  <p class="grade">Karakter: 12</p>
   <div class="grid-preview">
     <!-- VUE (1–40) -->
     <a href="images/projektering/5sem/VUE (1).pdf" target="_blank"><img src="images/projektering/5sem/VUE (1).jpg" alt="VUE 1"></a>
@@ -107,6 +114,7 @@
   </div>
 
   <h2>LUE</h2>
+  <p class="grade">Karakter: 7 </p>
   <div class="grid-preview">
     <!-- LUE (1–5) -->
     <a href="images/projektering/5sem/lue (1).pdf" target="_blank"><img src="images/projektering/5sem/lue (1).jpg" alt="LUE 1"></a>
@@ -117,6 +125,7 @@
   </div>
 
   <h2>Hovedprojekt</h2>
+  <p class="grade">Karakter: 7 </p>
   <div class="grid-preview">
     <!-- Hoved (1–8) -->
     <a href="images/projektering/5sem/Hoved (1).pdf" target="_blank"><img src="images/projektering/5sem/Hoved (1).jpg" alt="Hoved 1"></a>

@@ -1,676 +1,205 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signes Portfolio</title>
-  <!-- Google Fonts og Lineicons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
-  
   <style>
-    /* Generelle stilarter og reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
       font-family: 'Open Sans', sans-serif;
-    }
-    html {
-      height: 100%;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-    body {
-      height: 100%;
       background-color: #222933;
       color: #ccc;
-      overflow-y: scroll;
-      transition: transform 0.5s ease-out; /* Transition til slide-up */
+      overflow: hidden;
+      height: 100%;
     }
-    body.slide-up {
-      transform: translateY(-100vh); /* Slide-up effekt: skub siderne op med en hel viewport-højde */
-    }
-    
-    /* Animation ved scroll */
-    section {
-      width: 100%;
-      min-height: 100vh;
-      position: relative;
-      scroll-snap-align: start;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Navigationspile i sektioner */
-    .nav-arrow {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #ccc;
-      cursor: pointer;
-      text-decoration: none;
-      z-index: 10;
-    }
-    .nav-arrow.up {
-      top: 20px;
-      animation: jumpUp 1.5s infinite;
-    }
-    .nav-arrow.down {
-      bottom: 20px;
-      animation: jumpDown 1.5s infinite;
-    }
-    
-    @keyframes jumpUp {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-      100% { transform: translateX(-50%) translateY(0); }
-    }
-    @keyframes jumpDown {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
-      100% { transform: translateX(-50%) translateY(0); }
-    }
-    
-    /* Navigationspile inde i slideshowet */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 10px;
-      color: #ccc;
-      font-size: 2rem;
-      background: rgba(0,0,0,0.4);
-      border: none;
-      border-radius: 50%;
-      transition: background-color 0.3s ease;
-      z-index: 120;
-      text-decoration: none;
-      user-select: none;
-    }
-    .prev:hover, .next:hover {
-      background: rgba(0,0,0,0.6);
-    }
-    .prev {
-      left: -50px;
-      z-index: 20;
-    }
-    .next {
-      right: -50px;
-      z-index: 20;
-    }
-    
-    /* Header Sektion */
-    #header-section {
-      background: #000;
-      flex-direction: column;
-    }
-    .text-box {
-      color: #ccc;
-      max-width: 90%;
-      margin: auto;
-      padding: 20px;
-    }
-    .logo {
-      width: 480px;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fadeUp 1s forwards;
-    }
-    .text-box h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      opacity: 0;
-      animation: fadeUp 1s forwards;
-      animation-delay: 0.3s;
-    }
-    .text-box p {
-      font-size: 1rem;
-      opacity: 0;
-      animation: fadeUp 1s forwards;
-      animation-delay: 0.6s;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Om mig Sektion */
-    #about-section {
-      background: #36322f;
-    }
-    .about-container {
-      max-width: 1300px;
-      margin: auto;
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 50px;
-      flex-wrap: wrap;
-      text-align: left;
-    }
-    .about-text {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-    .text-columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 60px;
-      width: 100%;
-      color: #ccc;
-    }
-    .column h3 {
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-    }
-    .column p {
-      line-height: 1.6;
-      font-size: 1rem;
-    }
-    /* Opdateret styling for software-logoerne */
-    .competence-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-    .competence {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      padding: 10px;
-      border-radius: 8px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .competence:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-    .competence img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-    }
-    
-    .about-image {
-      position: relative;
-      flex-shrink: 0;
-      display: inline-block;
-    }
-    .about-image .profile-img {
-      width: 300px;
-      border-radius: 10%;
-      display: block;
-    }
-    
-    /* Timeline-styling til uddannelseskolonnen */
-    .timeline {
-      position: relative;
-      padding-left: 30px;
-      margin-top: 10px;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: -10px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: #ccc;
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -30px;
-      top: 5px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #fff;
-    }
-    .timeline-date {
-      font-weight: bold;
-      color: #ccc;
-      margin-bottom: 5px;
-    }
-    .timeline-title {
-      line-height: 1.4;
-      color: #ccc;
-    }
-    
-    /* Slideshow Sektion */
-    #slideshow-section {
-      background: #222933;
-      flex-direction: column;
-      filter: grayscale(100%);
-    }
-    .slideshow-container {
-  position: relative;
-  max-width: 700px;
-  width: 100%; /* Ændret fra 320% til 100% */
-  margin: auto;
-  overflow: visible;
-  height: 650px;
-}
+    body { overscroll-behavior: none; }
 
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      transition: opacity 0.5s ease-in-out;
-      opacity: 0;
+    #header-section {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100vh;
+      background: linear-gradient(to bottom, #1a1a1a, #222933);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 999;
+      transition: opacity .6s, transform .6s;
+      overflow: hidden;
+    }
+    #header-section.hidden {
+      opacity: 0; transform: translateY(-100%);
       pointer-events: none;
     }
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .slide picture,
-.slide picture img {
-  display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
 
+    .logo { width: 220px; margin-bottom: 20px; }
+    h1 { font-size: 3.5rem; letter-spacing: .2rem; }
+    p { font-size: 1.2rem; margin-top: 10px; }
+    .nav-arrow { font-size: 2rem; margin-top: 40px; color: #ccc; cursor: pointer; }
 
-    .slide-text {
-      color: #ccc;
-      font-size: 1.25rem;
-      margin-top: 20px;
+    #main-content {
+      display: none;
+      height: 100vh;
+      flex-direction: row;
+      position: relative;
+      overflow: hidden;
     }
-    .slide-subtext {
-      color: #aaa;
-      font-size: 1rem;
-      margin-top: 10px;
-      padding: 0 20px;
-    }
-    .read-more-button {
+    #main-content.visible { display: flex; }
+
+    .divider-line {
       position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: block;
-      margin: 20px auto 0;
-      padding: 10px 20px;
-      background-color: #444;
-      color: #fff;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 60vh;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+      background-size: 100% 200%;
+      animation: glow 3s ease-in-out infinite;
+      z-index: 0;
     }
-    .read-more-button:hover {
-      background-color: #666;
-    }
-    
-      #slideshow-section .slide:nth-of-type(2) picture img {
-  width: auto;         /* Tillader billedet at bestemme sin egen bredde */
-  max-width: 500px;     /* Eller en anden ønsket maksimum bredde */
-  display: block;       /* For at kunne centrere billedet */
-  margin: 0 auto;       /* Centrerer billedet inden for containeren */
-  object-fit: contain;  /* Sikrer at billedet bevarer proportionerne */
-}
-
-      
-      
-    /* Kontakt Sektion */
-    #contact-section {
-      background: #000;
-    }
-    #contact-form {
-      max-width: 600px;
-      width: 90%;
-      padding: 20px;
-      margin: auto;
-      background: #000;
-      border-radius: 6px;
-      color: #ccc;
-    }
-    #contact-form h1 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-    #contact-form p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-    }
-    #contact-form label {
-      display: block;
-      margin-top: 15px;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-    #contact-form input,
-    #contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0 15px;
-      border: 1px solid #555;
-      border-radius: 4px;
-      font-size: 1rem;
-      background-color: #222;
-      color: #ccc;
-    }
-    /* Tillader kun lodret resizing af textarea */
-    #contact-form textarea {
-      resize: vertical;
-    }
-    #contact-form button {
-      background-color: #444;
-      color: #fff;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 1rem;
-    }
-    #contact-form button:hover {
-      background-color: #666;
+    @keyframes glow {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
     }
 
-    @media (max-width: 768px) {
-      /* Container stables vertikalt */
-      .about-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-      }
-      
-      /* Ændrer grid-layout til 1 enkelt kolonne */
-      .text-columns {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        width: 100%;
-        text-align: center;
-      }
-      
-      /* Centrerer teksten */
-      .about-text {
-        width: 100%;
-        text-align: center;
-      }
-      
-      /* Justerer profilbilledet */
-      .about-image {
-        margin: 20px 0;
-      }
-      
-      .about-image .profile-img {
-        width: 80%;
-        max-width: 200px;
-        height: auto;
-        margin: 0 auto;
-      }
-      
-      /* Andre mobiltilpasninger */
-      .logo { width: 80%; }
-      .text-box h1 { font-size: 2.5rem; }
-      .text-box p { font-size: 0.9rem; }
-      .prev, .next { font-size: 1.5rem; padding: 8px; }
-      .slide-text { font-size: 1.1rem; }
-      .slide-subtext { font-size: 0.9rem; }
-      #contact-form h1 { font-size: 1.3rem; }
-      #contact-form p, 
-      #contact-form label, 
-      #contact-form input, 
-      #contact-form textarea, 
-      #contact-form button {
-        font-size: 0.9rem;
-      }
-      .slideshow-container {
-        width: 100%;
-        height: 400px;
-      }
+    /* SLIDESHOW */
+    #slideshow-section {
+      width: 50%; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1; overflow: hidden;
+    }
+    .slideshow-container {
+      position: relative; width: 100%; max-width: 600px;
+      padding: 20px; border-radius: 10px; min-height: 650px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: transparent;
+    }
+    .slide { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+    .slide.active { display: flex; }
+
+    .slide-text { font-size: 2rem; font-weight: bold; margin-bottom: 10px; }
+    .slide-subtext { font-size: 1.2rem; color: #aaa; line-height: 1.5; margin-bottom: 20px; }
+
+    .image-wrapper { height: 300px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
+    .image-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
+
+    .read-more-button { padding: 10px 20px; background: #444; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+    .prev, .next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.4); color: white;
+      padding: 10px; border-radius: 50%; cursor: pointer;
+      z-index: 2;
+    }
+    .prev { left: 0px; }
+    .next { right: 0px; }
+
+    /* OM MIG */
+    #about-section {
+      width: 50%; height: 100vh;
+      padding: 60px 20px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; font-size: 1.15rem;
+      z-index: 1; overflow-y: auto; overflow-x: hidden;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    #about-section::-webkit-scrollbar { display: none; }
+
+    .profile-img {
+      width: 240px; height: 240px;
+      object-fit: cover; object-position: center;
+      border-radius: 50%; margin-bottom: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+    form { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; max-width: 300px; width: 100%; }
+    input, textarea { padding: 8px; border: none; border-radius: 4px; width: 100%; }
+    button { padding: 10px; background: #444; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #main-content { flex-direction: column; overflow-y: auto; }
+      #slideshow-section, #about-section { width: 100%; height: auto; padding: 40px 20px; }
+      .divider-line { display: none; }
+      .prev, .next { right: 10px; }
     }
   </style>
 </head>
 <body>
-  <!-- Header Sektion -->
   <section id="header-section">
-    <div class="text-box">
-      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
-      <h1>P  O  R  T  F  O  L  I  O</h1>
-      <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
-    </div>
-    <a href="#about-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
-  </section>
-    
-  <!-- Om mig Sektion -->
-  <section id="about-section">
-    <div class="about-container">
-      <div class="about-text">
-        <div class="text-columns">
-          <!-- Kolonne 1: Om mig -->
-          <div class="column">
-            <h3>Om mig</h3>
-            <p>
-              Hej, jeg hedder Signe. <br>
-              Jeg er 27 år, bosat i Horsens sammen med min forlovede Michael, datter Emilie og vores hund Blacky. Til daglig læser jeg til bygningskonstruktør.
-            </p>
-          </div>
-          
-          <!-- Kolonne 2: Udannelse (timeline) -->
-          <div class="column">
-            <h3>Udannelse</h3>
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-date">2022 - nu</div>
-                <div class="timeline-title">Bygningskonstruktør</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">2018 - 2020</div>
-                <div class="timeline-title">Højere forberedelseseksamen</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">2013 - 2014</div>
-                <div class="timeline-title">10. Klasse</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">2002 . 2013</div>
-                <div class="timeline-title">9. KLASSE</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Kolonne 3: Software -->
-          <div class="column">
-            <h3>Software</h3>
-            <div class="competence-logos">
-              <div class="competence">
-                <img src="images/logo/revit.png" alt="Revit logo">
-              </div>
-              <div class="competence">
-                <img src="images/logo/ps.png" alt="Photoshop logo">
-              </div>
-              <div class="competence">
-                <img src="images/logo/365.png" alt="Officepakken logo">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Profilbillede -->
-      <div class="about-image">
-        <img src="images/profile.jpg" alt="Profilbillede af Signe" class="profile-img">
-      </div>
-    </div>
-    <a href="#header-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
-    <a href="#slideshow-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
+    <img src="images/logo.png" alt="Logo" class="logo" />
+    <h1>P O R T F O L I O</h1>
+    <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
+    <div class="nav-arrow" onclick="hideHeader()"><i class="lni lni-arrow-down"></i></div>
   </section>
 
-  <!-- Slideshow Sektion -->
-  <section id="slideshow-section">
-    <div class="slideshow-container">
-
-      <!-- Slide 1 -->
-      <div class="slide active">
-        <div class="slide-text">1. SEMESTER</div>
-        <div class="slide-subtext">
-Boligbyggeri <br>
-Der arbejdes med et tværfagligt projekt, hvor man både lærer at kommunikere, producere og projektere et konkret boligbyggeri. Undervisningen følger en problembaseret tilgang, der hjælper med at opbygge dine grundlæggende færdigheder inden for arkitektur, bygningskonstruktion, materialelære, statik, tekniske installationer, planlægning, kommunikation og IT. Det handler om at lære at arbejde både selvstændigt og i grupper og skabe et godt fundament for din videre uddannelse.
+  <div id="main-content">
+    <section id="slideshow-section">
+      <div class="slideshow-container">
+        <div class="slide active">
+          <div class="slide-text">5. SEMESTER</div>
+          <div class="slide-subtext">Igangværende (februar 2025 – juni 2025)<br>Fokus på renovering og forberedelse til praktik.</div>
+          <div class="image-wrapper"><img src="images/5sem.png" alt="5. Semester"></div>
+          <button class="read-more-button">Læs mere</button>
         </div>
-        <picture>
-          <img src="images/1sem.png" alt="1. Semester">
-        </picture>
-        <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
-      </div> 
-
-<!-- Slide 2 -->
-        
-      <div class="slide">
-        <div class="slide-text">2. SEMESTER</div>
-        <div class="slide-subtext">
-          Byggeri op til 2½ etage <br>
-Du fortsætter med et projektbaseret semester, men nu arbejdes der med et lidt mere komplekst byggeprojekt – et byggeri op til 2½ etage. Her lærer du om: organisation og virksomhedsforståelse, kommunikation og samarbejde, produktion og projektering. Semesteret forbereder dig på øget selvstændighed og giver et praktisk og teoretisk indsigt i, hvordan større bygninger planlægges og gennemføres.
+        <div class="slide">
+          <div class="slide-text">4. SEMESTER</div>
+          <div class="slide-subtext">Etageboligbyggeri over 3 etager<br>Tværfagligt projekt og specialisering i lokale fagelementer.</div>
+          <div class="image-wrapper"><img src="images/4sem.png" alt="4. Semester"></div>
+          <button class="read-more-button">Læs mere</button>
         </div>
-        <picture>
-          <img src="images/2sem.png" alt="2. Semester">
-        </picture>
-        <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
+        <div class="slide">
+          <div class="slide-text">3. SEMESTER</div>
+          <div class="slide-subtext">Erhverv og Præfabrikation<br>Projekt med fokus på industribyggeri og præfabrikerede elementer.</div>
+          <div class="image-wrapper"><img src="images/3sem.png" alt="3. Semester"></div>
+          <button class="read-more-button">Læs mere</button>
+        </div>
+        <div class="slide">
+          <div class="slide-text">2. SEMESTER</div>
+          <div class="slide-subtext">Byggeri op til 2½ etage<br>Fokus på selvstændighed, kommunikation og projektplanlægning.</div>
+          <div class="image-wrapper"><img src="images/2sem.png" alt="2. Semester"></div>
+          <button class="read-more-button">Læs mere</button>
+        </div>
+        <div class="slide">
+          <div class="slide-text">1. SEMESTER</div>
+          <div class="slide-subtext">Boligbyggeri<br>Grundlæggende færdigheder i konstruktion, materialelære og kommunikation.</div>
+          <div class="image-wrapper"><img src="images/1sem.png" alt="1. Semester"></div>
+          <button class="read-more-button">Læs mere</button>
+        </div>
+        <div class="prev" onclick="plusSlides(-1)">❮</div>
+        <div class="next" onclick="plusSlides(1)">❯</div>
       </div>
-      
-   <!-- Slide 3 -->
-      <div class="slide">
-        <div class="slide-text">3. SEMESTER</div>
-        <div class="slide-subtext">
-          Erhverv og Præfabrikation <br>
-I dette semester, der er starten på “professionalisering”, arbejdes der med et projekt, der fokuserer på industribyggeri og præfabrikerede elementer. Det dækker områder som virksomhedsforståelse, kommunikation, produktion og projektering – med vægt på, hvordan man designer og producerer industrialiserede bygninger. Derudover indgår et lokalt fagelement om innovation der hjælper dig med at tænke kreativt og forberede dig til tværfagligt samarbejde.
-        </div>
-        <picture>
-          <img src="images/3sem.png" alt="3. Semester">
-        </picture>
-        <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
-      </div>      
-
-<!-- Slide 4 -->
-      <div class="slide">
-        <div class="slide-text">4. SEMESTER</div>
-        <div class="slide-subtext">
-            Etageboligbyggeri over 3 etager <br>
-          I dette semester kombineres et nationalt fagelement med to lokale fagelementer. Det nationale fagelement handler om at arbejde med et tværfagligt projekt, hvor der designes og planlægges et byggeri i etageboligskala (over 3 etager) med fokus på kommunikation, produktion og projektering. De lokale fagelementer giver muligheden for at specialisere sig og fordybe sig i områder, der matcher ens fremtidige interesser.
-        </div>
-        <picture>
-          <img src="images/4sem.png" alt="4. Semester">
-        </picture>
-        <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
-      </div>
-
-      <!-- Slide 5 -->
-      <div class="slide">
-        <div class="slide-text">5. SEMESTER</div>
-        <div class="slide-subtext">
-          Igangværende (februar 2025 - juni 2025) <br>
-            Projekterende: Renovering <br>
-I dette semester arbejdes der med et projekt, der fokuserer på renovering af eksisterende bygninger. Det nationale fagelement er inddelt i egistrering og vurdering af eksisterende forhold, og projektering. Derudover vælges der to lokale fagelementer, der giver muligheden for at målrette uddannelsen yderligere. Der forberedes også på at finde en praktikplads til det næste semester, hvor man kommer i kontakt med det virkelige arbejdsmarked.
-        </div>
-        <picture>
-          <img src="images/5sem.png" alt="5. Semester">
-        </picture>
-        <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
-      </div>
-
-      <!-- Pil-navigation for slides -->
-      <a href="#" class="prev" onclick="plusSlides(-1); return false;">❮</a>
-      <a href="#" class="next" onclick="plusSlides(1); return false;">❯</a>
-    </div>
-    <a href="#about-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
-    <a href="#contact-section" class="nav-arrow down"><i class="lni lni-arrow-down"></i></a>
-  </section>
-  
-  <!-- Kontakt Sektion -->
-  <section id="contact-section">
-    <div id="contact-form">
-      <img src="images/logo.png" srcset="images/logo.png 1x, images/logo@2x.png 2x" alt="Logo" class="logo">
-      <h1>Kontakt</h1>
-      <p>Du kan komme i kontakt med mig ved at udfylde formularen nedenfor.</p>
+    </section>
+    <div class="divider-line"></div>
+    <section id="about-section">
+      <img src="images/profile.jpg" alt="Signe billede" class="profile-img" />
+      <h2>Om mig</h2>
+      <p>Mit navn er Signe, og jeg studerer til bygningskonstruktør. Jeg interesserer mig for renovering, detaljetegning og at gøre komplekst byggeri forståeligt. Jeg arbejder både kreativt og struktureret – og har hænderne godt plantet i praksis.</p>
+      <p>Jeg har Erfaring med programmer som Revit, AutoCAD, Bluebeam og MS Project.</p>
       <form action="https://formspree.io/f/xnqklrbr" method="POST">
-        <label for="email">Din email:</label>
-        <input type="email" name="email" required>
-        <label for="message">Besked:</label>
-        <textarea name="message" required></textarea>
+        <input type="email" name="email" placeholder="Din email" required />
+        <textarea name="message" placeholder="Din besked" rows="4" required></textarea>
         <button type="submit">Send</button>
       </form>
-    </div>
-    <a href="#slideshow-section" class="nav-arrow up"><i class="lni lni-arrow-up"></i></a>
-  </section>
+    </section>
+  </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // IntersectionObserver for at vise sektioner ved scroll
-      const sections = document.querySelectorAll("section");
-      const observerOptions = { threshold: 0.1 };
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-      
-      // Slideshow kode
-      let slideIndex = 0;
-      const slides = document.querySelectorAll('.slide');
-      function showSlide(index) {
-        if (index >= slides.length) { index = 0; }
-        if (index < 0) { index = slides.length - 1; }
-        slideIndex = index;
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === slideIndex);
-        });
-      }
-      window.plusSlides = function(n) { 
-        showSlide(slideIndex + n); 
-      }
-      
-      // "Læs mere" knapper med slide-up effekt
-      const readMoreButtons = document.querySelectorAll('.read-more-button');
-      readMoreButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-          event.preventDefault(); // Forhindrer standard navigation
-          const parentLink = this.parentElement; // <a> element
-          const href = parentLink.getAttribute('href');
-          // Tilføj slide-up klasse til body for at starte animationen
-          document.body.classList.add('slide-up');
-          // Vent 0.5 sekunder (animationens varighed) før navigation
-          setTimeout(() => {
-            window.location.href = href;
-          }, 500);
-        });
-      });
-    });
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    function showSlide(i) {
+      if (i >= slides.length) i = 0;
+      if (i < 0) i = slides.length - 1;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      slideIndex = i;
+    }
+    function plusSlides(n) { showSlide(slideIndex + n); }
+    function hideHeader() { document.getElementById('header-section').classList.add('hidden'); document.getElementById('main-content').classList.add('visible'); }
+    document.addEventListener('DOMContentLoaded', () => showSlide(0));
   </script>
 </body>
 </html>

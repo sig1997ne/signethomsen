@@ -104,17 +104,17 @@
       padding: 20px 10px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       text-align: center;
-      font-size: 1rem;
+      font-size: 0.95rem;
       z-index: 1;
       overflow: hidden;
     }
     .profile-img {
-      width: 180px; height: 180px;
+      width: 160px; height: 160px;
       object-fit: cover; object-position: center;
-      border-radius: 50%; margin-bottom: 10px;
+      border-radius: 50%; margin-bottom: 8px;
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
     #about-section h2 {
@@ -122,29 +122,81 @@
       font-size: 1.4rem;
     }
     #about-section p {
-      margin: 5px 0;
-      line-height: 1.3;
+      margin: 4px 0;
+      line-height: 1.4;
     }
-    #about-section form {
-      margin-top: 10px;
-      width: 100%; max-width: 260px;
-    }
-    #about-section input,
-    #about-section textarea {
-      padding: 6px;
-      font-size: 0.9rem;
+
+    /* Kontakt-knap som rund cirkel nede i højre hjørne */
+    #open-contact {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #555;
+      color: #fff;
       border: none;
-      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: #333;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%; max-width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      text-align: center;
+      position: relative;
+    }
+    .modal-logo {
+      width: 120px;
+      margin: 0 auto 10px;
+      display: block;
+    }
+    .modal h3 {
+      margin: 5px 0 15px;
+      font-size: 1.2rem;
+    }
+    .modal input,
+    .modal textarea {
       width: 100%;
-    }
-    #about-section button {
-      margin-top: 6px;
-      padding: 8px;
-      font-size: 0.9rem;
-      background: #444;
-      color: white;
+      padding: 6px;
+      margin: 8px 0;
       border: none;
       border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .modal button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      background: #555;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .modal .close-btn {
+      background: transparent;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 10px; right: 15px;
       cursor: pointer;
     }
 
@@ -152,9 +204,7 @@
     @media (max-width: 900px) {
       #main-content { flex-direction: column; overflow-y: auto; }
       #slideshow-section, #about-section {
-        width: 100%;
-        height: auto;
-        padding: 40px 20px;
+        width: 100%; height: auto; padding: 40px 20px;
       }
       .divider-line { display: none; }
       .prev, .next { right: 10px; }
@@ -190,7 +240,33 @@
           <div class="image-wrapper"><img src="images/4sem.png" alt="4. Semester"></div>
           <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
         </div>
-        <!-- yderligere slides... -->
+        <div class="slide">
+          <div class="slide-text">3. SEMESTER</div>
+          <div class="slide-subtext">
+            Erhverv og Præfabrikation<br>
+            Projekt med fokus på industribyggeri og præfabrikerede elementer.
+          </div>
+          <div class="image-wrapper"><img src="images/3sem.png" alt="3. Semester"></div>
+          <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
+        </div>
+        <div class="slide">
+          <div class="slide-text">2. SEMESTER</div>
+          <div class="slide-subtext">
+            Byggeri op til 2½ etage<br>
+            Fokus på selvstændighed, kommunikation og projektplanlægning.
+          </div>
+          <div class="image-wrapper"><img src="images/2sem.png" alt="2. Semester"></div>
+          <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
+        </div>
+        <div class="slide">
+          <div class="slide-text">1. SEMESTER</div>
+          <div class="slide-subtext">
+            Boligbyggeri<br>
+            Grundlæggende færdigheder i konstruktion, materialelære og kommunikation.
+          </div>
+          <div class="image-wrapper"><img src="images/1sem.png" alt="1. Semester"></div>
+          <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
+        </div>
         <div class="prev" onclick="plusSlides(-1)">❮</div>
         <div class="next" onclick="plusSlides(1)">❯</div>
       </div>
@@ -201,18 +277,26 @@
     <section id="about-section">
       <img src="images/profile.jpg" alt="Signe billede" class="profile-img" />
       <h2>Om mig</h2>
-      <p>
-        Mit navn er Signe, og jeg studerer til bygningskonstruktør. Jeg interesserer mig
-        for renovering, detaljetegning og at gøre komplekst byggeri forståeligt. Jeg
-        arbejder både kreativt og struktureret – og har hænderne godt plantet i praksis.
-      </p>
-      <p>Jeg har erfaring med programmer som Revit, AutoCAD, Bluebeam og MS Project.</p>
+      <p>Jeg er bygningskonstruktør-studerende med fokus på renovering og detaljetegning.</p>
+      <p>Erfaring: Revit, AutoCAD, Bluebeam &amp; MS Project.</p>
+    </section>
+  </div>
+
+  <!-- Kontakt-knap -->
+  <button id="open-contact"><i class="lni lni-envelope"></i></button>
+
+  <!-- Modal markup -->
+  <div class="modal-overlay" id="contact-modal">
+    <div class="modal">
+      <span class="close-btn" id="close-modal">&times;</span>
+      <img src="images/logo.png" alt="Logo" class="modal-logo" />
+      <h3>Kontakt mig</h3>
       <form action="https://formspree.io/f/xnqklrbr" method="POST">
         <input type="email" name="email" placeholder="Din email" required />
-        <textarea name="message" placeholder="Din besked" rows="4" required></textarea>
+        <textarea name="message" placeholder="Din besked" rows="3" required></textarea>
         <button type="submit">Send</button>
       </form>
-    </section>
+    </div>
   </div>
 
   <script>
@@ -229,7 +313,20 @@
       document.getElementById('header-section').classList.add('hidden');
       document.getElementById('main-content').classList.add('visible');
     }
-    document.addEventListener('DOMContentLoaded', () => showSlide(0));
+    document.getElementById('open-contact').addEventListener('click', () => {
+      document.getElementById('contact-modal').style.display = 'flex';
+    });
+    document.getElementById('close-modal').addEventListener('click', () => {
+      document.getElementById('contact-modal').style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('contact-modal')) {
+        document.getElementById('contact-modal').style.display = 'none';
+      }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      showSlide(0);
+    });
   </script>
 </body>
 </html>

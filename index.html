@@ -40,13 +40,16 @@
     p { font-size: 1.2rem; margin-top: 10px; }
     .nav-arrow { font-size: 2rem; margin-top: 40px; color: #ccc; cursor: pointer; }
 
-    #main-content {
-      display: none;
-      height: 100vh;
-      flex-direction: row;
-      position: relative;
-      overflow: hidden;
-    }
+#main-content {
+  display: none;
+  height: 100vh;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+
+  /* tilføj: */
+  align-items: center;
+}
     #main-content.visible { display: flex; }
 
     .divider-line {
@@ -99,15 +102,26 @@
     .next { right: 10px; }
 
     /* OM MIG */
-    #about-section {
-      width: 50%; height: 100vh;
-      padding: 60px 20px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; font-size: 1.15rem;
-      z-index: 1; overflow-y: auto; overflow-x: hidden;
-      scrollbar-width: none; -ms-overflow-style: none;
-    }
+#about-section {
+  width: 50%;
+  /* tidligere: height: 100vh; */
+  height: 60vh;
+
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.15rem;
+  z-index: 1;
+
+  /* beholder evt. scroll hvis indholdet bliver for langt */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
     #about-section::-webkit-scrollbar { display: none; }
 
     .profile-img {

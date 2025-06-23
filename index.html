@@ -9,49 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
   <style>
-    /* GLOBAL RESET & BACKGROUND */
     * { box-sizing: border-box; }
-    html, body {
-      margin: 0; padding: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #222933;
-      color: #ccc;
-      overflow: hidden;
-      height: 100%;
-    }
-    body { overscroll-behavior: none; }
+    html, body { margin:0; padding:0; font-family:'Open Sans',sans-serif; background:#222933; color:#ccc; overflow-x:hidden; height:100%; }
+    body { overflow-y:auto; }
 
-    /* HEADER */
-    #header-section {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100vh;
-      background: linear-gradient(to bottom, #1a1a1a, #222933);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      z-index: 999;
-      transition: opacity .6s, transform .6s;
-      overflow: hidden;
-    }
-    #header-section.hidden {
-      opacity: 0; transform: translateY(-100%);
-      pointer-events: none;
-    }
-    .logo { width: 400px; margin-bottom: 20px; }
-    h1 { font-size: 3.5rem; letter-spacing: .2rem; }
-    p { font-size: 1.2rem; margin-top: 10px; }
-    .nav-arrow { font-size: 2rem; margin-top: 40px; color: #ccc; cursor: pointer; }
+    /* Header */
+    #header-section { position:fixed; top:0; left:0; width:100%; height:100vh; padding:40px 20px; background:linear-gradient(to bottom,#1a1a1a,#222933); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity .6s,transform .6s; z-index:999; }
+    #header-section.hidden { opacity:0; transform:translateY(-100%); pointer-events:none; }
+    .logo { width:60%; max-width:300px; margin-bottom:20px; }
+    h1 { font-size:2.5rem; letter-spacing:.2rem; margin:0; text-align:center; }
+    p.subline { font-size:1rem; margin-top:10px; text-align:center; }
+    .nav-arrow { font-size:2rem; margin-top:30px; color:#ccc; cursor:pointer; }
 
-    /* MAIN CONTENT & DIVIDER */
-    #main-content {
-      display: none;
-      height: 100vh;
-      flex-direction: row;
-      position: relative;
-      overflow: hidden;
-      align-items: center;
-    }
-    #main-content.visible { display: flex; }
-
+    /* Main Content */
+    #main-content { display:none; height:100vh; width:100%; flex-direction:row; position:relative; }
+    #main-content.visible { display:flex; }
     .divider-line {
       position: absolute;
       top: 50%; left: 50%;
@@ -69,247 +41,149 @@
       100% { background-position: 0% 0%; }
     }
 
-    /* SLIDESHOW */
-    #slideshow-section {
-      width: 50%; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1; overflow: hidden;
-    }
+    /* Slideshow */
+    #slideshow-section, #about-section { width:50%; height:100vh; padding:20px; display:flex; align-items:center; justify-content:center; }
     .slideshow-container {
-      position: relative; width: 100%; max-width: 600px;
-      padding: 20px; border-radius: 10px; min-height: 650px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: transparent;
-    }
-    .slide { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
-    .slide.active { display: flex; }
-    .slide-text { font-size: 2rem; font-weight: bold; margin-bottom: 10px; }
-    .slide-subtext { font-size: 1.2rem; color: #aaa; line-height: 1.5; margin-bottom: 20px; }
-    .image-wrapper { height: 300px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
-    .image-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
-    .read-more-button { padding: 10px 20px; background: #444; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    .prev, .next {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.4); color: white;
-      padding: 10px; border-radius: 50%; cursor: pointer;
-      z-index: 2;
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    /* ABOUT SECTION (OM MIG) */
-    #about-section {
-      width: 50%;
-      height: 60vh;
-      padding: 20px 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      text-align: center;
-      font-size: 0.95rem;
-      z-index: 1;
-      overflow: hidden;
-    }
-    .profile-img {
-      width: 160px; height: 160px;
-      object-fit: cover; object-position: center;
-      border-radius: 50%; margin-bottom: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    }
-    #about-section h2 {
-      margin: 5px 0;
-      font-size: 1.4rem;
-    }
-    #about-section p {
-      margin: 4px 0;
-      line-height: 1.4;
-
-      /* Begræns bredden og centrerer teksten */
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Erfaring: logoer i stedet for tekst */
-    .experience-logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .exp-logo {
-      width: 40px;
-      height: auto;
-      display: inline-block;
-    }
-
-    /* Kontakt-knap som rund cirkel nede i højre hjørne */
-    #open-contact {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #555;
-      color: #fff;
-      border: none;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      touch-action: pan-y;
+      /* Flex layout to align arrows and slide content */
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 1001;
     }
-
-    /* Modal styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.75);
+    .slide {
       display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal {
-      background: #333;
-      padding: 20px;
-      border-radius: 8px;
-      width: 90%; max-width: 300px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      width: 100%;
       text-align: center;
       position: relative;
     }
-    .modal-logo {
-      width: 120px;
-      margin: 0 auto 10px;
-      display: block;
-    }
-    .modal h3 {
-      margin: 5px 0 15px;
-      font-size: 1.2rem;
-    }
-    .modal input,
-    .modal textarea {
-      width: 100%;
-      padding: 6px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-    .modal button {
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      background: #555;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-    .modal .close-btn {
-      background: transparent;
-      font-size: 1.2rem;
+    .slide.active { display:block; }
+    .slide-text { font-size:1.8rem; font-weight:bold; margin-bottom:10px; }
+    .slide-subtext { font-size:1rem; color:#aaa; line-height:1.4; margin-bottom:15px; }
+    .image-wrapper img { width:100%; height:auto; border-radius:8px; margin-bottom:15px; }
+    .dots { margin-bottom:15px; }
+    .dot { display:inline-block; width:12px; height:12px; margin:0 5px; background:#555; border-radius:50%; cursor:pointer; }
+    .dot.active { background:#fff; }
+    .read-more-button { display:block; margin:0 auto; padding:10px 20px; background:#444; color:#fff; border:none; border-radius:4px; cursor:pointer; }
+    .navigation { text-align:center; margin-top:15px; }
+    .prev, .next {
       position: absolute;
-      top: 10px; right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      padding: 10px;
+      border-radius: 50%;
       cursor: pointer;
+      user-select: none;
+      z-index: 2;
     }
+    .prev { left: -20px; /* Flyttet ud til venstre */ }
+    .next { right: -20px; /* Flyttet ud til højre */ }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      #main-content { flex-direction: column; overflow-y: auto; }
-      #slideshow-section, #about-section {
-        width: 100%; height: auto; padding: 40px 20px;
-      }
-      .divider-line { display: none; }
-      .prev, .next { right: 10px; }
-    }
+    /* About Section */
+    #about-section { flex-direction:column; text-align:center; }
+    .profile-img { width:140px; height:140px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 10px rgba(0,0,0,0.4); }
+    #about-section h2 { font-size:1.5rem; margin:10px 0; }
+    #about-section p { font-size:1rem; line-height:1.5; max-width:420px; margin-bottom:20px; }
+    .experience-logos { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; }
+    .exp-logo { width:36px; }
+
+    /* Contact Button & Modal */
+    #open-contact { position:fixed; bottom:15px; right:15px; width:40px; height:40px; border-radius:50%; background:#555; color:#fff; border:none; display:flex; align-items:center; justify-content:center; font-size:1.2rem; cursor:pointer; z-index:1001; }
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; z-index:2000; }
+    .modal { background:#333; padding:20px; border-radius:8px; width:90%; max-width:320px; position:relative; text-align:center; }
+    .modal-logo { width:100px; margin:0 auto 10px; display:block; }
+    .modal input, .modal textarea { width:100%; padding:8px; margin:8px 0; border:none; border-radius:4px; }
+    .modal button { width:100%; padding:10px; border-radius:4px; }
+    .close-btn { position:absolute; top:10px; right:15px; font-size:1.2rem; cursor:pointer; }
+
+    /* Responsive */
+    @media(max-width:900px){#main-content{flex-direction:column;}#slideshow-section,#about-section{width:100%;height:auto;}.divider-line{display:none;}}
+    @media(max-width:600px){h1{font-size:2rem;}.slide-text{font-size:1.5rem;}.slide-subtext{font-size:0.9rem;}.read-more-button{width:100%;}}
+    @media(max-width:400px){.nav-arrow{font-size:1.5rem;}.logo{max-width:80%;}#open-contact{width:35px;height:35px;font-size:1rem;}}
   </style>
 </head>
 <body>
   <section id="header-section">
     <img src="images/logo.png" alt="Logo" class="logo" />
-    <h1>P O R T F O L I O</h1>
-    <p>BYGNINGSKONSTRUKTØR STUDERENDE</p>
-    <div class="nav-arrow" onclick="hideHeader()"><i class="lni lni-arrow-down"></i></div>
+    <h1>PORTFOLIO</h1>
+    <p class="subline">Bygningskonstruktør studerende</p>
+    <div class="nav-arrow"><i class="lni lni-arrow-down"></i></div>
   </section>
 
   <div id="main-content">
     <section id="slideshow-section">
-      <div class="slideshow-container">
-        <!-- slides som før… -->
+      <div class="slideshow-container" id="slideshow">
+        <!-- Slides with arrows within each slide -->
         <div class="slide active">
           <div class="slide-text">5. SEMESTER</div>
-          <div class="slide-subtext">
-            Igangværende (februar 2025 – juni 2025)<br>
-            Fokus på renovering og forberedelse til praktik.
-          </div>
+          <div class="slide-subtext">Igangværende (februar 2025 – juni 2025)<br>Fokus på renovering og forberedelse til praktik.</div>
+          <div class="prev">❮</div>
           <div class="image-wrapper"><img src="images/5sem.png" alt="5. Semester"></div>
+          <div class="next">❯</div>
+          <div class="dots"></div>
           <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
         </div>
-        <!-- … øvrige slides … -->
-<div class="slide">
+        <div class="slide">
           <div class="slide-text">4. SEMESTER</div>
           <div class="slide-subtext">Etageboligbyggeri over 3 etager<br>Tværfagligt projekt og specialisering i lokale fagelementer.</div>
+          <div class="prev">❮</div>
           <div class="image-wrapper"><img src="images/4sem.png" alt="4. Semester"></div>
+          <div class="next">❯</div>
+          <div class="dots" id="dots"></div>
           <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
         </div>
         <div class="slide">
           <div class="slide-text">3. SEMESTER</div>
-          <div class="slide-subtext">Erhverv og Præfabrikation<br>Projekt med fokus på industribyggeri og præfabrikerede elementer.</div>
+          <div class="slide-subtext">Erhverv og præfabrikation<br>Projekt med fokus på industribyggeri og præfabrikerede elementer.</div>
+          <div class="prev">❮</div>
           <div class="image-wrapper"><img src="images/3sem.png" alt="3. Semester"></div>
+          <div class="next">❯</div>
+          <div class="dots" id="dots"></div>
           <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
         </div>
         <div class="slide">
           <div class="slide-text">2. SEMESTER</div>
           <div class="slide-subtext">Byggeri op til 2½ etage<br>Fokus på selvstændighed, kommunikation og projektplanlægning.</div>
+          <div class="prev">❮</div>
           <div class="image-wrapper"><img src="images/2sem.png" alt="2. Semester"></div>
+          <div class="next">❯</div>
+          <div class="dots" id="dots"></div>
           <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
         </div>
         <div class="slide">
           <div class="slide-text">1. SEMESTER</div>
           <div class="slide-subtext">Boligbyggeri<br>Grundlæggende færdigheder i konstruktion, materialelære og kommunikation.</div>
+          <div class="prev">❮</div>
           <div class="image-wrapper"><img src="images/1sem.png" alt="1. Semester"></div>
+          <div class="next">❯</div>
+          <div class="dots" id="dots"></div>
           <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
         </div>
-        
-        <div class="prev" onclick="plusSlides(-1)">❮</div>
-        <div class="next" onclick="plusSlides(1)">❯</div>
       </div>
     </section>
-
     <div class="divider-line"></div>
-
     <section id="about-section">
       <img src="images/profile.jpg" alt="Signe billede" class="profile-img" />
       <h2>Om mig</h2>
-      <p>
-        Jeg læser til bygningskonstruktør på 6. semester på VIA University College, hvor jeg starter i praktik hos RUM 04.08.2025, og hvor jeg særligt interesserer mig for den digitale del af byggeriet. Blandt andet Revit og plugins som Dynamo, Lightning mm. Jeg kan godt lide at fordybe mig i løsninger, der gør hverdagen smartere og mere effektiv.
-      </p>
-
-      <!-- Erfaring med logoer i stedet for tekst -->
+      <p>Jeg læser til bygningskonstruktør på 6. semester på VIA University College, hvor jeg starter i praktik hos RUM d. 04.08.2025. Jeg interesserer mig særligt for den digitale del af byggeriet, herunder Revit, Dynamo og andre plugins som Lightning. Jeg elsker at fordybe mig i løsninger, der gør hverdagen smartere og mere effektiv.</p>
       <div class="experience-logos">
-        <img src="images/logo/revit.png"    alt="Revit"           class="exp-logo" />
-        <img src="images/logo/Dynamo.png"   alt="Dynamo"          class="exp-logo" />
-        <img src="images/logo/Bluebeam.png" alt="Bluebeam"        class="exp-logo" />
-        <img src="images/logo/office.png"   alt="Office-pakken"   class="exp-logo" />
-        <img src="images/logo/photoshop.png" alt="Photoshop"       class="exp-logo" />
+        <img src="images/logo/revit.png" alt="Revit" class="exp-logo" />
+        <img src="images/logo/Dynamo.png" alt="Dynamo" class="exp-logo" />
+        <img src="images/logo/Bluebeam.png" alt="Bluebeam" class="exp-logo" />
+        <img src="images/logo/office.png" alt="Office-pakken" class="exp-logo" />
+        <img src="images/logo/photoshop.png" alt="Photoshop" class="exp-logo" />
       </div>
     </section>
   </div>
 
-  <!-- Kontakt-knap -->
   <button id="open-contact"><i class="lni lni-envelope"></i></button>
-
-  <!-- Modal markup -->
   <div class="modal-overlay" id="contact-modal">
     <div class="modal">
-      <span class="close-btn" id="close-modal">&times;</span>
+      <span class="close-btn" id="close-modal">×</span>
       <img src="images/logo.png" alt="Logo" class="modal-logo" />
       <h3>Kontakt mig</h3>
       <form action="https://formspree.io/f/xnqklrbr" method="POST">
@@ -321,32 +195,70 @@
   </div>
 
   <script>
-    let slideIndex = 0;
+    // Header
+    const header = document.getElementById('header-section');
+    const main = document.getElementById('main-content');
+    document.querySelector('.nav-arrow').addEventListener('click', () => {
+      header.classList.add('hidden');
+      main.classList.add('visible');
+    });
+
+    // Slideshow and Dots per slide
     const slides = document.querySelectorAll('.slide');
-    function showSlide(i) {
-      if (i >= slides.length) i = 0;
-      if (i < 0) i = slides.length - 1;
-      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-      slideIndex = i;
+    let slideIndex = 0;
+
+    // Setup dots for each slide
+    slides.forEach((slide, idx) => {
+      const dotsContainer = slide.querySelector('.dots');
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => showSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      // Prev/Next in each slide
+      slide.querySelector('.prev').addEventListener('click', () => showSlide(slideIndex - 1));
+      slide.querySelector('.next').addEventListener('click', () => showSlide(slideIndex + 1));
+    });
+
+    function showSlide(n) {
+      slideIndex = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === slideIndex);
+        const dots = s.querySelectorAll('.dot');
+        dots.forEach((d, di) => d.classList.toggle('active', di === slideIndex));
+      });
     }
-    function plusSlides(n) { showSlide(slideIndex + n); }
-    function hideHeader() {
-      document.getElementById('header-section').classList.add('hidden');
-      document.getElementById('main-content').classList.add('visible');
-    }
+
+    // Touch swipe on container
+    const slideshowContainer = document.getElementById('slideshow');
+    let startX = 0;
+    slideshowContainer.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    slideshowContainer.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (diff > 50) showSlide(slideIndex - 1);
+      else if (diff < -50) showSlide(slideIndex + 1);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => showSlide(0));
+
+    // Contact modal
+    const arrows = document.querySelectorAll('.prev, .next');
     document.getElementById('open-contact').addEventListener('click', () => {
       document.getElementById('contact-modal').style.display = 'flex';
+      // Hide slideshow arrows when modal is open
+      arrows.forEach(el => el.style.display = 'none');
     });
     document.getElementById('close-modal').addEventListener('click', () => {
       document.getElementById('contact-modal').style.display = 'none';
+      // Restore slideshow arrows when modal is closed
+      arrows.forEach(el => el.style.display = 'block');
     });
-    window.addEventListener('click', (e) => {
-      if (e.target === document.getElementById('contact-modal')) {
-        document.getElementById('contact-modal').style.display = 'none';
+    window.addEventListener('click', e => {
+      if (e.target.id === 'contact-modal') {
+        e.target.style.display = 'none';
+        arrows.forEach(el => el.style.display = 'block');
       }
-    });
-    document.addEventListener('DOMContentLoaded', () => {
-      showSlide(0);
     });
   </script>
 </body>

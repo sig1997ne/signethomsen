@@ -3,149 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mit Filgalleri - 3. SEMESTER</title>
+  <title>3. SEMESTER - PDF Galleri</title>
   <style>
+    /* Base styles */
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
       color: #333;
     }
     header {
-      position: relative;
+      background-color: #222933;
       padding: 15px 20px;
-      text-align: center;
-        background: #222933;
-        filter: grayscale(100%);
+      border-bottom: 1px solid #222933;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    header img {
+      height: 60px;
+      margin-right: 10px;
     }
     header h1 {
+      font-size: 1.5rem;
       margin: 0;
-      font-size: 1.8em;
-        color: #fff;
-        
     }
-    .back-button {
-      position: absolute;
-      left: 20px;
-      top: 15px;
-      padding: 8px 15px;
-      background-color: #222933;
+    button {
+      background-color: #333;
       color: #fff;
       border: none;
+      padding: 8px 16px;
       border-radius: 4px;
-      font-size: 1em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .back-button:hover {
-      background-color: #222933;
-    }
-    .header-image {
+      font-size: 1rem;
       margin-top: 10px;
-      max-width: 20%;
-      height: auto;
     }
-    /* Sektion for 3 udvalgte elementer */
-    .featured {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
+    button:hover {
+      background-color: #555;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
-      background-color: #222933;
     }
-    .featured-item {
-      background-color: #222933;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 30%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
     }
-    .featured-item img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .grade {
+      font-style: italic;
+      color: #666;
+      margin: 0 0 20px 0;
     }
-    .featured-item textarea {
-      border: none;
-      padding: 10px;
-      box-sizing: border-box;
-      border-top: 1px solid #ddd;
-      resize: vertical;
-      font-family: inherit;
-    }
-    .gallery {
+    .grid-preview {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      padding: 20px;
-    background: #222933;
-        filter: grayscale(100%);
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
     }
-    .gallery-item {
-      background-color: #222933;
-      border: 1px solid #ddd;
+    .grid-preview a {
+      display: block;
+      text-align: center;
+    }
+    .grid-preview img {
+      width: 100%;
+      height: auto;
       border-radius: 4px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 550px;
-      overflow: hidden;
-    }
-    .gallery-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    .gallery-item object {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: #222933;
-    }
-    .modal-content {
-      margin: auto;
       display: block;
-      max-width: 90%;
-      max-height: 80%;
-      animation: zoom 0.6s;
     }
-    @keyframes zoom {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
+    /* Typography adjustments */
+    h2, .grade, button, header h1 {
+      padding-left: 10px;
+      padding-right: 10px;
     }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: color 0.3s ease;
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      header {
+        justify-content: center;
+      }
+      header button {
+        margin: 10px 0 0;
+      }
     }
-    .close:hover {
-      color: #bbb;
+    @media (max-width: 480px) {
+      header img {
+        height: 50px;
+      }
+      header h1 {
+        font-size: 1.25rem;
+      }
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <button class="back-button" onclick="window.history.back()">Tilbage</button>
-    <h1>3. SEMESTER</h1>
-    <img src="images/3sem.png" alt="Header Image" class="header-image">
+    <div style="display: flex; align-items: center;">
+      <img src="images/3sem.png" alt="Logo">
+      <h1>3. SEMESTER</h1>
+    </div>
+    <button onclick="window.history.back()">Tilbage</button>
   </header>
+  <main>
+    <section>
 
   <!-- Dit eksisterende galleri -->
   <div class="gallery">
@@ -217,63 +182,10 @@
     </div>
   </div>
       
-  <!-- Modal til forstørret visning -->
-  <div id="modal" class="modal">
-    <span class="close">&times;</span>
-    <div id="modal-content-container"></div>
-  </div>
+    </div>
 
-  <script>
-    const modal = document.getElementById("modal");
-    const modalContentContainer = document.getElementById("modal-content-container");
-    const closeBtn = document.querySelector(".close");
-
-    // Funktion til at rydde modalens indhold
-    function clearModalContent() {
-      modalContentContainer.innerHTML = "";
-    }
-
-    // Tilføj klik-event til alle galleriets elementer
-    const galleryItems = document.querySelectorAll(".gallery-item");
-    galleryItems.forEach(item => {
-      item.addEventListener("click", function() {
-        const type = this.getAttribute("data-type");
-        const src = this.getAttribute("data-src");
-        clearModalContent();
-        modal.style.display = "block";
-
-        if (type === "pdf") {
-          // Opret et <object>-element for PDF-filen
-          const objectEl = document.createElement("object");
-          objectEl.setAttribute("data", src);
-          objectEl.setAttribute("type", "application/pdf");
-          objectEl.style.width = "100%";
-          objectEl.style.height = "80vh";
-          objectEl.innerHTML = '<p>Din browser understøtter ikke visning af PDF-filer. <a href="' + src + '">Download PDF</a></p>';
-          modalContentContainer.appendChild(objectEl);
-        } else {
-          // Opret et <img>-element for billeder
-          const imgEl = document.createElement("img");
-          imgEl.src = src;
-          imgEl.className = "modal-content";
-          modalContentContainer.appendChild(imgEl);
-        }
-      });
-    });
-
-    // Luk modal ved klik på krydset
-    closeBtn.addEventListener("click", function() {
-      modal.style.display = "none";
-      clearModalContent();
-    });
-
-    // Luk modal ved klik uden for indholdet
-    modal.addEventListener("click", function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-        clearModalContent();
-      }
-    });
-  </script>
+    </section>
+  </main>
 </body>
 </html>
+

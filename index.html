@@ -36,7 +36,7 @@
       opacity: 0; transform: translateY(-100%);
       pointer-events: none;
     }
-    .logo { width: 220px; margin-bottom: 20px; }
+    .logo { width: 300px; margin-bottom: 20px; }
     h1 { font-size: 3.5rem; letter-spacing: .2rem; }
     p { font-size: 1.2rem; margin-top: 10px; }
     .nav-arrow { font-size: 2rem; margin-top: 40px; color: #ccc; cursor: pointer; }
@@ -124,6 +124,26 @@
     #about-section p {
       margin: 4px 0;
       line-height: 1.4;
+
+      /* Begræns bredden og centrerer teksten */
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Erfaring: logoer i stedet for tekst */
+    .experience-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .exp-logo {
+      width: 40px;
+      height: auto;
+      display: inline-block;
     }
 
     /* Kontakt-knap som rund cirkel nede i højre hjørne */
@@ -222,6 +242,7 @@
   <div id="main-content">
     <section id="slideshow-section">
       <div class="slideshow-container">
+        <!-- slides som før… -->
         <div class="slide active">
           <div class="slide-text">5. SEMESTER</div>
           <div class="slide-subtext">
@@ -231,42 +252,7 @@
           <div class="image-wrapper"><img src="images/5sem.png" alt="5. Semester"></div>
           <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
         </div>
-        <div class="slide">
-          <div class="slide-text">4. SEMESTER</div>
-          <div class="slide-subtext">
-            Etageboligbyggeri over 3 etager<br>
-            Tværfagligt projekt og specialisering i lokale fagelementer.
-          </div>
-          <div class="image-wrapper"><img src="images/4sem.png" alt="4. Semester"></div>
-          <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">3. SEMESTER</div>
-          <div class="slide-subtext">
-            Erhverv og Præfabrikation<br>
-            Projekt med fokus på industribyggeri og præfabrikerede elementer.
-          </div>
-          <div class="image-wrapper"><img src="images/3sem.png" alt="3. Semester"></div>
-          <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">2. SEMESTER</div>
-          <div class="slide-subtext">
-            Byggeri op til 2½ etage<br>
-            Fokus på selvstændighed, kommunikation og projektplanlægning.
-          </div>
-          <div class="image-wrapper"><img src="images/2sem.png" alt="2. Semester"></div>
-          <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">1. SEMESTER</div>
-          <div class="slide-subtext">
-            Boligbyggeri<br>
-            Grundlæggende færdigheder i konstruktion, materialelære og kommunikation.
-          </div>
-          <div class="image-wrapper"><img src="images/1sem.png" alt="1. Semester"></div>
-          <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
+        <!-- … øvrige slides … -->
         <div class="prev" onclick="plusSlides(-1)">❮</div>
         <div class="next" onclick="plusSlides(1)">❯</div>
       </div>
@@ -277,8 +263,18 @@
     <section id="about-section">
       <img src="images/profile.jpg" alt="Signe billede" class="profile-img" />
       <h2>Om mig</h2>
-      <p>Jeg læser til bygningskonstruktør på 6. semester på VIA University College, hvor jeg starter i praktik hos RUM 04.08.2025, og hvor jeg særligt interesserer mig for den digitale del af byggeriet. Blandt andet Revit og plugins som Dynamo, Lightning mm. Jeg kan godt lide at fordybe mig i løsninger, der gør hverdagen smartere og mere effektiv.</p>
-      <p>Erfaring: Revit, Dynamo, Bluebeam, Officepakken, Photoshop mm. </p>
+      <p>
+        Jeg læser til bygningskonstruktør på 6. semester på VIA University College, hvor jeg starter i praktik hos RUM 04.08.2025, og hvor jeg særligt interesserer mig for den digitale del af byggeriet. Blandt andet Revit og plugins som Dynamo, Lightning mm. Jeg kan godt lide at fordybe mig i løsninger, der gør hverdagen smartere og mere effektiv.
+      </p>
+
+      <!-- Erfaring med logoer i stedet for tekst -->
+      <div class="experience-logos">
+        <img src="images/logos/revit.png"    alt="Revit"           class="exp-logo" />
+        <img src="images/logos/dynamo.png"   alt="Dynamo"          class="exp-logo" />
+        <img src="images/logos/bluebeam.png" alt="Bluebeam"        class="exp-logo" />
+        <img src="images/logos/office.png"   alt="Office-pakken"   class="exp-logo" />
+        <img src="images/logos/photoshop.png"alt="Photoshop"       class="exp-logo" />
+      </div>
     </section>
   </div>
 

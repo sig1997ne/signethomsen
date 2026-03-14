@@ -1,265 +1,1287 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signes Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signe Thomsen Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
-    html, body { margin:0; padding:0; font-family:'Open Sans',sans-serif; background:#222933; color:#ccc; overflow-x:hidden; height:100%; }
-    body { overflow-y:auto; }
-
-    /* Header */
-    #header-section { position:fixed; top:0; left:0; width:100%; height:100vh; padding:40px 20px; background:linear-gradient(to bottom,#1a1a1a,#222933); display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity .6s,transform .6s; z-index:999; }
-    #header-section.hidden { opacity:0; transform:translateY(-100%); pointer-events:none; }
-    .logo { width:60%; max-width:300px; margin-bottom:20px; }
-    h1 { font-size:2.5rem; letter-spacing:.2rem; margin:0; text-align:center; }
-    p.subline { font-size:1rem; margin-top:10px; text-align:center; }
-    .nav-arrow { font-size:2rem; margin-top:30px; color:#ccc; cursor:pointer; }
-
-    /* Main Content */
-    #main-content { display:none; height:100vh; width:100%; flex-direction:row; position:relative; }
-    #main-content.visible { display:flex; }
-    .divider-line {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 60vh;
-      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
-      background-size: 100% 200%;
-      animation: glow 3s ease-in-out infinite;
-      z-index: 0;
-    }
-    @keyframes glow {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 0% 100%; }
-      100% { background-position: 0% 0%; }
+    * {
+      box-sizing: border-box;
     }
 
-    /* Slideshow */
-    #slideshow-section, #about-section { width:50%; height:100vh; padding:20px; display:flex; align-items:center; justify-content:center; }
-    .slideshow-container {
+    html, body {
+      margin: 0;
+      padding: 0;
       width: 100%;
-      max-width: 600px;
-      position: relative;
-      touch-action: pan-y;
-      /* Flex layout to align arrows and slide content */
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f2ec;
+      color: #171717;
+      overflow: hidden;
+    }
+
+    :root {
+      --muted: #686159;
+      --line: rgba(0, 0, 0, 0.12);
+      --line-strong: rgba(0, 0, 0, 0.24);
+      --max: 1380px;
+      --ease: cubic-bezier(.77, 0, .18, 1);
+      --blue: #3b82f6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .logo {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      height: 42px;
+      width: auto;
+      z-index: 230;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 26px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 240;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0;
     }
-    .slide {
-      display: none;
+
+    .menu-btn span {
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background: #171717;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+
+    .menu-btn span:nth-child(1) { transform: translateY(-6px); }
+    .menu-btn span:nth-child(2) { transform: translateY(0); }
+    .menu-btn span:nth-child(3) { transform: translateY(6px); }
+
+    .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { opacity: 0; }
+    .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 180;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: rgba(250, 248, 243, 0.98);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid var(--line);
+      padding: 92px 34px 34px;
+      transition: right .34s ease;
+      z-index: 220;
+    }
+
+    .menu.open {
+      right: 0;
+    }
+
+    .menu-title {
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .18rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .menu button {
+      display: block;
       width: 100%;
-      text-align: center;
+      background: none;
+      border: none;
+      padding: 0 0 18px;
+      margin: 0 0 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.08rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      color: #171717;
+    }
+
+    #main-content {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .horizontal-sections {
+      display: flex;
+      width: 600vw;
+      height: 100vh;
+      transition: transform .95s var(--ease);
+      will-change: transform;
+    }
+
+    .panel {
+      width: 100vw;
+      height: 100vh;
+      flex: 0 0 100vw;
+      padding: 92px 7vw 46px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
-    .slide.active { display:block; }
-    .slide-text { font-size:1.8rem; font-weight:bold; margin-bottom:10px; }
-    .slide-subtext { font-size:1rem; color:#aaa; line-height:1.4; margin-bottom:15px; }
-    .image-wrapper img { width:100%; height:auto; border-radius:8px; margin-bottom:15px; }
-    .dots { margin-bottom:15px; }
-    .dot { display:inline-block; width:12px; height:12px; margin:0 5px; background:#555; border-radius:50%; cursor:pointer; }
-    .dot.active { background:#fff; }
-    .read-more-button { display:block; margin:0 auto; padding:10px 20px; background:#444; color:#fff; border:none; border-radius:4px; cursor:pointer; }
-    .navigation { text-align:center; margin-top:15px; }
-    .prev, .next {
+
+    .panel::before {
+      content: '';
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.4);
-      color: #fff;
-      padding: 10px;
-      border-radius: 50%;
-      cursor: pointer;
-      user-select: none;
-      z-index: 2;
+      inset: 18px;
+      border: 1px solid var(--line);
+      pointer-events: none;
     }
-    .prev { left: -20px; /* Flyttet ud til venstre */ }
-    .next { right: -20px; /* Flyttet ud til højre */ }
 
-    /* About Section */
-    #about-section { flex-direction:column; text-align:center; }
-    .profile-img { width:140px; height:140px; border-radius:50%; object-fit:cover; margin-bottom:15px; box-shadow:0 0 10px rgba(0,0,0,0.4); }
-    #about-section h2 { font-size:1.5rem; margin:10px 0; }
-    #about-section p { font-size:1rem; line-height:1.5; max-width:420px; margin-bottom:20px; }
-    .experience-logos { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; }
-    .exp-logo { width:36px; }
+    .panel-inner {
+      width: 100%;
+      max-width: var(--max);
+      position: relative;
+      z-index: 1;
+    }
 
-    /* Contact Button & Modal */
-    #open-contact { position:fixed; bottom:15px; right:15px; width:40px; height:40px; border-radius:50%; background:#555; color:#fff; border:none; display:flex; align-items:center; justify-content:center; font-size:1.2rem; cursor:pointer; z-index:1001; }
-    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); display:none; align-items:center; justify-content:center; z-index:2000; }
-    .modal { background:#333; padding:20px; border-radius:8px; width:90%; max-width:320px; position:relative; text-align:center; }
-    .modal-logo { width:100px; margin:0 auto 10px; display:block; }
-    .modal input, .modal textarea { width:100%; padding:8px; margin:8px 0; border:none; border-radius:4px; }
-    .modal button { width:100%; padding:10px; border-radius:4px; }
-    .close-btn { position:absolute; top:10px; right:15px; font-size:1.2rem; cursor:pointer; }
+    .hero {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 72px;
+      align-items: center;
+      min-height: 72vh;
+    }
 
-    /* Responsive */
-    @media(max-width:900px){#main-content{flex-direction:column;}#slideshow-section,#about-section{width:100%;height:auto;}.divider-line{display:none;}}
-    @media(max-width:600px){h1{font-size:2rem;}.slide-text{font-size:1.5rem;}.slide-subtext{font-size:0.9rem;}.read-more-button{width:100%;}}
-    @media(max-width:400px){.nav-arrow{font-size:1.5rem;}.logo{max-width:80%;}#open-contact{width:35px;height:35px;font-size:1rem;}}
+    .hero-copy {
+      max-width: 560px;
+    }
+
+    .hero-kicker {
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .18rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.3rem, 5vw, 5.4rem);
+      line-height: 1.02;
+      letter-spacing: -.05em;
+      margin: 0 0 22px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .hero-shape-bg {
+      position: absolute;
+      width: 78%;
+      height: 78%;
+      background: #efefef;
+      border-radius: 38% 42% 36% 34%;
+      left: 4%;
+      top: 13%;
+      z-index: 0;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 760px);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      clip-path: polygon(35% 0%, 100% 0%, 100% 70%, 65% 100%, 0% 100%, 0% 40%);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.14);
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+
+    .hero-image-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 54px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(2.2rem, 3.2vw, 3.25rem);
+      letter-spacing: -.03em;
+    }
+
+    .section-subline {
+      width: 82px;
+      height: 1px;
+      background: #171717;
+      opacity: .45;
+      margin: 14px auto 0;
+    }
+
+    .section-intro {
+      max-width: 680px;
+      margin: 18px auto 0;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.98rem;
+    }
+
+    .about-mix {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-mix-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: 65vh;
+    }
+
+    .about-mix-image {
+      position: relative;
+    }
+
+    .about-mix-image img {
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .about-mix-image::before {
+      content: "";
+      position: absolute;
+      top: -14px;
+      left: -14px;
+      width: 70%;
+      height: 70%;
+      border: 1px solid var(--line);
+      z-index: -1;
+    }
+
+    .about-kicker {
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .18rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .about-mix-content h2 {
+      margin: 0 0 18px;
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      letter-spacing: -.03em;
+    }
+
+    .about-mix-content p {
+      margin: 0 0 14px;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .hero-tags,
+    .skill-list,
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .about-tags {
+      margin-top: 18px;
+    }
+
+    .tag {
+      border: 1px solid var(--line-strong);
+      padding: 9px 14px;
+      font-size: .85rem;
+      background: rgba(255,255,255,.52);
+    }
+
+    .carousel-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform .45s ease-out;
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      background: rgba(255,255,255,0.38);
+      border: 1px solid var(--line);
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.2);
+    }
+
+    .project-image-wrap {
+      overflow: hidden;
+      background: #ebe7dd;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .project-image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.38), rgba(0,0,0,0.02) 45%, transparent 70%);
+      opacity: .88;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .project-card img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      transition: transform .55s ease, filter .35s ease;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.05);
+      filter: saturate(1.03);
+    }
+
+    .project-content {
+      padding: 22px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .project-meta {
+      margin: 0 0 10px;
+      font-size: .74rem;
+      letter-spacing: .16rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .project-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.28rem;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
+    .project-card p {
+      margin: 0;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .project-tags span {
+      font-size: .78rem;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: rgba(245, 242, 236, 0.72);
+    }
+
+    .project-footer {
+      margin-top: auto;
+      padding-top: 18px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .project-link::before {
+      content: "→";
+      font-size: .95rem;
+      line-height: 1;
+    }
+
+    .project-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: #171717;
+      transform: scaleX(.34);
+      transform-origin: left;
+      transition: transform .24s ease;
+    }
+
+    .project-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .deep-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22));
+    }
+
+    .deep-card .project-image-wrap::after {
+      background: linear-gradient(to top, rgba(23,23,23,0.52), rgba(23,23,23,0.08) 46%, transparent 72%);
+    }
+
+    .deep-accent {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 2;
+      color: white;
+      font-size: .78rem;
+      letter-spacing: .16rem;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 34px;
+    }
+
+    .carousel-btn {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.42);
+      font-size: 24px;
+      cursor: pointer;
+      color: #171717;
+      opacity: .9;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .carousel-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.82);
+      border-color: rgba(0,0,0,0.28);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border: none;
+      background: rgba(0, 0, 0, .18);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .carousel-dot.active {
+      background: #171717;
+      transform: scale(1.18);
+    }
+
+    .cv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .cv-item {
+      text-align: left;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .cv-item h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+
+    .cv-item p {
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 46px;
+      align-items: start;
+    }
+
+    .contact-info,
+    .contact-form-wrap {
+      text-align: center;
+    }
+
+    .contact-info h3,
+    .contact-form-wrap h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+
+    .contact-info p {
+      line-height: 1.85;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .contact-link {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: #171717;
+      transform: scaleX(.32);
+      transition: transform .24s ease;
+    }
+
+    .contact-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 13px 14px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: #171717;
+    }
+
+    .contact-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .contact-form button {
+      padding: 13px 16px;
+      border: 1px solid #171717;
+      background: #171717;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .cv-grid,
+      .contact-grid,
+      .about-mix-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .carousel-slide {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 36px;
+      }
+
+      .hero-copy,
+      .cv-item,
+      .project-card,
+      .contact-info,
+      .contact-form-wrap,
+      .project-content {
+        text-align: center;
+      }
+
+      .hero-tags,
+      .about-tags,
+      .skill-list,
+      .project-tags {
+        justify-content: center;
+      }
+
+      .project-card p {
+        max-width: 100%;
+      }
+
+      .hero-image-wrap {
+        width: min(100%, 430px);
+        margin: 0 auto;
+      }
+
+      .hero-shape-bg {
+        width: 82%;
+        height: 82%;
+        left: 9%;
+        top: 10%;
+      }
+
+      .panel::before {
+        inset: 12px;
+      }
+
+      .menu-btn {
+        top: 22px;
+        right: 22px;
+      }
+
+      .logo {
+        top: 20px;
+        left: 20px;
+        height: 34px;
+      }
+
+      .about-mix-grid {
+        gap: 30px;
+        text-align: center;
+        min-height: auto;
+      }
+
+      .about-mix-content p {
+        max-width: 100%;
+      }
+
+      .about-mix-image img {
+        max-width: 220px;
+        margin: 0 auto;
+      }
+
+      .project-card {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+    }
   </style>
 </head>
 <body>
-  <section id="header-section">
-    <img src="images/logo.png" alt="Logo" class="logo" />
-    <h1>PORTFOLIO</h1>
-    <p class="subline">Bygningskonstruktør studerende</p>
-    <div class="nav-arrow"><i class="lni lni-arrow-down"></i></div>
-  </section>
+  <img src="images/logo.png" alt="Logo" class="logo">
 
-  <div id="main-content">
-    <section id="slideshow-section">
-      <div class="slideshow-container" id="slideshow">
-        <!-- Slides with arrows within each slide -->
-        <div class="slide active">
-          <div class="slide-text">5. SEMESTER</div>
-          <div class="slide-subtext">Igangværende (februar 2025 – juni 2025)<br>Fokus på renovering og forberedelse til praktik.</div>
-          <div class="prev">❮</div>
-          <div class="image-wrapper"><img src="images/5sem.png" alt="5. Semester"></div>
-          <div class="next">❯</div>
-          <div class="dots"></div>
-          <a href="semester5.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">4. SEMESTER</div>
-          <div class="slide-subtext">Etageboligbyggeri over 3 etager<br>Tværfagligt projekt og specialisering i lokale fagelementer.</div>
-          <div class="prev">❮</div>
-          <div class="image-wrapper"><img src="images/4sem.png" alt="4. Semester"></div>
-          <div class="next">❯</div>
-          <div class="dots" id="dots"></div>
-          <a href="semester4.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">3. SEMESTER</div>
-          <div class="slide-subtext">Erhverv og præfabrikation<br>Projekt med fokus på industribyggeri og præfabrikerede elementer.</div>
-          <div class="prev">❮</div>
-          <div class="image-wrapper"><img src="images/3sem.png" alt="3. Semester"></div>
-          <div class="next">❯</div>
-          <div class="dots" id="dots"></div>
-          <a href="semester3.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">2. SEMESTER</div>
-          <div class="slide-subtext">Byggeri op til 2½ etage<br>Fokus på selvstændighed, kommunikation og projektplanlægning.</div>
-          <div class="prev">❮</div>
-          <div class="image-wrapper"><img src="images/2sem.png" alt="2. Semester"></div>
-          <div class="next">❯</div>
-          <div class="dots" id="dots"></div>
-          <a href="semester2.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-        <div class="slide">
-          <div class="slide-text">1. SEMESTER</div>
-          <div class="slide-subtext">Boligbyggeri<br>Grundlæggende færdigheder i konstruktion, materialelære og kommunikation.</div>
-          <div class="prev">❮</div>
-          <div class="image-wrapper"><img src="images/1sem.png" alt="1. Semester"></div>
-          <div class="next">❯</div>
-          <div class="dots" id="dots"></div>
-          <a href="semester1.html"><button class="read-more-button">Læs mere</button></a>
-        </div>
-      </div>
-    </section>
-    <div class="divider-line"></div>
-    <section id="about-section">
-      <img src="images/profile.jpg" alt="Signe billede" class="profile-img" />
-      <h2>Om mig</h2>
-      <p>Jeg læser til bygningskonstruktør på 6. semester på VIA University College, hvor jeg starter i praktik hos RUM d. 04.08.2025. Jeg interesserer mig særligt for den digitale del af byggeriet, herunder Revit, Dynamo og andre plugins som Lightning. Jeg elsker at fordybe mig i løsninger, der gør hverdagen smartere og mere effektiv.</p>
-      <div class="experience-logos">
-        <img src="images/logo/revit.png" alt="Revit" class="exp-logo" />
-        <img src="images/logo/Dynamo.png" alt="Dynamo" class="exp-logo" />
-        <img src="images/logo/Bluebeam.png" alt="Bluebeam" class="exp-logo" />
-        <img src="images/logo/office.png" alt="Office-pakken" class="exp-logo" />
-        <img src="images/logo/photoshop.png" alt="Photoshop" class="exp-logo" />
-      </div>
-    </section>
-  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-  <button id="open-contact"><i class="lni lni-envelope"></i></button>
-  <div class="modal-overlay" id="contact-modal">
-    <div class="modal">
-      <span class="close-btn" id="close-modal">×</span>
-      <img src="images/logo.png" alt="Logo" class="modal-logo" />
-      <h3>Kontakt mig</h3>
-      <form action="https://formspree.io/f/xnqklrbr" method="POST">
-        <input type="email" name="email" placeholder="Din email" required />
-        <textarea name="message" placeholder="Din besked" rows="3" required></textarea>
-        <button type="submit">Send</button>
-      </form>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <nav class="menu" id="menu">
+    <div class="menu-title">Navigation</div>
+    <button data-panel="0" type="button">Hjem</button>
+    <button data-panel="1" type="button">Om mig</button>
+    <button data-panel="2" type="button">Projekter</button>
+    <button data-panel="3" type="button">Fordybelse</button>
+    <button data-panel="4" type="button">CV</button>
+    <button data-panel="5" type="button">Kontakt</button>
+  </nav>
+
+  <main id="main-content">
+    <div class="horizontal-sections" id="horizontal-sections">
+
+      <!-- Hjem -->
+      <section class="panel">
+        <div class="panel-inner hero">
+          <div class="hero-copy">
+            <div class="hero-kicker">Signe Thomsen</div>
+            <h1>Portfolio</h1>
+            <p>Jeg arbejder med Revit, BIM, parameterstyring og digitale arbejdsgange i byggeriet.</p>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-shape-bg"></div>
+            <div class="hero-image-wrap">
+              <img src="images/forside.png" alt="Forsideprojekt" fetchpriority="high">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Om mig -->
+      <section class="panel">
+        <div class="panel-inner about-mix">
+          <div class="about-mix-grid">
+            <div class="about-mix-image">
+              <img src="images/profile.jpg" alt="Signe Thomsen">
+            </div>
+
+            <div class="about-mix-content">
+              <div class="about-kicker">Om mig</div>
+              <h2>Signe Thomsen</h2>
+
+              <p>
+                Jeg interesserer mig især for den digitale del af byggeriet og for,
+                hvordan struktur i modeller kan skabe bedre sammenhæng, højere
+                datakvalitet og mere effektive arbejdsgange.
+              </p>
+
+              <p>
+                Jeg arbejder især med Revit, BIM, Dynamo og parameterstyring,
+                og jeg motiveres af at finde løsninger, der er enkle, praktiske
+                og brugbare i projekteringen.
+              </p>
+
+              <div class="about-tags">
+                <span class="tag">Revit</span>
+                <span class="tag">BIM</span>
+                <span class="tag">Dynamo</span>
+                <span class="tag">Parameterstyring</span>
+                <span class="tag">Datakvalitet</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projekter -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="section-header">
+            <h2>Projekter</h2>
+            <div class="section-subline"></div>
+            <p class="section-intro">
+              Udvalgte semesterprojekter med fokus på projektering, byggeteknik,
+              detaljering og digitale arbejdsgange.
+            </p>
+          </div>
+
+          <div class="carousel-wrapper" data-carousel="projekter">
+            <div class="carousel-track">
+
+              <div class="carousel-slide">
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/5sem.png" alt="5. semester projekt" loading="eager" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">5. semester</div>
+                    <h3>Renovering</h3>
+                    <p>Projekt med fokus på renovering, projektering og det digitale grundlag i processen.</p>
+                    <div class="project-tags">
+                      <span>Renovering</span>
+                      <span>Projektering</span>
+                      <span>Digitalt grundlag</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="semester5.html" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/4sem.png" alt="4. semester projekt" loading="eager" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">4. semester</div>
+                    <h3>Etagebolig</h3>
+                    <p>Tværfagligt projekt med fokus på opbygning, sammenhæng og projektdetaljering.</p>
+                    <div class="project-tags">
+                      <span>Bolig</span>
+                      <span>Tværfagligt</span>
+                      <span>Detaljering</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="semester4.html" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/3sem.png" alt="3. semester projekt" loading="eager" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">3. semester</div>
+                    <h3>Erhverv</h3>
+                    <p>Projekt med fokus på industribyggeri, præfabrikation og teknisk forståelse.</p>
+                    <div class="project-tags">
+                      <span>Erhverv</span>
+                      <span>Præfabrikation</span>
+                      <span>Teknik</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="semester3.html" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="carousel-slide">
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/2sem.png" alt="2. semester projekt" loading="lazy" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">2. semester</div>
+                    <h3>Byggeri</h3>
+                    <p>Projekt med fokus på selvstændighed, kommunikation og planlægning.</p>
+                    <div class="project-tags">
+                      <span>Planlægning</span>
+                      <span>Kommunikation</span>
+                      <span>Proces</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="semester2.html" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/1sem.png" alt="1. semester projekt" loading="lazy" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">1. semester</div>
+                    <h3>Boligbyggeri</h3>
+                    <p>Grundlæggende projekt med fokus på konstruktion, materialer og formidling.</p>
+                    <div class="project-tags">
+                      <span>Konstruktion</span>
+                      <span>Materialer</span>
+                      <span>Formidling</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="semester1.html" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card">
+                  <div class="project-image-wrap">
+                    <img src="images/placeholder-project.png" alt="Plads til nyt projekt" loading="lazy" decoding="async">
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Nyt projekt</div>
+                    <h3>Plads til mere</h3>
+                    <p>Her kan du indsætte et nyt projekt, når du vil udvide din portfolio med flere udvalgte arbejder.</p>
+                    <div class="project-tags">
+                      <span>Nyt indhold</span>
+                      <span>Portfolio</span>
+                    </div>
+                    <div class="project-footer">
+                      <a href="#" class="project-link">Læs mere</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+            </div>
+
+            <div class="carousel-controls">
+              <button class="carousel-btn prev" type="button" aria-label="Forrige projekter">←</button>
+              <div class="carousel-dots"></div>
+              <button class="carousel-btn next" type="button" aria-label="Næste projekter">→</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fordybelse -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="section-header">
+            <h2>Fordybelse</h2>
+            <div class="section-subline"></div>
+            <p class="section-intro">
+              Faglige områder jeg fordyber mig i, særligt inden for BIM, data,
+              automatisering og struktur i projekteringen.
+            </p>
+          </div>
+
+          <div class="carousel-wrapper" data-carousel="fordybelse">
+            <div class="carousel-track">
+
+              <div class="carousel-slide">
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/dynamo-script.png" alt="Dynamo scripts" loading="eager" decoding="async">
+                    <div class="deep-accent">Automatisering</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Dynamo</div>
+                    <h3>Dynamo scripts</h3>
+                    <p>Automatisering af opgaver i Revit med fokus på struktur, gentagelser og færre manuelle processer.</p>
+                    <div class="project-tags">
+                      <span>Dynamo</span>
+                      <span>Revit</span>
+                      <span>Automatisering</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/speciale.png" alt="Speciale om parameterstyring" loading="eager" decoding="async">
+                    <div class="deep-accent">Speciale</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Parameterstyring</div>
+                    <h3>Data og BIM-struktur</h3>
+                    <p>Fordybelse i hvordan parametre, datastruktur og standardisering kan understøtte bedre projektering og mere ensartet kvalitet.</p>
+                    <div class="project-tags">
+                      <span>BIM</span>
+                      <span>Data</span>
+                      <span>Struktur</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/research.png" alt="Analyse af digitale arbejdsgange" loading="eager" decoding="async">
+                    <div class="deep-accent">Analyse</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Digitale arbejdsgange</div>
+                    <h3>Workflow og proces</h3>
+                    <p>Refleksioner over dataflow, modelopbygning og hvordan digitale arbejdsgange kan gøres mere robuste og brugbare.</p>
+                    <div class="project-tags">
+                      <span>Workflow</span>
+                      <span>Proces</span>
+                      <span>Dataflow</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="carousel-slide">
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/plugin-work.png" alt="Plugins og værktøjer" loading="lazy" decoding="async">
+                    <div class="deep-accent">Værktøjer</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Plugins</div>
+                    <h3>Plugins og værktøjer</h3>
+                    <p>Eksempler på værktøjer, der kan gøre arbejdsgange smartere, mere stabile og lettere at gentage.</p>
+                    <div class="project-tags">
+                      <span>Plugins</span>
+                      <span>Effektivitet</span>
+                      <span>Stabilitet</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/documentation.png" alt="Metoder og dokumentation" loading="lazy" decoding="async">
+                    <div class="deep-accent">Dokumentation</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Metoder</div>
+                    <h3>Metoder og dokumentation</h3>
+                    <p>Arbejde med struktur, tydelighed og dokumentation i digitale leverancer og projekteringsmateriale.</p>
+                    <div class="project-tags">
+                      <span>Metode</span>
+                      <span>Dokumentation</span>
+                      <span>Leverancer</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="project-card deep-card">
+                  <div class="project-image-wrap">
+                    <img src="images/placeholder-deepdive.png" alt="Plads til mere fordybelse" loading="lazy" decoding="async">
+                    <div class="deep-accent">Nyt indhold</div>
+                  </div>
+                  <div class="project-content">
+                    <div class="project-meta">Udvidelse</div>
+                    <h3>Plads til mere fordybelse</h3>
+                    <p>Her kan du senere tilføje flere emner, undersøgelser, scripts eller faglige eksperimenter.</p>
+                    <div class="project-tags">
+                      <span>Research</span>
+                      <span>Udvikling</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+            </div>
+
+            <div class="carousel-controls">
+              <button class="carousel-btn prev" type="button" aria-label="Forrige fordybelse">←</button>
+              <div class="carousel-dots"></div>
+              <button class="carousel-btn next" type="button" aria-label="Næste fordybelse">→</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CV -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="section-header">
+            <h2>CV</h2>
+            <div class="section-subline"></div>
+          </div>
+
+          <div class="cv-grid">
+            <div class="cv-item">
+              <h3>Uddannelse</h3>
+              <p>Bygningskonstruktør – VIA University College</p>
+              <p>Fokus på projektering, byggeteknik og den digitale del af byggeriet.</p>
+            </div>
+
+            <div class="cv-item">
+              <h3>Færdigheder</h3>
+              <div class="skill-list">
+                <span class="tag">Revit</span>
+                <span class="tag">Dynamo</span>
+                <span class="tag">BIM</span>
+                <span class="tag">Bluebeam</span>
+              </div>
+            </div>
+
+            <div class="cv-item">
+              <h3>Kurser</h3>
+              <p>Indsæt kurser, certificeringer eller relevante forløb her.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kontakt -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="section-header">
+            <h2>Kontakt</h2>
+            <div class="section-subline"></div>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-info">
+              <h3>Kontakt</h3>
+              <p>Du er velkommen til at kontakte mig, hvis du vil høre mere om mine projekter eller faglige interesser.</p>
+              <p><a class="contact-link" href="mailto:dinmail@mail.dk">Email</a></p>
+              <p><a class="contact-link" href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></p>
+            </div>
+
+            <div class="contact-form-wrap">
+              <h3>Skriv til mig</h3>
+              <form class="contact-form" action="https://formspree.io/f/xnqklrbr" method="POST">
+                <input type="text" name="name" placeholder="Dit navn" required>
+                <input type="email" name="email" placeholder="Din email" required>
+                <textarea name="message" placeholder="Din besked" required></textarea>
+                <button type="submit">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
-  </div>
+  </main>
 
   <script>
-    // Header
-    const header = document.getElementById('header-section');
-    const main = document.getElementById('main-content');
-    document.querySelector('.nav-arrow').addEventListener('click', () => {
-      header.classList.add('hidden');
-      main.classList.add('visible');
-    });
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const sections = document.getElementById('horizontal-sections');
+    const menuButtons = document.querySelectorAll('.menu button[data-panel]');
+    const carousels = document.querySelectorAll('.carousel-wrapper');
 
-    // Slideshow and Dots per slide
-    const slides = document.querySelectorAll('.slide');
-    let slideIndex = 0;
+    let panel = 0;
+    let animating = false;
 
-    // Setup dots for each slide
-    slides.forEach((slide, idx) => {
-      const dotsContainer = slide.querySelector('.dots');
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        dot.addEventListener('click', () => showSlide(i));
-        dotsContainer.appendChild(dot);
-      }
-      // Prev/Next in each slide
-      slide.querySelector('.prev').addEventListener('click', () => showSlide(slideIndex - 1));
-      slide.querySelector('.next').addEventListener('click', () => showSlide(slideIndex + 1));
-    });
-
-    function showSlide(n) {
-      slideIndex = (n + slides.length) % slides.length;
-      slides.forEach((s, i) => {
-        s.classList.toggle('active', i === slideIndex);
-        const dots = s.querySelectorAll('.dot');
-        dots.forEach((d, di) => d.classList.toggle('active', di === slideIndex));
+    function setActiveMenu() {
+      menuButtons.forEach((button, index) => {
+        button.style.opacity = index === panel ? '0.45' : '1';
       });
     }
 
-    // Touch swipe on container
-    const slideshowContainer = document.getElementById('slideshow');
-    let startX = 0;
-    slideshowContainer.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    slideshowContainer.addEventListener('touchend', e => {
-      const diff = e.changedTouches[0].clientX - startX;
-      if (diff > 50) showSlide(slideIndex - 1);
-      else if (diff < -50) showSlide(slideIndex + 1);
+    function toggleMenu(forceOpen = null) {
+      const shouldOpen = forceOpen === null
+        ? !menu.classList.contains('open')
+        : forceOpen;
+
+      menu.classList.toggle('open', shouldOpen);
+      menuOverlay.classList.toggle('open', shouldOpen);
+      menuBtn.classList.toggle('open', shouldOpen);
+    }
+
+    function goToPanel(index) {
+      const max = menuButtons.length - 1;
+      panel = Math.max(0, Math.min(index, max));
+      sections.style.transform = `translateX(-${panel * 100}vw)`;
+      setActiveMenu();
+
+      animating = true;
+      setTimeout(() => {
+        animating = false;
+      }, 720);
+    }
+
+    menuBtn.addEventListener('click', () => toggleMenu());
+    menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') toggleMenu(false);
+      if (event.key === 'ArrowRight') goToPanel(panel + 1);
+      if (event.key === 'ArrowLeft') goToPanel(panel - 1);
     });
 
-    document.addEventListener('DOMContentLoaded', () => showSlide(0));
+    menuButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        goToPanel(Number(button.dataset.panel));
+        toggleMenu(false);
+      });
+    });
 
-    // Contact modal
-    const arrows = document.querySelectorAll('.prev, .next');
-    document.getElementById('open-contact').addEventListener('click', () => {
-      document.getElementById('contact-modal').style.display = 'flex';
-      // Hide slideshow arrows when modal is open
-      arrows.forEach(el => el.style.display = 'none');
-    });
-    document.getElementById('close-modal').addEventListener('click', () => {
-      document.getElementById('contact-modal').style.display = 'none';
-      // Restore slideshow arrows when modal is closed
-      arrows.forEach(el => el.style.display = 'block');
-    });
-    window.addEventListener('click', e => {
-      if (e.target.id === 'contact-modal') {
-        e.target.style.display = 'none';
-        arrows.forEach(el => el.style.display = 'block');
+    function setupCarousel(wrapper) {
+      const track = wrapper.querySelector('.carousel-track');
+      const slides = wrapper.querySelectorAll('.carousel-slide');
+      const prev = wrapper.querySelector('.prev');
+      const next = wrapper.querySelector('.next');
+      const dotsContainer = wrapper.querySelector('.carousel-dots');
+
+      if (!track || !slides.length || !dotsContainer) return;
+
+      let current = 0;
+      dotsContainer.innerHTML = '';
+
+      slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Gå til slide ${index + 1}`);
+        dot.addEventListener('click', () => showSlide(index));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+        track.style.transform = `translate3d(-${current * 100}%, 0, 0)`;
+
+        dots.forEach((dot, dotIndex) => {
+          dot.classList.toggle('active', dotIndex === current);
+        });
       }
-    });
+
+      if (prev) {
+        prev.addEventListener('click', () => showSlide(current - 1));
+      }
+
+      if (next) {
+        next.addEventListener('click', () => showSlide(current + 1));
+      }
+
+      showSlide(0);
+    }
+
+    carousels.forEach(setupCarousel);
+    setActiveMenu();
+
+    window.addEventListener('wheel', (event) => {
+      if (menu.classList.contains('open')) return;
+      if (animating) return;
+      if (event.target.closest('.carousel-wrapper')) return;
+      if (Math.abs(event.deltaY) < 24) return;
+
+      if (event.deltaY > 0) goToPanel(panel + 1);
+      else goToPanel(panel - 1);
+    }, { passive: true });
   </script>
 </body>
 </html>

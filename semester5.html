@@ -455,11 +455,6 @@
         right: 22px;
       }
 
-      .category-grid,
-      .carousel-slide {
-        grid-template-columns: 1fr;
-      }
-
       .preview-image-wrap {
         height: 420px;
       }
@@ -526,6 +521,7 @@
           <div class="gallery-head">
             <div class="gallery-head-left">
               <h2 id="galleryTitle">VUE</h2>
+              <p id="galleryText">Karakter 12. Klik på en side for at åbne den tilhørende PDF.</p>
             </div>
             <div class="grade-badge" id="galleryGrade">Karakter: 12</div>
           </div>
@@ -545,7 +541,6 @@
   </main>
 
   <script>
-    /* MENU */
     const menuBtn = document.getElementById('menuBtn');
     const menu = document.getElementById('menu');
     const menuOverlay = document.getElementById('menuOverlay');
@@ -567,7 +562,6 @@
       if (event.key === 'Escape') toggleMenu(false);
     });
 
-    /* GALLERY DATA */
     const galleryData = {
       vue: {
         title: 'VUE',
@@ -593,7 +587,7 @@
         text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
         label: 'Hovedprojekt',
         folder: 'images/projektering/5sem',
-        prefix: 'hoved',
+        prefix: 'Hoved',
         count: 9
       }
     };

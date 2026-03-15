@@ -562,35 +562,35 @@
       if (event.key === 'Escape') toggleMenu(false);
     });
 
-    const galleryData = {
-      vue: {
-        title: 'VUE',
-        grade: 'Karakter: 12',
-        text: 'Karakter 12. Klik på en side for at åbne den tilhørende PDF.',
-        label: 'VUE',
-        folder: 'images/projektering/5sem',
-        prefix: 'vue',
-        count: 40
-      },
-      lue: {
-        title: 'LUE',
-        grade: 'Karakter: 7',
-        text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-        label: 'LUE',
-        folder: 'images/projektering/5sem',
-        prefix: 'lue',
-        count: 5
-      },
-      hoved: {
-        title: 'Hovedprojekt',
-        grade: 'Karakter: 7',
-        text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-        label: 'Hovedprojekt',
-        folder: 'images/projektering/5sem',
-        prefix: 'Hoved',
-        count: 9
-      }
-    };
+const galleryData = {
+  vue: {
+    title: 'VUE',
+    grade: 'Karakter: 12',
+    text: 'Karakter 12. Klik på en side for at åbne den tilhørende PDF.',
+    label: 'VUE',
+    folder: 'images/projektering/5sem',
+    prefix: 'VUE',
+    count: 40
+  },
+  lue: {
+    title: 'LUE',
+    grade: 'Karakter: 7',
+    text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
+    label: 'LUE',
+    folder: 'images/projektering/5sem',
+    prefix: 'lue',
+    count: 5
+  },
+  hoved: {
+    title: 'Hovedprojekt',
+    grade: 'Karakter: 7',
+    text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
+    label: 'Hovedprojekt',
+    folder: 'images/projektering/5sem',
+    prefix: 'Hoved',
+    count: 9
+  }
+};
 
     const categoryButtons = document.querySelectorAll('.category-card');
     const galleryTitle = document.getElementById('galleryTitle');

@@ -224,6 +224,18 @@
       margin: 0 0 14px;
     }
 
+    .hero-tags,
+    .skill-list,
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-tags {
+      margin-top: 24px;
+    }
+
     .hero-visual {
       position: relative;
       display: flex;
@@ -345,15 +357,7 @@
       margin: 0 0 14px;
       line-height: 1.85;
       color: var(--muted);
-      max-width: 520px;
-    }
-
-    .hero-tags,
-    .skill-list,
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      max-width: 560px;
     }
 
     .about-tags {
@@ -574,27 +578,115 @@
       transform: scale(1.18);
     }
 
-    .cv-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-    }
+/* CV */
+.cv-modern-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
 
-    .cv-item {
-      text-align: left;
-      padding-top: 18px;
-      border-top: 1px solid var(--line-strong);
-    }
+.cv-card {
+  background: rgba(255,255,255,0.42);
+  border: 1px solid var(--line);
+  padding: 20px 20px;
+  min-height: 100%;
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
 
-    .cv-item h3 {
-      margin: 0 0 14px;
-      font-size: 1.05rem;
-    }
+.cv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.2);
+}
 
-    .cv-item p {
-      line-height: 1.85;
-      color: var(--muted);
-    }
+.cv-label {
+  font-size: .7rem;
+  letter-spacing: .14rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.cv-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+
+.cv-place {
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: #171717;
+  font-size: .92rem;
+}
+
+.cv-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.cv-block {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cv-block:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.cv-subtitle {
+  font-size: .74rem;
+  text-transform: uppercase;
+  letter-spacing: .12rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.cv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 12px;
+}
+
+.cv-tags .tag {
+  padding: 6px 10px;
+  font-size: .76rem;
+}
+
+.cv-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cv-list li {
+  position: relative;
+  padding-left: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.cv-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  background: #171717;
+  opacity: .7;
+}
 
     .contact-grid {
       display: grid;
@@ -672,9 +764,9 @@
 
     @media (max-width: 980px) {
       .hero,
-      .cv-grid,
       .contact-grid,
-      .about-mix-grid {
+      .about-mix-grid,
+      .cv-modern-grid {
         grid-template-columns: 1fr;
       }
 
@@ -687,22 +779,24 @@
       }
 
       .hero-copy,
-      .cv-item,
       .project-card,
       .contact-info,
       .contact-form-wrap,
-      .project-content {
+      .project-content,
+      .cv-card {
         text-align: center;
       }
 
       .hero-tags,
       .about-tags,
       .skill-list,
-      .project-tags {
+      .project-tags,
+      .cv-tags {
         justify-content: center;
       }
 
-      .project-card p {
+      .project-card p,
+      .about-mix-content p {
         max-width: 100%;
       }
 
@@ -739,18 +833,19 @@
         min-height: auto;
       }
 
-      .about-mix-content p {
-        max-width: 100%;
-      }
-
       .about-mix-image img {
         max-width: 220px;
         margin: 0 auto;
       }
 
-      .project-card {
+      .project-card,
+      .cv-card {
         max-width: 520px;
         margin: 0 auto;
+      }
+
+      .cv-list {
+        text-align: left;
       }
     }
   </style>
@@ -785,7 +880,22 @@
           <div class="hero-copy">
             <div class="hero-kicker">Signe Thomsen</div>
             <h1>Portfolio</h1>
-            <p>Jeg arbejder med Revit, BIM, parameterstyring og digitale arbejdsgange i byggeriet.</p>
+            <p>
+              Jeg er bygningskonstruktørstuderende med interesse for projektering,
+              byggeteknik og digitale arbejdsgange i byggeriet.
+            </p>
+            <p>
+              Her viser jeg udvalgte projekter, faglige interesser og mit arbejde
+              med både projektering, struktur og udvikling i den digitale del af byggeriet.
+            </p>
+
+            <div class="hero-tags">
+              <span class="tag">Projektering</span>
+              <span class="tag">Byggeteknik</span>
+              <span class="tag">Revit</span>
+              <span class="tag">BIM</span>
+              <span class="tag">Digitale arbejdsgange</span>
+            </div>
           </div>
 
           <div class="hero-visual">
@@ -810,23 +920,29 @@
               <h2>Signe Thomsen</h2>
 
               <p>
-                Jeg interesserer mig især for den digitale del af byggeriet og for,
-                hvordan struktur i modeller kan skabe bedre sammenhæng, højere
-                datakvalitet og mere effektive arbejdsgange.
+                Jeg er bygningskonstruktørstuderende med interesse for projektering,
+                byggeteknik og den digitale del af byggeriet. Jeg kan godt lide at arbejde
+                i feltet mellem det tekniske, det visuelle og det praktiske.
               </p>
 
               <p>
-                Jeg arbejder især med Revit, BIM, Dynamo og parameterstyring,
-                og jeg motiveres af at finde løsninger, der er enkle, praktiske
-                og brugbare i projekteringen.
+                Jeg interesserer mig især for, hvordan modeller, tegninger og digitale
+                værktøjer kan skabe bedre sammenhæng i projekteringen. Samtidig motiveres
+                jeg af at finde løsninger, der er enkle, brugbare og giver mening i praksis.
+              </p>
+
+              <p>
+                Jeg har særligt fokus på Revit, BIM og struktur i digitale arbejdsgange,
+                men jeg ser det som en del af en større faglighed omkring projektering
+                og kvalitet i byggeriet.
               </p>
 
               <div class="about-tags">
+                <span class="tag">Projektering</span>
+                <span class="tag">Byggeteknik</span>
                 <span class="tag">Revit</span>
                 <span class="tag">BIM</span>
                 <span class="tag">Dynamo</span>
-                <span class="tag">Parameterstyring</span>
-                <span class="tag">Datakvalitet</span>
               </div>
             </div>
           </div>
@@ -841,7 +957,7 @@
             <div class="section-subline"></div>
             <p class="section-intro">
               Udvalgte semesterprojekter med fokus på projektering, byggeteknik,
-              detaljering og digitale arbejdsgange.
+              detaljering og digitale værktøjer.
             </p>
           </div>
 
@@ -856,11 +972,11 @@
                   <div class="project-content">
                     <div class="project-meta">5. semester</div>
                     <h3>Renovering</h3>
-                    <p>Projekt med fokus på renovering, projektering og det digitale grundlag i processen.</p>
+                    <p>Projekt med fokus på renovering, projektering og samspillet mellem eksisterende byggeri og nye løsninger.</p>
                     <div class="project-tags">
                       <span>Renovering</span>
                       <span>Projektering</span>
-                      <span>Digitalt grundlag</span>
+                      <span>Detaljering</span>
                     </div>
                     <div class="project-footer">
                       <a href="semester5.html" class="project-link">Læs mere</a>
@@ -875,7 +991,7 @@
                   <div class="project-content">
                     <div class="project-meta">4. semester</div>
                     <h3>Etagebolig</h3>
-                    <p>Tværfagligt projekt med fokus på opbygning, sammenhæng og projektdetaljering.</p>
+                    <p>Tværfagligt projekt med fokus på boligbyggeri, opbygning, sammenhæng og projektdetaljering.</p>
                     <div class="project-tags">
                       <span>Bolig</span>
                       <span>Tværfagligt</span>
@@ -894,7 +1010,7 @@
                   <div class="project-content">
                     <div class="project-meta">3. semester</div>
                     <h3>Erhverv</h3>
-                    <p>Projekt med fokus på industribyggeri, præfabrikation og teknisk forståelse.</p>
+                    <p>Projekt med fokus på industribyggeri, byggeteknik, præfabrikation og teknisk forståelse.</p>
                     <div class="project-tags">
                       <span>Erhverv</span>
                       <span>Præfabrikation</span>
@@ -914,8 +1030,8 @@
                   </div>
                   <div class="project-content">
                     <div class="project-meta">2. semester</div>
-                    <h3>Byggeri</h3>
-                    <p>Projekt med fokus på selvstændighed, kommunikation og planlægning.</p>
+                    <h3>Byggeproces</h3>
+                    <p>Projekt med fokus på planlægning, samarbejde, procesforståelse og projektets opbygning.</p>
                     <div class="project-tags">
                       <span>Planlægning</span>
                       <span>Kommunikation</span>
@@ -934,7 +1050,7 @@
                   <div class="project-content">
                     <div class="project-meta">1. semester</div>
                     <h3>Boligbyggeri</h3>
-                    <p>Grundlæggende projekt med fokus på konstruktion, materialer og formidling.</p>
+                    <p>Grundlæggende projekt med fokus på konstruktion, materialer, formidling og forståelse for byggeri.</p>
                     <div class="project-tags">
                       <span>Konstruktion</span>
                       <span>Materialer</span>
@@ -953,7 +1069,7 @@
                   <div class="project-content">
                     <div class="project-meta">Nyt projekt</div>
                     <h3>Plads til mere</h3>
-                    <p>Her kan du indsætte et nyt projekt, når du vil udvide din portfolio med flere udvalgte arbejder.</p>
+                    <p>Her kan jeg senere tilføje flere projekter, når portfolioen udvides med nye arbejder og erfaringer.</p>
                     <div class="project-tags">
                       <span>Nyt indhold</span>
                       <span>Portfolio</span>
@@ -983,8 +1099,8 @@
             <h2>Fordybelse</h2>
             <div class="section-subline"></div>
             <p class="section-intro">
-              Faglige områder jeg fordyber mig i, særligt inden for BIM, data,
-              automatisering og struktur i projekteringen.
+              Faglige områder jeg fordyber mig i, særligt inden for digital projektering,
+              struktur, automatisering og udvikling af arbejdsgange.
             </p>
           </div>
 
@@ -1000,7 +1116,7 @@
                   <div class="project-content">
                     <div class="project-meta">Dynamo</div>
                     <h3>Dynamo scripts</h3>
-                    <p>Automatisering af opgaver i Revit med fokus på struktur, gentagelser og færre manuelle processer.</p>
+                    <p>Arbejde med automatisering i Revit med fokus på at forenkle gentagne opgaver og skabe bedre arbejdsgange.</p>
                     <div class="project-tags">
                       <span>Dynamo</span>
                       <span>Revit</span>
@@ -1012,12 +1128,12 @@
                 <article class="project-card deep-card">
                   <div class="project-image-wrap">
                     <img src="images/speciale.png" alt="Speciale om parameterstyring" loading="eager" decoding="async">
-                    <div class="deep-accent">Speciale</div>
+                    <div class="deep-accent">Bachelorprojekt</div>
                   </div>
                   <div class="project-content">
-                    <div class="project-meta">Parameterstyring</div>
-                    <h3>Data og BIM-struktur</h3>
-                    <p>Fordybelse i hvordan parametre, datastruktur og standardisering kan understøtte bedre projektering og mere ensartet kvalitet.</p>
+                    <div class="project-meta">Digital struktur</div>
+                    <h3>Data og modelopbygning</h3>
+                    <p>Fordybelse i hvordan struktur, parametre og ensartede principper kan styrke kvaliteten i projekteringen.</p>
                     <div class="project-tags">
                       <span>BIM</span>
                       <span>Data</span>
@@ -1032,13 +1148,13 @@
                     <div class="deep-accent">Analyse</div>
                   </div>
                   <div class="project-content">
-                    <div class="project-meta">Digitale arbejdsgange</div>
+                    <div class="project-meta">Arbejdsgange</div>
                     <h3>Workflow og proces</h3>
-                    <p>Refleksioner over dataflow, modelopbygning og hvordan digitale arbejdsgange kan gøres mere robuste og brugbare.</p>
+                    <p>Refleksioner over hvordan digitale værktøjer og klare strukturer kan gøre projekteringen mere robust og overskuelig.</p>
                     <div class="project-tags">
                       <span>Workflow</span>
                       <span>Proces</span>
-                      <span>Dataflow</span>
+                      <span>Udvikling</span>
                     </div>
                   </div>
                 </article>
@@ -1051,9 +1167,9 @@
                     <div class="deep-accent">Værktøjer</div>
                   </div>
                   <div class="project-content">
-                    <div class="project-meta">Plugins</div>
+                    <div class="project-meta">Digitale værktøjer</div>
                     <h3>Plugins og værktøjer</h3>
-                    <p>Eksempler på værktøjer, der kan gøre arbejdsgange smartere, mere stabile og lettere at gentage.</p>
+                    <p>Interesse for værktøjer, der kan understøtte mere stabile, effektive og gennemarbejdede processer.</p>
                     <div class="project-tags">
                       <span>Plugins</span>
                       <span>Effektivitet</span>
@@ -1070,7 +1186,7 @@
                   <div class="project-content">
                     <div class="project-meta">Metoder</div>
                     <h3>Metoder og dokumentation</h3>
-                    <p>Arbejde med struktur, tydelighed og dokumentation i digitale leverancer og projekteringsmateriale.</p>
+                    <p>Interesse for tydelig dokumentation, struktur og kvalitet i det materiale, der ligger til grund for projekteringen.</p>
                     <div class="project-tags">
                       <span>Metode</span>
                       <span>Dokumentation</span>
@@ -1087,7 +1203,7 @@
                   <div class="project-content">
                     <div class="project-meta">Udvidelse</div>
                     <h3>Plads til mere fordybelse</h3>
-                    <p>Her kan du senere tilføje flere emner, undersøgelser, scripts eller faglige eksperimenter.</p>
+                    <p>Her kan jeg senere tilføje flere emner, undersøgelser, arbejdsmetoder eller faglige eksperimenter.</p>
                     <div class="project-tags">
                       <span>Research</span>
                       <span>Udvikling</span>
@@ -1107,38 +1223,90 @@
         </div>
       </section>
 
-      <!-- CV -->
-      <section class="panel">
-        <div class="panel-inner">
-          <div class="section-header">
-            <h2>CV</h2>
-            <div class="section-subline"></div>
-          </div>
+     <!-- CV -->
+<section class="panel">
+  <div class="panel-inner">
+    <div class="section-header">
+      <h2>CV</h2>
+      <div class="section-subline"></div>
+      <p class="section-intro">
+        Et kort overblik over min profil, erfaring og faglige fokus.
+      </p>
+    </div>
 
-          <div class="cv-grid">
-            <div class="cv-item">
-              <h3>Uddannelse</h3>
-              <p>Bygningskonstruktør – VIA University College</p>
-              <p>Fokus på projektering, byggeteknik og den digitale del af byggeriet.</p>
-            </div>
+    <div class="cv-modern-grid">
+      <article class="cv-card">
+        <div class="cv-label">Profil</div>
+        <h3>Bygningskonstruktørstuderende</h3>
+        <p class="cv-place">VIA University College</p>
+        <p>
+          Interesse for projektering, byggeteknik og digitale arbejdsgange i byggeriet.
+        </p>
+      </article>
 
-            <div class="cv-item">
-              <h3>Færdigheder</h3>
-              <div class="skill-list">
-                <span class="tag">Revit</span>
-                <span class="tag">Dynamo</span>
-                <span class="tag">BIM</span>
-                <span class="tag">Bluebeam</span>
-              </div>
-            </div>
+      <article class="cv-card">
+        <div class="cv-label">Praktik</div>
+        <h3>Tegnestue</h3>
+        <p>
+          Erfaring med Revit, modeller, tegningsmateriale og projektering i praksis.
+        </p>
 
-            <div class="cv-item">
-              <h3>Kurser</h3>
-              <p>Indsæt kurser, certificeringer eller relevante forløb her.</p>
-            </div>
-          </div>
+        <div class="cv-block">
+          <div class="cv-subtitle">Fokus</div>
+          <p>Struktur, kvalitet og brugbare digitale arbejdsgange.</p>
         </div>
-      </section>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-label">Værktøjer</div>
+        <h3>Digitale kompetencer</h3>
+        <div class="cv-tags">
+          <span class="tag">Revit</span>
+          <span class="tag">Dynamo</span>
+          <span class="tag">BIM</span>
+          <span class="tag">Bluebeam</span>
+          <span class="tag">Adobe</span>
+        <span class="tag">Office-pakken</span>
+        </div>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-label">Uddannelse</div>
+        <h3>Fagligt fokus</h3>
+        <ul class="cv-list">
+          <li>Projektering</li>
+          <li>Byggeteknik</li>
+          <li>Materialeforståelse</li>
+          <li>Tegningsmateriale</li>
+        </ul>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-label">Interesser</div>
+        <h3>Det jeg gerne vil arbejde med</h3>
+        <ul class="cv-list">
+          <li>Revit og BIM i praksis</li>
+          <li>Digitale arbejdsgange</li>
+          <li>Automatisering med Dynamo</li>
+          <li>Struktur i modeller</li>
+        </ul>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-label">Styrker</div>
+        <h3>Sådan arbejder jeg</h3>
+        <ul class="cv-list">
+          <li>Struktureret</li>
+          <li>Detaljeorienteret</li>
+          <li>Nysgerrig</li>
+          <li>Lærevillig</li>
+        </ul>
+
+
+      </article>
+    </div>
+  </div>
+</section>
 
       <!-- Kontakt -->
       <section class="panel">

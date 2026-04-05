@@ -157,7 +157,7 @@
 
     .horizontal-sections {
       display: flex;
-      width: 600vw;
+      width: 500vw;
       height: 100vh;
       transition: transform .95s var(--ease);
       will-change: transform;
@@ -463,20 +463,6 @@
       color: var(--muted);
     }
 
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .project-tags span {
-      font-size: .78rem;
-      padding: 7px 10px;
-      border: 1px solid var(--line);
-      background: rgba(245, 242, 236, 0.72);
-    }
-
     .project-footer {
       margin-top: auto;
       padding-top: 18px;
@@ -578,116 +564,6 @@
       transform: scale(1.18);
     }
 
-/* CV */
-.cv-modern-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: stretch;
-}
-
-.cv-card {
-  background: rgba(255,255,255,0.42);
-  border: 1px solid var(--line);
-  padding: 20px 20px;
-  min-height: 100%;
-  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-}
-
-.cv-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.06);
-  border-color: rgba(0,0,0,0.2);
-}
-
-.cv-label {
-  font-size: .7rem;
-  letter-spacing: .14rem;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.cv-card h3 {
-  margin: 0 0 8px;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  letter-spacing: -.02em;
-}
-
-.cv-place {
-  margin: 0 0 10px;
-  font-weight: 600;
-  color: #171717;
-  font-size: .92rem;
-}
-
-.cv-card p {
-  margin: 0;
-  line-height: 1.6;
-  color: var(--muted);
-  font-size: .92rem;
-}
-
-.cv-block {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.cv-block:first-of-type {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
-}
-
-.cv-subtitle {
-  font-size: .74rem;
-  text-transform: uppercase;
-  letter-spacing: .12rem;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.cv-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0 12px;
-}
-
-.cv-tags .tag {
-  padding: 6px 10px;
-  font-size: .76rem;
-}
-
-.cv-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0;
-  display: grid;
-  gap: 8px;
-}
-
-.cv-list li {
-  position: relative;
-  padding-left: 14px;
-  line-height: 1.5;
-  color: var(--muted);
-  font-size: .9rem;
-}
-
-.cv-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 5px;
-  height: 5px;
-  background: #171717;
-  opacity: .7;
-}
-
     .contact-grid {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -765,8 +641,7 @@
     @media (max-width: 980px) {
       .hero,
       .contact-grid,
-      .about-mix-grid,
-      .cv-modern-grid {
+      .about-mix-grid {
         grid-template-columns: 1fr;
       }
 
@@ -782,16 +657,13 @@
       .project-card,
       .contact-info,
       .contact-form-wrap,
-      .project-content,
-      .cv-card {
+      .project-content {
         text-align: center;
       }
 
       .hero-tags,
       .about-tags,
-      .skill-list,
-      .project-tags,
-      .cv-tags {
+      .skill-list {
         justify-content: center;
       }
 
@@ -838,14 +710,9 @@
         margin: 0 auto;
       }
 
-      .project-card,
-      .cv-card {
+      .project-card {
         max-width: 520px;
         margin: 0 auto;
-      }
-
-      .cv-list {
-        text-align: left;
       }
     }
   </style>
@@ -867,37 +734,36 @@
     <button data-panel="1" type="button">Om mig</button>
     <button data-panel="2" type="button">Projekter</button>
     <button data-panel="3" type="button">Fordybelse</button>
-    <button data-panel="4" type="button">CV</button>
-    <button data-panel="5" type="button">Kontakt</button>
+    <button data-panel="4" type="button">Kontakt</button>
   </nav>
 
   <main id="main-content">
     <div class="horizontal-sections" id="horizontal-sections">
 
-    <!-- Hjem -->
-<section class="panel">
-  <div class="panel-inner hero">
-    <div class="hero-copy">
-      <div class="hero-kicker">Signe Thomsen · Bygningskonstruktørstuderende</div>
-      <h1>Portfolio</h1>
+      <!-- Hjem -->
+      <section class="panel">
+        <div class="panel-inner hero">
+          <div class="hero-copy">
+            <div class="hero-kicker">Signe Thomsen · Bygningskonstruktørstuderende</div>
+            <h1>Portfolio</h1>
 
-      <p>
-        Her præsenterer jeg mit arbejde, semesterprojekter og faglige områder, jeg fordyber mig i.
-      </p>
+            <p>
+              Her præsenterer jeg mit arbejde, semesterprojekter og faglige områder, jeg fordyber mig i.
+            </p>
 
-      <p>
-        Jeg interesserer mig særligt for BIM, struktur og automatisering i projekteringen.
-      </p>
-    </div>
+            <p>
+              Jeg interesserer mig særligt for BIM, struktur og automatisering i projekteringen.
+            </p>
+          </div>
 
-    <div class="hero-visual">
-      <div class="hero-shape-bg"></div>
-      <div class="hero-image-wrap">
-        <img src="images/forside.png" alt="Forsideprojekt" fetchpriority="high">
-      </div>
-    </div>
-  </div>
-</section>
+          <div class="hero-visual">
+            <div class="hero-shape-bg"></div>
+            <div class="hero-image-wrap">
+              <img src="images/forside.png" alt="Forsideprojekt" fetchpriority="high">
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Om mig -->
       <section class="panel">
@@ -911,26 +777,24 @@
               <div class="about-kicker">Om mig</div>
               <h2>Signe Thomsen</h2>
 
-<p>
-Jeg har altid haft interesse for at forstå, hvordan ting hænger sammen – både i byggeri og i den måde, man arbejder på.
-Derfor har jeg valgt at læse til bygningskonstruktør, hvor jeg arbejder med projektering og byggeteknik.
-</p>
+              <p>
+                Jeg har altid haft interesse for at forstå, hvordan ting hænger sammen – både i byggeri og i den måde, man arbejder på.
+                Derfor har jeg valgt at læse til bygningskonstruktør, hvor jeg arbejder med projektering og byggeteknik.
+              </p>
 
-<p>
-Jeg kan godt lide at arbejde i spændet mellem det tekniske, det visuelle og det praktiske,
-og jeg motiveres af at finde løsninger, der er enkle, brugbare og giver mening.
-</p>
+              <p>
+                Jeg kan godt lide at arbejde i spændet mellem det tekniske, det visuelle og det praktiske,
+                og jeg motiveres af at finde løsninger, der er enkle, brugbare og giver mening.
+              </p>
 
-<p>
-Jeg interesserer mig særligt for BIM, struktur og automatisering i projekteringen.
-</p>
+              <p>
+                Jeg interesserer mig særligt for BIM, struktur og automatisering i projekteringen.
+              </p>
 
-<p>
-Jeg kan godt lide at arbejde i Revit med fokus på opbygning af modeller og struktur i data,
-og jeg er optaget af, hvordan det kan skabe bedre overblik og kvalitet i projekteringen.
-</p>
-
-      
+              <p>
+                Jeg kan godt lide at arbejde i Revit med fokus på opbygning af modeller og struktur i data,
+                og jeg er optaget af, hvordan det kan skabe bedre overblik og kvalitet i projekteringen.
+              </p>
             </div>
           </div>
         </div>
@@ -1036,88 +900,69 @@ og jeg er optaget af, hvordan det kan skabe bedre overblik og kvalitet i projekt
         </div>
       </section>
 
-      <!-- Fordybelse -->
-      <section class="panel">
-        <div class="panel-inner">
-          <div class="section-header">
-            <h2>Fordybelse</h2>
-            <div class="section-subline"></div>
-            <p class="section-intro">
-              Faglige områder jeg godt kan lide at fordybe mig i
-            </p>
-          </div>
+     <!-- Fordybelse -->
+<section class="panel">
+  <div class="panel-inner">
+    <div class="section-header">
+      <h2>Fordybelse</h2>
+      <div class="section-subline"></div>
+      <p class="section-intro">
+        Faglige områder jeg godt kan lide at fordybe mig i
+      </p>
+    </div>
 
-          <div class="carousel-wrapper" data-carousel="fordybelse">
-            <div class="carousel-track">
+    <div class="carousel-wrapper" data-carousel="fordybelse">
+      <div class="carousel-track">
 
-              <div class="carousel-slide">
-                <article class="project-card deep-card">
-                  <div class="project-image-wrap">
-                    <img src="images/dynamo-script.png" alt="Dynamo scripts" loading="eager" decoding="async">
-                    <div class="deep-accent">Automatisering</div>
-                  </div>
-                  <div class="project-content">
-                    <div class="project-meta">Dynamo</div>
-                    <h3>Dynamo scripts</h3>
-                    <p>Arbejde med automatisering i Revit med fokus på at forenkle gentagne opgaver og skabe bedre arbejdsgange.</p>
-                    <div class="project-tags">
-                      <span>Dynamo</span>
-                      <span>Revit</span>
-                      <span>Automatisering</span>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="project-card deep-card">
-                  <div class="project-image-wrap">
-                    <img src="images/speciale.png" alt="Speciale om parameterstyring" loading="eager" decoding="async">
-                    <div class="deep-accent">Bachelorrapport</div>
-                  </div>
-                  <div class="project-content">
-                    <div class="project-meta">Digital struktur</div>
-                    <h3>Data og modelopbygning</h3>
-                    <p>Fordybelse i hvordan struktur, parametre og ensartede principper kan styrke kvaliteten i projekteringen.</p>
-                    <div class="project-tags">
-                      <span>BIM</span>
-                      <span>Data</span>
-                      <span>Struktur</span>
-                    </div>
-                  </div>
-                </article>
-
-        
-
-              <div class="carousel-slide">
-                <article class="project-card deep-card">
-                  <div class="project-image-wrap">
-                    <img src="images/plugin-work.png" alt="Plugins og værktøjer" loading="lazy" decoding="async">
-                    <div class="deep-accent">Værktøjer</div>
-                  </div>
-                  <div class="project-content">
-                    <div class="project-meta">Digitale værktøjer</div>
-                    <h3>Plugins og værktøjer</h3>
-                    <p>Interesse for værktøjer, der kan understøtte mere stabile, effektive og gennemarbejdede processer.</p>
-                    <div class="project-tags">
-                      <span>Plugins</span>
-                      <span>Effektivitet</span>
-                      <span>Stabilitet</span>
-                    </div>
-                  </div>
-                </article>
-              </div>
-
+        <div class="carousel-slide">
+          <article class="project-card deep-card">
+            <div class="project-image-wrap">
+              <img src="images/dynamo-script.png" alt="Dynamo scripts" loading="eager" decoding="async">
+              <div class="deep-accent">Automatisering</div>
             </div>
-
-            <div class="carousel-controls">
-              <button class="carousel-btn prev" type="button" aria-label="Forrige fordybelse">←</button>
-              <div class="carousel-dots"></div>
-              <button class="carousel-btn next" type="button" aria-label="Næste fordybelse">→</button>
+            <div class="project-content">
+              <div class="project-meta">Dynamo</div>
+              <h3>Dynamo scripts</h3>
+              <p>Arbejde med automatisering i Revit med fokus på at forenkle gentagne opgaver og skabe bedre arbejdsgange.</p>
             </div>
-          </div>
+          </article>
+
+          <article class="project-card deep-card">
+            <div class="project-image-wrap">
+              <img src="images/speciale.png" alt="Speciale om parameterstyring" loading="eager" decoding="async">
+              <div class="deep-accent">Bachelorrapport</div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">Digital struktur</div>
+              <h3>Data og modelopbygning</h3>
+              <p>Fordybelse i hvordan struktur, parametre og ensartede principper kan styrke kvaliteten i projekteringen.</p>
+            </div>
+          </article>
+
+          <article class="project-card deep-card">
+            <div class="project-image-wrap">
+              <img src="images/plugin-work.png" alt="Plugins og værktøjer" loading="lazy" decoding="async">
+              <div class="deep-accent">Værktøjer</div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">Digitale værktøjer</div>
+              <h3>Plugins og værktøjer</h3>
+              <p>Interesse for værktøjer, der kan understøtte mere stabile, effektive og gennemarbejdede processer.</p>
+            </div>
+          </article>
         </div>
-      </section>
 
-    
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn prev" type="button" aria-label="Forrige fordybelse">←</button>
+        <div class="carousel-dots"></div>
+        <button class="carousel-btn next" type="button" aria-label="Næste fordybelse">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
       <!-- Kontakt -->
       <section class="panel">
         <div class="panel-inner">
@@ -1126,15 +971,14 @@ og jeg er optaget af, hvordan det kan skabe bedre overblik og kvalitet i projekt
             <div class="section-subline"></div>
           </div>
 
-            <div class="contact-form-wrap">
-              <h3>Skriv til mig</h3>
-              <form class="contact-form" action="https://formspree.io/f/xnqklrbr" method="POST">
-                <input type="text" name="name" placeholder="Dit navn" required>
-                <input type="email" name="email" placeholder="Din email" required>
-                <textarea name="message" placeholder="Din besked" required></textarea>
-                <button type="submit">Send</button>
-              </form>
-            </div>
+          <div class="contact-form-wrap">
+            <h3>Skriv til mig</h3>
+            <form class="contact-form" action="https://formspree.io/f/xnqklrbr" method="POST">
+              <input type="text" name="name" placeholder="Dit navn" required>
+              <input type="email" name="email" placeholder="Din email" required>
+              <textarea name="message" placeholder="Din besked" required></textarea>
+              <button type="submit">Send</button>
+            </form>
           </div>
         </div>
       </section>

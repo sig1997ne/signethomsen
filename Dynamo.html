@@ -1,1 +1,792 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamo scripts | Signe Thomsen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f2ec;
+      color: #171717;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --muted: #686159;
+      --line: rgba(0, 0, 0, 0.12);
+      --line-strong: rgba(0, 0, 0, 0.24);
+      --max: 1380px;
+      --ease: cubic-bezier(.77, 0, .18, 1);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .logo {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      height: 42px;
+      width: auto;
+      z-index: 230;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 26px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 240;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .menu-btn span {
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background: #171717;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+
+    .menu-btn span:nth-child(1) { transform: translateY(-6px); }
+    .menu-btn span:nth-child(2) { transform: translateY(0); }
+    .menu-btn span:nth-child(3) { transform: translateY(6px); }
+
+    .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { opacity: 0; }
+    .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 180;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: rgba(250, 248, 243, 0.98);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid var(--line);
+      padding: 92px 34px 34px;
+      transition: right .34s ease;
+      z-index: 220;
+    }
+
+    .menu.open {
+      right: 0;
+    }
+
+    .menu-title {
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .18rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .menu a,
+    .menu button {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0 0 18px;
+      margin: 0 0 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.08rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      color: #171717;
+    }
+
+    .page-shell {
+      width: 100%;
+      min-height: 100vh;
+      padding: 110px 28px 60px;
+    }
+
+    .page-inner {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .page-frame {
+      border: 1px solid var(--line);
+      padding: 36px;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 34px;
+      flex-wrap: wrap;
+    }
+
+    .hero-head h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -.05em;
+      font-weight: 700;
+    }
+
+    .hero-intro {
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.6);
+      padding: 12px 18px;
+      cursor: pointer;
+      color: #171717;
+      transition: transform .22s ease, background .22s ease;
+      flex-shrink: 0;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .back-btn::before {
+      content: "←";
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 0 0 34px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+      padding: 22px;
+      min-height: 180px;
+    }
+
+    .info-card .eyebrow {
+      margin: 0 0 12px;
+      font-size: .72rem;
+      letter-spacing: .16rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .info-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      letter-spacing: -.02em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .95rem;
+    }
+
+    .section-block {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.34);
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    .section-header {
+      margin-bottom: 18px;
+    }
+
+    .section-header .eyebrow {
+      margin: 0 0 10px;
+      font-size: .72rem;
+      letter-spacing: .16rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+      letter-spacing: -.03em;
+    }
+
+    .section-text {
+      max-width: 860px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .script-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .script-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.48);
+      padding: 24px;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .script-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.82);
+      border-color: rgba(0,0,0,0.22);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.06);
+    }
+
+    .script-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .script-top h3 {
+      margin: 0;
+      font-size: 1.28rem;
+      letter-spacing: -.02em;
+    }
+
+    .script-tag {
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.72);
+      padding: 8px 12px;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .1rem;
+      color: #171717;
+      white-space: nowrap;
+    }
+
+    .script-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .script-box {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .script-box h4 {
+      margin: 0 0 8px;
+      font-size: .92rem;
+      text-transform: uppercase;
+      letter-spacing: .1rem;
+      color: #171717;
+    }
+
+    .script-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .95rem;
+    }
+
+    .script-tools {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .script-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.48);
+      padding: 18px 20px;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease;
+    }
+
+    .script-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.85);
+      border-color: rgba(0,0,0,0.24);
+    }
+
+    .script-link span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .script-link strong {
+      font-size: 1rem;
+      letter-spacing: -.01em;
+    }
+
+    .script-link::after {
+      content: "↗";
+      font-size: 1rem;
+      color: #171717;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1100px) {
+      .info-grid,
+      .script-grid,
+      .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        padding: 98px 18px 40px;
+      }
+
+      .page-frame {
+        padding: 22px;
+      }
+
+      .logo {
+        top: 20px;
+        left: 20px;
+        height: 34px;
+      }
+
+      .menu-btn {
+        top: 22px;
+        right: 22px;
+      }
+
+      .info-grid,
+      .script-grid,
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-block,
+      .script-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html">
+    <img src="images/logo.png" alt="Logo" class="logo">
+  </a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <nav class="menu" id="menu">
+    <div class="menu-title">Navigation</div>
+    <a href="index.html">Hjem</a>
+    <a href="index.html#about">Om mig</a>
+    <a href="index.html#projects">Projekter</a>
+    <a href="index.html#deepdive">Fordybelse</a>
+    <a href="index.html#cv">CV</a>
+    <a href="index.html#contact">Kontakt</a>
+  </nav>
+
+  <main class="page-shell">
+    <div class="page-inner">
+      <section class="page-frame">
+        <div class="hero-head">
+          <div>
+            <h1>Dynamo scripts</h1>
+            <p class="hero-intro">
+              Jeg interesserer mig særligt for BIM, struktur og automatisering i projekteringen.
+              Gennem Dynamo arbejder jeg med at undersøge, hvordan manuelle opgaver i Revit kan
+              gøres mere systematiske, overskuelige og effektive. For mig handler det ikke kun om
+              at spare tid, men også om at skabe bedre datakvalitet og mere struktur i modellen.
+            </p>
+          </div>
+
+          <button class="back-btn" onclick="window.history.back()" type="button">Tilbage</button>
+        </div>
+
+        <section class="info-grid">
+          <article class="info-card">
+            <p class="eyebrow">Fokus</p>
+            <h3>Struktur i modellen</h3>
+            <p>
+              Jeg arbejder med, hvordan parametre, navngivning og organisering af data kan bruges
+              mere bevidst i Revit, så modellen bliver mere ensartet og lettere at arbejde videre i.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <p class="eyebrow">Metode</p>
+            <h3>Automatisering af gentagelser</h3>
+            <p>
+              Mine scripts tager ofte udgangspunkt i konkrete problemer fra projekter, hvor der er
+              mange gentagende manuelle opgaver. Her bruger jeg Dynamo til at gøre arbejdsgangen
+              mere systematisk.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <p class="eyebrow">Værdi</p>
+            <h3>Datakvalitet og overblik</h3>
+            <p>
+              Målet er ikke kun hurtigere processer, men også mere pålidelige data, bedre overblik
+              og færre fejl i det daglige arbejde med modellen.
+            </p>
+          </article>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <p class="eyebrow">Udvalgte scripts</p>
+            <h2>Hvad jeg har arbejdet med</h2>
+          </div>
+
+          <p class="section-text">
+            Her er et udvalg af scripts og workflows, jeg har udviklet i Dynamo. De viser både
+            tekniske løsninger og den måde, jeg tænker struktur, automatisering og anvendelse i praksis.
+          </p>
+
+          <div class="script-list">
+            <article class="script-card">
+              <div class="script-top">
+                <h3>Parameterstyring og automatisering</h3>
+                <div class="script-tag">Revit · Dynamo · Excel · TXT</div>
+              </div>
+
+              <div class="script-grid">
+                <div class="script-box">
+                  <h4>Hvad</h4>
+                  <p>
+                    Et sammenhængende workflow med eksport, TXT-opdatering og import, hvor modeldata
+                    kan trækkes ud af Revit, redigeres centralt og føres tilbage i modellen.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Hvorfor</h4>
+                  <p>
+                    Når typeinformation, keynotes og andre data ligger spredt i modellen, bliver
+                    ændringer manuelle og tidskrævende. Det øger risikoen for uens struktur og fejl.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Værdi</h4>
+                  <p>
+                    Workflowet gør det muligt at arbejde mere systematisk med parametre, skabe bedre
+                    overblik og sikre mere ensartede data i modellen.
+                  </p>
+                </div>
+              </div>
+
+              <div class="script-tools">
+                Fokus på type ID, keynote, navn/opbygning, antal og central redigering af modeldata.
+              </div>
+            </article>
+
+            <article class="script-card">
+              <div class="script-top">
+                <h3>Eksport til Excel</h3>
+                <div class="script-tag">Revit · Dynamo · Excel</div>
+              </div>
+
+              <div class="script-grid">
+                <div class="script-box">
+                  <h4>Hvad</h4>
+                  <p>
+                    Et script der eksporterer sheet-information fra Revit til Excel, fx tegningsnummer,
+                    navn, dato, ansvarlig og projekteringsfase.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Hvorfor</h4>
+                  <p>
+                    Når projektet indeholder mange sheets, kan det være svært at bevare overblikket
+                    og kvalitetssikre oplysninger direkte i Revit.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Værdi</h4>
+                  <p>
+                    Eksporten giver et samlet overblik over tegningsmaterialet og gør det lettere at
+                    kontrollere konsistens og opdage fejl i metadata.
+                  </p>
+                </div>
+              </div>
+
+              <div class="script-tools">
+                Velegnet til kvalitetssikring og strukturering af sheetdata på tværs af projektet.
+              </div>
+            </article>
+
+            <article class="script-card">
+              <div class="script-top">
+                <h3>Sortere sheets automatisk ved brug af navngivningsstruktur</h3>
+                <div class="script-tag">Revit · Dynamo</div>
+              </div>
+
+              <div class="script-grid">
+                <div class="script-box">
+                  <h4>Hvad</h4>
+                  <p>
+                    Et script der læser Sheet Number og automatisk kobler tegninger til korrekt fase
+                    og view type ud fra en fast navngivningsstruktur.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Hvorfor</h4>
+                  <p>
+                    Manuel sortering af mange sheets er langsom og uoverskuelig, især når der arbejdes
+                    med flere faser og mange tegningstyper.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Værdi</h4>
+                  <p>
+                    Scriptet viser, hvordan en konsekvent struktur i navngivning kan bruges aktivt
+                    til at automatisere organisering og skabe bedre overblik i projektbrowseren.
+                  </p>
+                </div>
+              </div>
+
+              <div class="script-tools">
+                Et eksempel på hvordan struktur i data kan omsættes direkte til automatisering.
+              </div>
+            </article>
+
+            <article class="script-card">
+              <div class="script-top">
+                <h3>Slette ubrugte families</h3>
+                <div class="script-tag">Revit · Dynamo · Python</div>
+              </div>
+
+              <div class="script-grid">
+                <div class="script-box">
+                  <h4>Hvad</h4>
+                  <p>
+                    Et Python-script i Dynamo der identificerer loadable families, undersøger om de
+                    er i brug, og sletter dem hvis de ikke længere anvendes i modellen.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Hvorfor</h4>
+                  <p>
+                    I større projekter kan modellen hurtigt blive fyldt med families, der ikke bruges,
+                    hvilket påvirker overblik, filstørrelse og arbejdshastighed.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Værdi</h4>
+                  <p>
+                    Scriptet effektiviserer oprydning i modellen og kan bidrage til bedre performance,
+                    men viser også vigtigheden af at arbejde forsigtigt med automatiseret sletning.
+                  </p>
+                </div>
+              </div>
+
+              <div class="script-tools">
+                Et praktisk script med fokus på modeloprydning, ydeevne og kritisk vurdering af risiko.
+              </div>
+            </article>
+
+            <article class="script-card">
+              <div class="script-top">
+                <h3>Vis kun bestemte snit</h3>
+                <div class="script-tag">Revit · Dynamo · Python</div>
+              </div>
+
+              <div class="script-grid">
+                <div class="script-box">
+                  <h4>Hvad</h4>
+                  <p>
+                    Et script der skjuler section-linjer i den aktive visning, så kun udvalgte snit
+                    forbliver synlige.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Hvorfor</h4>
+                  <p>
+                    Når mange brugere arbejder i samme model, kan visninger hurtigt blive uoverskuelige
+                    med mange snit, som ikke er relevante i den enkelte tegning.
+                  </p>
+                </div>
+
+                <div class="script-box">
+                  <h4>Værdi</h4>
+                  <p>
+                    Scriptet gør det hurtigere at rydde op i visningen og viser, hvordan mindre
+                    automatiseringer også kan forbedre den daglige arbejdsgang i Revit.
+                  </p>
+                </div>
+              </div>
+
+              <div class="script-tools">
+                En enkel løsning med stor praktisk værdi i samarbejdsprojekter og tegningsopsætning.
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <p class="eyebrow">Links</p>
+            <h2>Se scripts og beskrivelser</h2>
+          </div>
+
+          <p class="section-text">
+            Herunder kan du åbne de enkelte beskrivelser og scripts. Det giver mulighed for at se
+            arbejdet mere konkret og følge tankegangen bag de enkelte løsninger.
+          </p>
+
+          <div class="links-grid">
+            <a class="script-link" href="parameterstyring-og-automatisering.html">
+              <div>
+                <strong>Parameterstyring og automatisering</strong>
+                <span>Workflow mellem Revit, Excel og TXT</span>
+              </div>
+            </a>
+
+            <a class="script-link" href="eksport-til-excel.html">
+              <div>
+                <strong>Eksport til Excel</strong>
+                <span>Sheet-information fra Revit til Excel</span>
+              </div>
+            </a>
+
+            <a class="script-link" href="sortere-sheets.html">
+              <div>
+                <strong>Sortere sheets automatisk</strong>
+                <span>Struktur og fase ud fra Sheet Number</span>
+              </div>
+            </a>
+
+            <a class="script-link" href="slette-ubrugte-families.html">
+              <div>
+                <strong>Slette ubrugte families</strong>
+                <span>Modeloprydning og performance</span>
+              </div>
+            </a>
+
+            <a class="script-link" href="vis-bestemte-snit.html">
+              <div>
+                <strong>Vis kun bestemte snit</strong>
+                <span>Ryd op i visningen med Dynamo</span>
+              </div>
+            </a>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMenu(forceOpen = null) {
+      const shouldOpen = forceOpen === null
+        ? !menu.classList.contains('open')
+        : forceOpen;
+
+      menu.classList.toggle('open', shouldOpen);
+      menuOverlay.classList.toggle('open', shouldOpen);
+      menuBtn.classList.toggle('open', shouldOpen);
+    }
+
+    menuBtn.addEventListener('click', () => toggleMenu());
+    menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') toggleMenu(false);
+    });
+  </script>
+</body>
+</html>

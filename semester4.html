@@ -3,176 +3,715 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4. SEMESTER - PDF Galleri</title>
+  <title>4. semester | Signe Thomsen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* Base styles */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+    * {
+      box-sizing: border-box;
     }
-    header {
-      background-color: #222933;
-      padding: 15px 20px;
-      border-bottom: 1px solid #222933;
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f2ec;
+      color: #171717;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --muted: #686159;
+      --line: rgba(0, 0, 0, 0.12);
+      --line-strong: rgba(0, 0, 0, 0.24);
+      --max: 1380px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .logo {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      height: 42px;
+      width: auto;
+      z-index: 230;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 26px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 240;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .menu-btn span {
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background: #171717;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+
+    .menu-btn span:nth-child(1) { transform: translateY(-6px); }
+    .menu-btn span:nth-child(2) { transform: translateY(0); }
+    .menu-btn span:nth-child(3) { transform: translateY(6px); }
+
+    .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { opacity: 0; }
+    .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 180;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: rgba(250, 248, 243, 0.98);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid var(--line);
+      padding: 92px 34px 34px;
+      transition: right .34s ease;
+      z-index: 220;
+    }
+
+    .menu.open {
+      right: 0;
+    }
+
+    .menu-title {
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .18rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .menu a {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0 0 18px;
+      margin: 0 0 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.08rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      color: #171717;
+    }
+
+    .page-shell {
+      width: 100%;
+      min-height: 100vh;
+      padding: 110px 28px 60px;
+    }
+
+    .page-inner {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .page-frame {
+      border: 1px solid var(--line);
+      padding: 36px;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 34px;
+      flex-wrap: wrap;
+    }
+
+    .hero-head h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -.05em;
+      font-weight: 700;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.6);
+      padding: 12px 18px;
+      cursor: pointer;
+      color: #171717;
+      transition: transform .22s ease, background .22s ease;
+      flex-shrink: 0;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .back-btn::before {
+      content: "←";
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .category-grid {
       display: flex;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .category-card {
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.48);
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
+      text-align: left;
+      min-width: 190px;
+      flex: 1 1 220px;
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.88);
+      border-color: rgba(0,0,0,0.28);
+    }
+
+    .category-card.active {
+      background: #171717;
+      color: #fff;
+      border-color: #171717;
+    }
+
+    .gallery-wrap {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.34);
+      padding: 24px;
+    }
+
+    .gallery-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .gallery-head-left h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+      letter-spacing: -.03em;
+    }
+
+    .gallery-head-left p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .grade-badge {
+      border: 1px solid var(--line-strong);
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.7);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .carousel-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform .45s ease-out;
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .preview-card {
+      display: block;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+      overflow: hidden;
+      transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.2);
+    }
+
+    .preview-image-wrap {
+      background: #e9e4db;
+      overflow: hidden;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .preview-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .preview-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: .95rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.45));
+    }
+
+    .preview-content {
+      padding: 18px 18px 20px;
+    }
+
+    .preview-content h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      letter-spacing: -.02em;
+    }
+
+    .preview-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .carousel-controls {
+      display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
+      margin-top: 26px;
+      gap: 16px;
     }
-    header img {
-      height: 60px;
-      margin-right: 10px;
-    }
-    header h1 {
-      font-size: 1.5rem;
-      margin: 0;
-    }
-    button {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
+
+    .carousel-btn {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.55);
+      font-size: 24px;
       cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
+      color: #171717;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      flex-shrink: 0;
     }
-    button:hover {
-      background-color: #555;
+
+    .carousel-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.82);
+      border-color: rgba(0,0,0,0.28);
     }
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h2 {
-      margin-top: 40px;
-      margin-bottom: 10px;
-      font-size: 1.25rem;
-    }
-    .grade {
-      font-style: italic;
-      color: #666;
-      margin: 0 0 20px 0;
-    }
-    .grid-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+    .carousel-dots {
+      display: flex;
       gap: 10px;
+      justify-content: center;
+      flex: 1;
     }
-    .grid-preview a {
-      display: block;
-      text-align: center;
+
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border: none;
+      background: rgba(0, 0, 0, .18);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
     }
-    .grid-preview img {
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: block;
+
+    .carousel-dot.active {
+      background: #171717;
+      transform: scale(1.18);
     }
-    /* Typography adjustments */
-    h2, .grade, button, header h1 {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    /* Responsive tweaks */
-    @media (max-width: 768px) {
-      header {
-        justify-content: center;
+
+    @media (max-width: 1100px) {
+      .carousel-slide {
+        grid-template-columns: repeat(2, 1fr);
       }
-      header button {
-        margin: 10px 0 0;
+
+      .preview-image-wrap {
+        height: 440px;
       }
     }
-    @media (max-width: 480px) {
-      header img {
-        height: 50px;
+
+    @media (max-width: 760px) {
+      .page-shell {
+        padding: 98px 18px 40px;
       }
-      header h1 {
-        font-size: 1.25rem;
+
+      .page-frame {
+        padding: 22px;
       }
-      button {
-        width: 100%;
+
+      .logo {
+        top: 20px;
+        left: 20px;
+        height: 34px;
+      }
+
+      .menu-btn {
+        top: 22px;
+        right: 22px;
+      }
+
+      .preview-image-wrap {
+        height: 420px;
+      }
+
+      .gallery-wrap {
+        padding: 18px;
+      }
+
+      .category-card {
+        flex: 1 1 100%;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div style="display: flex; align-items: center;">
-      <img src="images/4sem.png" alt="Logo">
-      <h1>4. SEMESTER</h1>
+  <a href="index.html">
+    <img src="images/logo.png" alt="Logo" class="logo">
+  </a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <nav class="menu" id="menu">
+    <div class="menu-title">Navigation</div>
+    <a href="index.html">Hjem</a>
+    <a href="index.html#om-mig">Om mig</a>
+    <a href="index.html#projekter">Projekter</a>
+    <a href="index.html#fordybelse">Fordybelse</a>
+    <a href="index.html#cv">CV</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </nav>
+
+  <main class="page-shell">
+    <div class="page-inner">
+      <section class="page-frame">
+        <div class="hero-head">
+          <div>
+            <h1>4. semester</h1>
+          </div>
+
+          <button class="back-btn" onclick="window.history.back()" type="button">Tilbage</button>
+        </div>
+
+        <section class="category-grid" id="categoryGrid">
+          <button class="category-card active" type="button" data-category="vue">
+            <h3>VUE</h3>
+          </button>
+
+          <button class="category-card" type="button" data-category="lue">
+            <h3>LUE</h3>
+          </button>
+
+          <button class="category-card" type="button" data-category="hoved">
+            <h3>Hovedprojekt</h3>
+          </button>
+        </section>
+
+        <section class="gallery-wrap">
+          <div class="gallery-head">
+            <div class="gallery-head-left">
+              <h2 id="galleryTitle">VUE</h2>
+              <p id="galleryText">Karakter 7. Klik på en side for at åbne den tilhørende PDF.</p>
+            </div>
+            <div class="grade-badge" id="galleryGrade">Karakter: 7</div>
+          </div>
+
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack"></div>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="prevBtn" type="button" aria-label="Forrige">←</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button class="carousel-btn" id="nextBtn" type="button" aria-label="Næste">→</button>
+          </div>
+        </section>
+      </section>
     </div>
-    <button onclick="window.history.back()">Tilbage</button>
-  </header>
-  <main>
-    <section>
-    <h2>VUE</h2>
-  <p class="grade">Karakter: 7</p>
-  <div class="grid-preview">
-    <a href="images/projektering/4sem/VUE (1).pdf" target="_blank"><img src="images/projektering/4sem/VUE (1).jpg" alt="VUE 1"></a>
-  </div>
-
-  <h2>LUE</h2>
-  <p class="grade">Karakter: 7 </p>
-  <div class="grid-preview">
-    <!-- LUE (1–5) -->
-    <a href="images/projektering/4sem/LUE (1).pdf" target="_blank"><img src="images/projektering/4sem/LUE (1).jpg" alt="LUE 1"></a>
-    <a href="images/projektering/4sem/LUE (2).pdf" target="_blank"><img src="images/projektering/4sem/LUE (2).jpg" alt="LUE 2"></a>
-  </div>
-
-  <h2>Hovedprojekt</h2>
-  <p class="grade">Karakter: 7 </p>
-  <div class="grid-preview">
-    <!-- Hoved (1–8) -->
-   <a href="images/projektering/4sem/Hoved (1).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (1).jpg" alt="Hoved 1"></a>
-    <a href="images/projektering/4sem/Hoved (2).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (2).jpg" alt="Hoved 2"></a>
-    <a href="images/projektering/4sem/Hoved (3).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (3).jpg" alt="Hoved 3"></a>
-    <a href="images/projektering/4sem/Hoved (4).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (4).jpg" alt="Hoved 4"></a>
-    <a href="images/projektering/4sem/Hoved (5).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (5).jpg" alt="Hoved 5"></a>
-    <a href="images/projektering/4sem/Hoved (6).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (6).jpg" alt="Hoved 6"></a>
-    <a href="images/projektering/4sem/Hoved (7).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (7).jpg" alt="Hoved 7"></a>
-    <a href="images/projektering/4sem/Hoved (8).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (8).jpg" alt="Hoved 8"></a>
-    <a href="images/projektering/4sem/Hoved (9).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (9).jpg" alt="Hoved 9"></a>
-    <a href="images/projektering/4sem/Hoved (10).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (10).jpg" alt="Hoved 10"></a>
-    <a href="images/projektering/4sem/Hoved (11).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (11).jpg" alt="Hoved 11"></a>
-    <a href="images/projektering/4sem/Hoved (12).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (12).jpg" alt="Hoved 12"></a>
-    <a href="images/projektering/4sem/Hoved (13).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (13).jpg" alt="Hoved 13"></a>
-    <a href="images/projektering/4sem/Hoved (14).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (14).jpg" alt="Hoved 14"></a>
-    <a href="images/projektering/4sem/Hoved (15).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (15).jpg" alt="Hoved 15"></a>
-    <a href="images/projektering/4sem/Hoved (16).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (16).jpg" alt="Hoved 16"></a>
-    <a href="images/projektering/4sem/Hoved (17).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (17).jpg" alt="Hoved 17"></a>
-    <a href="images/projektering/4sem/Hoved (18).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (18).jpg" alt="Hoved 18"></a>
-    <a href="images/projektering/4sem/Hoved (19).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (19).jpg" alt="Hoved 19"></a>
-    <a href="images/projektering/4sem/Hoved (20).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (20).jpg" alt="Hoved 20"></a>
-    <a href="images/projektering/4sem/Hoved (21).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (21).jpg" alt="Hoved 21"></a>
-    <a href="images/projektering/4sem/Hoved (22).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (22).jpg" alt="Hoved 22"></a>
-    <a href="images/projektering/4sem/Hoved (23).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (23).jpg" alt="Hoved 23"></a>
-    <a href="images/projektering/4sem/Hoved (24).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (24).jpg" alt="Hoved 24"></a>
-    <a href="images/projektering/4sem/Hoved (25).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (25).jpg" alt="Hoved 25"></a>
-    <a href="images/projektering/4sem/Hoved (26).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (26).jpg" alt="Hoved 26"></a>
-    <a href="images/projektering/4sem/Hoved (27).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (27).jpg" alt="Hoved 27"></a>
-    <a href="images/projektering/4sem/Hoved (28).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (28).jpg" alt="Hoved 28"></a>
-    <a href="images/projektering/4sem/Hoved (29).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (29).jpg" alt="Hoved 29"></a>
-    <a href="images/projektering/4sem/Hoved (30).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (30).jpg" alt="Hoved 30"></a>
-    <a href="images/projektering/4sem/Hoved (31).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (31).jpg" alt="Hoved 31"></a>
-    <a href="images/projektering/4sem/Hoved (32).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (32).jpg" alt="Hoved 32"></a>
-    <a href="images/projektering/4sem/Hoved (33).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (33).jpg" alt="Hoved 33"></a>
-    <a href="images/projektering/4sem/Hoved (34).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (34).jpg" alt="Hoved 34"></a>
-    <a href="images/projektering/4sem/Hoved (35).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (35).jpg" alt="Hoved 35"></a>
-    <a href="images/projektering/4sem/Hoved (36).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (36).jpg" alt="Hoved 36"></a>
-    <a href="images/projektering/4sem/Hoved (37).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (37).jpg" alt="Hoved 37"></a>
-    <a href="images/projektering/4sem/Hoved (38).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (38).jpg" alt="Hoved 38"></a>
-    <a href="images/projektering/4sem/Hoved (39).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (39).jpg" alt="Hoved 39"></a>
-    <a href="images/projektering/4sem/Hoved (40).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (40).jpg" alt="Hoved 40"></a>
-    <a href="images/projektering/4sem/Hoved (41).pdf" target="_blank"><img src="images/projektering/4sem/Hoved (40).jpg" alt="Hoved 41"></a>
-  </div>
-
-    </section>
   </main>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function toggleMenu(forceOpen = null) {
+      const shouldOpen = forceOpen === null
+        ? !menu.classList.contains('open')
+        : forceOpen;
+
+      menu.classList.toggle('open', shouldOpen);
+      menuOverlay.classList.toggle('open', shouldOpen);
+      menuBtn.classList.toggle('open', shouldOpen);
+    }
+
+    menuBtn.addEventListener('click', () => toggleMenu());
+    menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') toggleMenu(false);
+    });
+
+    const galleryData = {
+      vue: {
+        title: 'VUE',
+        grade: 'Karakter: 7',
+        text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
+        label: 'VUE',
+        folder: 'images/projektering/4sem',
+        prefix: 'VUE',
+        count: 1
+      },
+      lue: {
+        title: 'LUE',
+        grade: 'Karakter: 7',
+        text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
+        label: 'LUE',
+        folder: 'images/projektering/4sem',
+        prefix: 'LUE',
+        count: 2
+      },
+      hoved: {
+        title: 'Hovedprojekt',
+        grade: 'Karakter: 7',
+        text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
+        label: 'Hovedprojekt',
+        folder: 'images/projektering/4sem',
+        prefix: 'Hoved',
+        count: 41
+      }
+    };
+
+    const categoryButtons = document.querySelectorAll('.category-card');
+    const galleryTitle = document.getElementById('galleryTitle');
+    const galleryText = document.getElementById('galleryText');
+    const galleryGrade = document.getElementById('galleryGrade');
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselDots = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentCategory = 'vue';
+    let currentSlide = 0;
+    let totalSlides = 0;
+
+    function getItemsPerSlide() {
+      if (window.innerWidth <= 760) return 1;
+      if (window.innerWidth <= 1100) return 2;
+      return 3;
+    }
+
+    function buildSlides(items, itemsPerSlide) {
+      const slides = [];
+      for (let i = 0; i < items.length; i += itemsPerSlide) {
+        slides.push(items.slice(i, i + itemsPerSlide));
+      }
+      return slides;
+    }
+
+    function createItems(data) {
+      const items = [];
+
+      for (let i = 1; i <= data.count; i++) {
+        items.push({
+          title: `${data.label} ${i}`,
+          pdf: `${data.folder}/${data.prefix} (${i}).pdf`,
+          image: `${data.folder}/${data.prefix} (${i}).jpg`
+        });
+      }
+
+      return items;
+    }
+
+    function renderGallery(categoryKey) {
+      const data = galleryData[categoryKey];
+      const items = createItems(data);
+      const itemsPerSlide = getItemsPerSlide();
+      const slides = buildSlides(items, itemsPerSlide);
+
+      galleryTitle.textContent = data.title;
+      galleryText.textContent = data.text;
+      galleryGrade.textContent = data.grade;
+
+      carouselTrack.innerHTML = '';
+      carouselDots.innerHTML = '';
+
+      slides.forEach((slideItems) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        slideItems.forEach((item) => {
+          const card = document.createElement('a');
+          card.className = 'preview-card';
+          card.href = item.pdf;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+
+          card.innerHTML = `
+            <div class="preview-image-wrap">
+              <img
+                src="${item.image}"
+                alt="${item.title}"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              >
+              <div class="preview-fallback">
+                Previewbillede mangler.<br>
+                Klik for at åbne PDF.
+              </div>
+            </div>
+            <div class="preview-content">
+              <h3>${item.title}</h3>
+              <p>Åbn PDF</p>
+            </div>
+          `;
+
+          slide.appendChild(card);
+        });
+
+        carouselTrack.appendChild(slide);
+      });
+
+      totalSlides = slides.length;
+      currentSlide = 0;
+
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Gå til slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          currentSlide = i;
+          updateCarousel();
+        });
+        carouselDots.appendChild(dot);
+      }
+
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      carouselTrack.style.transform = `translate3d(-${currentSlide * 100}%, 0, 0)`;
+
+      const dots = carouselDots.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (!totalSlides) return;
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!totalSlides) return;
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    });
+
+    categoryButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        currentCategory = button.dataset.category;
+
+        categoryButtons.forEach((btn) => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        renderGallery(currentCategory);
+      });
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        renderGallery(currentCategory);
+      }, 150);
+    });
+
+    renderGallery(currentCategory);
+  </script>
 </body>
 </html>

@@ -32,6 +32,7 @@
       top: 24px;
       left: 28px;
       height: 42px;
+      z-index: 1000;
     }
 
     .menu-btn {
@@ -43,6 +44,7 @@
       border: none;
       background: transparent;
       cursor: pointer;
+      z-index: 1100;
     }
 
     .menu-btn span {
@@ -78,7 +80,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 26px;
     }
 
     h1 {
@@ -86,24 +88,29 @@
       margin: 0;
     }
 
-    /* FIX: mindre og strammere badge */
-    .badge {
+    /* BADGE + BACK SAME SIZE */
+    .badge, .back-btn {
       border: 1px solid var(--line-strong);
-      padding: 4px 10px;
+      padding: 6px 12px;
       background: rgba(255,255,255,0.7);
       font-weight: 600;
       font-size: 0.78rem;
       white-space: nowrap;
-      height: fit-content;
       line-height: 1;
+      height: fit-content;
     }
 
-    /* INTRO */
+    .back-btn {
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* INTRO (mere luft) */
     .intro p {
       color: var(--muted);
-      line-height: 1.75;
-      max-width: 900px;
-      margin-top: 10px;
+      line-height: 1.8;
+      max-width: 1100px;
+      margin-top: 22px;
     }
 
     /* GRID */
@@ -143,6 +150,45 @@
     @media (max-width: 900px) {
       .grid { grid-template-columns: 1fr; }
     }
+
+    /* MENU */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 900;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: rgba(250,248,243,0.98);
+      backdrop-filter: blur(12px);
+      border-left: 1px solid var(--line);
+      padding: 92px 34px 34px;
+      transition: 0.35s ease;
+      z-index: 1000;
+    }
+
+    .menu.open { right: 0; }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -152,9 +198,18 @@
   <img src="images/logo.png" class="logo">
 </a>
 
-<button class="menu-btn">
+<button class="menu-btn" id="menuBtn">
   <span></span><span></span><span></span>
 </button>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<nav class="menu" id="menu">
+  <a href="index.html">Hjem</a>
+  <a href="index.html">Om mig</a>
+  <a href="index.html">Projekter</a>
+  <a href="index.html">Kontakt</a>
+</nav>
 
 <div class="page">
   <div class="inner">
@@ -163,21 +218,24 @@
       <!-- HERO -->
       <div class="hero">
         <h1>6. semester</h1>
-        <div class="badge">Karakter: 12</div>
+
+        <div style="display:flex; gap:10px;">
+          <div class="badge">Karakter: 12</div>
+
+          <button class="back-btn" onclick="window.history.back()">
+            Tilbage
+          </button>
+        </div>
       </div>
 
-      <!-- INTRO (UDVIDET) -->
+      <!-- INTRO (FORBEDRET TEKST) -->
       <div class="intro">
         <p>
-Semester 6 har været mit praktikophold på en tegnestue, hvor jeg har arbejdet med projektering, BIM-processer og samarbejde i virkelige byggeprojekter.
-
-Jeg har været i praktik ved RUM i Horsens, hvor jeg har fået indblik i, hvordan en professionel tegnestue arbejder fra idéfase til udførelse. Jeg har arbejdet tæt sammen med både arkitekter og konstruktører i daglige opgaver og projekter.
-
-Praktikken har givet mig erfaring med både projektering, digital modellering og dokumentation i Revit og Dynamo, samt forståelse for hvordan komplekse byggeprojekter styres i praksis.
+Semester 6 har været mit praktikophold på en tegnestue, hvor jeg har arbejdet med projektering, BIM-processer og samarbejde i virkelige byggeprojekter. Jeg har været i praktik ved RUM i Horsens, hvilket har givet mig et indblik i, hvordan en professionel tegnestue arbejder fra idéfase til udførelse. Her har jeg arbejdet tæt sammen med både arkitekter og konstruktører i daglige opgaver og projekter, hvilket har styrket min forståelse for det tværfaglige samarbejde i branchen. Praktikken har samtidig givet mig erfaring med projektering, digital modellering og dokumentation i Revit og Dynamo samt en bedre forståelse for, hvordan komplekse byggeprojekter styres i praksis.
         </p>
       </div>
 
-      <!-- GRID -->
+      <!-- GRID (BEHOLDT) -->
       <div class="grid">
 
         <div class="card">
@@ -227,6 +285,25 @@ Jeg har fået en bedre forståelse af, hvordan teori bruges i praksis og hvad je
     </div>
   </div>
 </div>
+
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const menu = document.getElementById("menu");
+  const menuOverlay = document.getElementById("menuOverlay");
+
+  function toggleMenu(force = null) {
+    const open = force === null
+      ? !menu.classList.contains("open")
+      : force;
+
+    menu.classList.toggle("open", open);
+    menuOverlay.classList.toggle("open", open);
+    menuBtn.classList.toggle("open", open);
+  }
+
+  menuBtn.addEventListener("click", () => toggleMenu());
+  menuOverlay.addEventListener("click", () => toggleMenu(false));
+</script>
 
 </body>
 </html>

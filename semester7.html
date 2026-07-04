@@ -5,218 +5,262 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>7. semester | Signe Thomsen</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ====== (ALT DIT CSS ER UÆNDRET) ====== */
-    /* jeg har ikke ændret styling, kun indhold nedenfor */
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f2ec;
+      color: #171717;
+    }
+
+    :root {
+      --line: rgba(0,0,0,0.12);
+      --line-strong: rgba(0,0,0,0.24);
+      --max: 1380px;
+    }
+
+    /* LOGO + MENU */
+    .logo {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      height: 42px;
+      z-index: 1000;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 26px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-btn span {
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background: #171717;
+    }
+
+    .menu-btn span:nth-child(1){ transform: translateY(-6px); }
+    .menu-btn span:nth-child(2){ transform: translateY(0); }
+    .menu-btn span:nth-child(3){ transform: translateY(6px); }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: rgba(250,248,243,0.98);
+      transition: 0.3s;
+      padding: 90px 30px;
+      z-index: 900;
+    }
+
+    .menu.open { right: 0; }
+
+    /* PAGE */
+    .page-shell { padding: 110px 28px 60px; }
+    .page-inner { max-width: var(--max); margin: 0 auto; }
+
+    .page-frame {
+      border: 1px solid var(--line);
+      padding: 36px;
+      background: rgba(255,255,255,0.28);
+    }
+
+    /* HEADER */
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+    }
+
+    .back-btn {
+      border: 1px solid var(--line-strong);
+      background: white;
+      padding: 12px 18px;
+      cursor: pointer;
+    }
+
+    .back-btn::before {
+      content: "← ";
+    }
+
+    /* TABS */
+    .category-grid {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .category-card {
+      border: 1px solid var(--line-strong);
+      padding: 14px 18px;
+      cursor: pointer;
+      background: white;
+      flex: 1 1 200px;
+    }
+
+    .category-card.active {
+      background: #171717;
+      color: white;
+    }
+
+    /* CONTENT */
+    .content-box {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.4);
+      padding: 24px;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .hidden { display: none; }
+
+    /* GRADE */
+    .grade-badge {
+      margin-top: 16px;
+      margin-left: auto;
+      display: block;
+      padding: 10px 16px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.7);
+      font-weight: 600;
+    }
+
+    /* GALLERY */
+    .carousel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 12px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    @media(max-width: 900px){
+      .carousel { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media(max-width: 600px){
+      .carousel { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 
 <body>
-  <a href="index.html">
-    <img src="images/logo.png" alt="Logo" class="logo">
-  </a>
 
-  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
-    <span></span><span></span><span></span>
-  </button>
+<a href="index.html">
+  <img src="images/logo.png" class="logo">
+</a>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+<button class="menu-btn" id="menuBtn">
+  <span></span><span></span><span></span>
+</button>
 
-  <nav class="menu" id="menu">
-    <div class="menu-title">Navigation</div>
-    <a href="index.html">Hjem</a>
-    <a href="index.html">Om mig</a>
-    <a href="index.html">Projekter</a>
-    <a href="index.html">Fordybelse</a>
-    <a href="index.html">CV</a>
-    <a href="index.html">Kontakt</a>
-  </nav>
+<nav class="menu" id="menu">
+  <a href="index.html">Hjem</a>
+  <a href="index.html">Om mig</a>
+  <a href="index.html">Projekter</a>
+  <a href="index.html">CV</a>
+</nav>
 
-  <main class="page-shell">
-    <div class="page-inner">
-      <section class="page-frame">
+<main class="page-shell">
+  <div class="page-inner">
+    <section class="page-frame">
 
-        <div class="hero-head">
-          <div>
-            <h1>7. semester</h1>
-          </div>
-          <button class="back-btn" onclick="window.history.back()" type="button">Tilbage</button>
-        </div>
+      <!-- HEADER -->
+      <div class="hero-head">
+        <h1>7. semester</h1>
+        <button class="back-btn" onclick="history.back()">Tilbage</button>
+      </div>
 
-        <!-- KATEGORIER -->
-        <section class="category-grid" id="categoryGrid">
+      <!-- TABS -->
+      <div class="category-grid">
+        <button class="category-card active" data-tab="bachelor">Bachelorprojekt</button>
+        <button class="category-card" data-tab="undersogelse">Undersøgelse</button>
+      </div>
 
-          <button class="category-card active" type="button" data-category="bachelorProjekt">
-            <h3>Bachelor Projekt</h3>
-          </button>
+      <!-- BACHELOR -->
+      <div id="bachelor" class="content-box">
+        <h2>Bachelorprojekt og problemstilling</h2>
+        <p>
+          Bachelorprojektet er uddannelsens afsluttende projekt og omhandler projektering af en ny daginstitution i Smørum
+          med fokus på bæredygtige konstruktionsvalg og videreudvikling af et eksisterende dispositionsforslag.
+        </p>
 
-          <button class="category-card" type="button" data-category="bachelorUndersogelse">
-            <h3>Bachelor Undersøgelse</h3>
-          </button>
+        <div class="grade-badge">Projekt: 4</div>
+      </div>
 
-        </section>
+      <!-- UNDERSØGELSE -->
+      <div id="undersogelse" class="content-box hidden">
+        <h2>Undersøgelse – parameterstyring i Revit</h2>
+        <p>
+          Jeg har arbejdet med parameterstyring i Revit med fokus på datastruktur i BIM-modeller.
+          Undersøgelsen viser hvordan manglende standardisering påvirker datakvalitet og automatisering.
+        </p>
 
-        <!-- GALLERY -->
-        <section class="gallery-wrap">
-          <div class="gallery-head">
-            <div class="gallery-head-left">
-              <h2 id="galleryTitle">Bachelor Projekt</h2>
-              <p id="galleryText">Klik på en side for at åbne PDF.</p>
-            </div>
-            <div class="grade-badge" id="galleryGrade">Karakter: -</div>
-          </div>
+        <div class="grade-badge">Undersøgelse: 12</div>
+      </div>
 
-          <div class="carousel-wrapper">
-            <div class="carousel-track" id="carouselTrack"></div>
-          </div>
+      <!-- GALLERY -->
+      <div class="carousel">
+        <div class="card"><img src="images/projektering/7sem/img1.jpg"><p>Side 1</p></div>
+        <div class="card"><img src="images/projektering/7sem/img2.jpg"><p>Side 2</p></div>
+        <div class="card"><img src="images/projektering/7sem/img3.jpg"><p>Side 3</p></div>
+      </div>
 
-          <div class="carousel-controls">
-            <button class="carousel-btn" id="prevBtn">←</button>
-            <div class="carousel-dots" id="carouselDots"></div>
-            <button class="carousel-btn" id="nextBtn">→</button>
-          </div>
-        </section>
-
-      </section>
-    </div>
-  </main>
+    </section>
+  </div>
+</main>
 
 <script>
-const galleryData = {
-  bachelorProjekt: {
-    title: "Bachelor Projekt",
-    grade: "Karakter: -",
-    text: "Klik på en side for at åbne PDF.",
-    label: "BP",
-    folder: "images/projektering/7sem/bachelor-projekt",
-    prefix: "bp",
-    count: 20
-  },
+  const menuBtn = document.getElementById('menuBtn');
+  const menu = document.getElementById('menu');
 
-  bachelorUndersogelse: {
-    title: "Bachelor Undersøgelse",
-    grade: "Karakter: -",
-    text: "Klik på en side for at åbne PDF.",
-    label: "BU",
-    folder: "images/projektering/7sem/bachelor-undersogelse",
-    prefix: "bu",
-    count: 15
-  }
-};
+  menuBtn.onclick = () => menu.classList.toggle('open');
 
-const categoryButtons = document.querySelectorAll('.category-card');
-const galleryTitle = document.getElementById('galleryTitle');
-const galleryText = document.getElementById('galleryText');
-const galleryGrade = document.getElementById('galleryGrade');
-const carouselTrack = document.getElementById('carouselTrack');
-const carouselDots = document.getElementById('carouselDots');
+  const buttons = document.querySelectorAll('.category-card');
+  const sections = document.querySelectorAll('.content-box');
 
-let currentCategory = 'bachelorProjekt';
-let currentSlide = 0;
-let totalSlides = 0;
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
 
-function getItemsPerSlide() {
-  if (window.innerWidth <= 760) return 1;
-  if (window.innerWidth <= 1100) return 2;
-  return 3;
-}
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-function buildSlides(items, perSlide) {
-  const slides = [];
-  for (let i = 0; i < items.length; i += perSlide) {
-    slides.push(items.slice(i, i + perSlide));
-  }
-  return slides;
-}
-
-function createItems(data) {
-  const items = [];
-  for (let i = 1; i <= data.count; i++) {
-    items.push({
-      title: `${data.label} ${i}`,
-      pdf: `${data.folder}/${data.prefix} (${i}).pdf`,
-      image: `${data.folder}/${data.prefix} (${i}).jpg`
+      sections.forEach(s => s.classList.add('hidden'));
+      document.getElementById(btn.dataset.tab).classList.remove('hidden');
     });
-  }
-  return items;
-}
-
-function render(categoryKey) {
-  const data = galleryData[categoryKey];
-  const items = createItems(data);
-  const slides = buildSlides(items, getItemsPerSlide());
-
-  galleryTitle.textContent = data.title;
-  galleryText.textContent = data.text;
-  galleryGrade.textContent = data.grade;
-
-  carouselTrack.innerHTML = "";
-  carouselDots.innerHTML = "";
-
-  slides.forEach((slideItems) => {
-    const slide = document.createElement("div");
-    slide.className = "carousel-slide";
-
-    slideItems.forEach((item) => {
-      const a = document.createElement("a");
-      a.className = "preview-card";
-      a.href = item.pdf;
-      a.target = "_blank";
-
-      a.innerHTML = `
-        <div class="preview-image-wrap">
-          <img src="${item.image}" alt="${item.title}">
-        </div>
-        <div class="preview-content">
-          <h3>${item.title}</h3>
-          <p>Åbn PDF</p>
-        </div>
-      `;
-      slide.appendChild(a);
-    });
-
-    carouselTrack.appendChild(slide);
   });
-
-  totalSlides = slides.length;
-  currentSlide = 0;
-
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement("button");
-    dot.className = "carousel-dot";
-    dot.onclick = () => {
-      currentSlide = i;
-      update();
-    };
-    carouselDots.appendChild(dot);
-  }
-
-  update();
-}
-
-function update() {
-  carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-  document.querySelectorAll(".carousel-dot").forEach((d, i) => {
-    d.classList.toggle("active", i === currentSlide);
-  });
-}
-
-categoryButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    categoryButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    currentCategory = btn.dataset.category;
-    render(currentCategory);
-  });
-});
-
-render(currentCategory);
 </script>
 
 </body>

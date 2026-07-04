@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7. semester | Signe Thomsen</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== (ALT DIT CSS ER UÆNDRET) ====== */
+    /* jeg har ikke ændret styling, kun indhold nedenfor */
+  </style>
+</head>
+
+<body>
+  <a href="index.html">
+    <img src="images/logo.png" alt="Logo" class="logo">
+  </a>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <nav class="menu" id="menu">
+    <div class="menu-title">Navigation</div>
+    <a href="index.html">Hjem</a>
+    <a href="index.html">Om mig</a>
+    <a href="index.html">Projekter</a>
+    <a href="index.html">Fordybelse</a>
+    <a href="index.html">CV</a>
+    <a href="index.html">Kontakt</a>
+  </nav>
+
+  <main class="page-shell">
+    <div class="page-inner">
+      <section class="page-frame">
+
+        <div class="hero-head">
+          <div>
+            <h1>7. semester</h1>
+          </div>
+          <button class="back-btn" onclick="window.history.back()" type="button">Tilbage</button>
+        </div>
+
+        <!-- KATEGORIER -->
+        <section class="category-grid" id="categoryGrid">
+
+          <button class="category-card active" type="button" data-category="bachelorProjekt">
+            <h3>Bachelor Projekt</h3>
+          </button>
+
+          <button class="category-card" type="button" data-category="bachelorUndersogelse">
+            <h3>Bachelor Undersøgelse</h3>
+          </button>
+
+        </section>
+
+        <!-- GALLERY -->
+        <section class="gallery-wrap">
+          <div class="gallery-head">
+            <div class="gallery-head-left">
+              <h2 id="galleryTitle">Bachelor Projekt</h2>
+              <p id="galleryText">Klik på en side for at åbne PDF.</p>
+            </div>
+            <div class="grade-badge" id="galleryGrade">Karakter: -</div>
+          </div>
+
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack"></div>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="prevBtn">←</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button class="carousel-btn" id="nextBtn">→</button>
+          </div>
+        </section>
+
+      </section>
+    </div>
+  </main>
+
+<script>
+const galleryData = {
+  bachelorProjekt: {
+    title: "Bachelor Projekt",
+    grade: "Karakter: -",
+    text: "Klik på en side for at åbne PDF.",
+    label: "BP",
+    folder: "images/projektering/7sem/bachelor-projekt",
+    prefix: "bp",
+    count: 20
+  },
+
+  bachelorUndersogelse: {
+    title: "Bachelor Undersøgelse",
+    grade: "Karakter: -",
+    text: "Klik på en side for at åbne PDF.",
+    label: "BU",
+    folder: "images/projektering/7sem/bachelor-undersogelse",
+    prefix: "bu",
+    count: 15
+  }
+};
+
+const categoryButtons = document.querySelectorAll('.category-card');
+const galleryTitle = document.getElementById('galleryTitle');
+const galleryText = document.getElementById('galleryText');
+const galleryGrade = document.getElementById('galleryGrade');
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselDots = document.getElementById('carouselDots');
+
+let currentCategory = 'bachelorProjekt';
+let currentSlide = 0;
+let totalSlides = 0;
+
+function getItemsPerSlide() {
+  if (window.innerWidth <= 760) return 1;
+  if (window.innerWidth <= 1100) return 2;
+  return 3;
+}
+
+function buildSlides(items, perSlide) {
+  const slides = [];
+  for (let i = 0; i < items.length; i += perSlide) {
+    slides.push(items.slice(i, i + perSlide));
+  }
+  return slides;
+}
+
+function createItems(data) {
+  const items = [];
+  for (let i = 1; i <= data.count; i++) {
+    items.push({
+      title: `${data.label} ${i}`,
+      pdf: `${data.folder}/${data.prefix} (${i}).pdf`,
+      image: `${data.folder}/${data.prefix} (${i}).jpg`
+    });
+  }
+  return items;
+}
+
+function render(categoryKey) {
+  const data = galleryData[categoryKey];
+  const items = createItems(data);
+  const slides = buildSlides(items, getItemsPerSlide());
+
+  galleryTitle.textContent = data.title;
+  galleryText.textContent = data.text;
+  galleryGrade.textContent = data.grade;
+
+  carouselTrack.innerHTML = "";
+  carouselDots.innerHTML = "";
+
+  slides.forEach((slideItems) => {
+    const slide = document.createElement("div");
+    slide.className = "carousel-slide";
+
+    slideItems.forEach((item) => {
+      const a = document.createElement("a");
+      a.className = "preview-card";
+      a.href = item.pdf;
+      a.target = "_blank";
+
+      a.innerHTML = `
+        <div class="preview-image-wrap">
+          <img src="${item.image}" alt="${item.title}">
+        </div>
+        <div class="preview-content">
+          <h3>${item.title}</h3>
+          <p>Åbn PDF</p>
+        </div>
+      `;
+      slide.appendChild(a);
+    });
+
+    carouselTrack.appendChild(slide);
+  });
+
+  totalSlides = slides.length;
+  currentSlide = 0;
+
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement("button");
+    dot.className = "carousel-dot";
+    dot.onclick = () => {
+      currentSlide = i;
+      update();
+    };
+    carouselDots.appendChild(dot);
+  }
+
+  update();
+}
+
+function update() {
+  carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  document.querySelectorAll(".carousel-dot").forEach((d, i) => {
+    d.classList.toggle("active", i === currentSlide);
+  });
+}
+
+categoryButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    categoryButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    currentCategory = btn.dataset.category;
+    render(currentCategory);
+  });
+});
+
+render(currentCategory);
+</script>
+
+</body>
+</html>

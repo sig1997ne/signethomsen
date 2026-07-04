@@ -3,109 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>6. semester | Praktik</title>
+  <title>Praktikrapport | Signe Thomsen</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
       background: #f5f2ec;
       color: #171717;
+      line-height: 1.7;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 24px 60px;
+    :root {
+      --max: 900px;
+      --muted: #6b645c;
+      --line: rgba(0,0,0,0.12);
     }
 
-    .top-bar {
+    a { color: inherit; }
+
+    /* TOP */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 24px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 40px;
+      align-items: center;
+      background: rgba(245,242,236,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .back {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* WRAP */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 120px 24px 80px;
     }
 
     h1 {
-      font-size: 3rem;
-      margin: 0;
+      font-size: 2.8rem;
+      margin: 0 0 10px;
       letter-spacing: -0.03em;
     }
 
-    .grade {
-      border: 1px solid rgba(0,0,0,0.2);
-      padding: 10px 14px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.6);
+    .header-meta {
+      color: var(--muted);
+      margin-bottom: 40px;
     }
 
-    .text {
-      max-width: 700px;
-      line-height: 1.7;
-      color: #555;
+    /* TOC */
+    .toc {
+      border: 1px solid var(--line);
+      padding: 18px;
+      background: rgba(255,255,255,0.5);
+      margin-bottom: 40px;
+    }
+
+    .toc h2 {
+      font-size: 1rem;
+      margin: 0 0 10px;
+    }
+
+    .toc a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+
+    .toc a:hover {
+      color: #171717;
+    }
+
+    /* SECTIONS */
+    section {
       margin-bottom: 50px;
-      font-size: 1.05rem;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
     }
 
-    .gallery img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      border: 1px solid rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+    p {
+      color: var(--muted);
     }
 
-    .gallery img:hover {
-      transform: scale(1.02);
+    ul {
+      color: var(--muted);
+      padding-left: 18px;
     }
 
-    @media (max-width: 900px) {
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery img {
-        height: 240px;
-      }
+    /* PAGE NUMBERS LOOK */
+    .page {
+      margin-bottom: 60px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="topbar">
+    <button class="back" onclick="window.history.back()">← Tilbage</button>
+    <div class="meta">Praktikrapport – VIA UC</div>
+  </div>
 
-    <div class="top-bar">
-      <h1>6. semester – Praktik</h1>
-      <div class="grade">Karakter: 12</div>
+  <div class="wrap">
+
+    <h1>Praktikrapport</h1>
+    <div class="header-meta">
+      Signe Thomsen · 326824 · Bygningskonstruktøruddannelsen · VIA University College · 28.11.2025
     </div>
 
-    <div class="text">
+    <!-- INDHOLD -->
+    <div class="toc">
+      <h2>Indholdsfortegnelse</h2>
+      <a href="#indledning">Indledning</a>
+      <a href="#uddannelse">Refleksion over uddannelse</a>
+      <a href="#maal">Læringsmål</a>
+      <a href="#rolle">Bygningskonstruktørens rolle</a>
+      <a href="#emne">7. semester & bachelor</a>
+      <a href="#konklusion">Konklusion</a>
+    </div>
+
+    <section id="indledning">
+      <h2>Indledning</h2>
       <p>
-        Praktikforløbet gav indsigt i den daglige arbejdsgang på en tegnestue,
-        hvor jeg arbejdede med projektering, BIM-modellering og tværfagligt samarbejde.
-        Jeg fik ansvar for mindre opgaver og deltog i udviklingen af konkrete byggeprojekter
-        fra idé til udførelse.
+        Denne praktik har givet mig en tydelig kobling mellem teori og praksis.
+        Jeg har arbejdet med projektering, Revit og samarbejde på tværs af fag.
       </p>
-    </div>
+    </section>
 
-    <div class="gallery">
-      <img src="images/6sem/1.jpg" alt="Praktik billede 1">
-      <img src="images/6sem/2.jpg" alt="Praktik billede 2">
-      <img src="images/6sem/3.jpg" alt="Praktik billede 3">
-    </div>
+    <section id="uddannelse">
+      <h2>Refleksion over uddannelse</h2>
+      <p>
+        Uddannelsen har givet mig et solidt fundament, som jeg har kunne anvende direkte i praktikken.
+        Særligt erfaringer med udbud, registrering og projektering har været relevante.
+      </p>
+    </section>
+
+    <section id="maal">
+      <h2>Læringsmål</h2>
+      <p>
+        Jeg har arbejdet med Revit, projektfaser, BIM og samarbejde. Jeg har især udviklet mig inden for:
+      </p>
+
+      <ul>
+        <li>Modellering og detaljering i Revit</li>
+        <li>Forskellige projektfaser</li>
+        <li>BIM og Dynamo</li>
+        <li>Kommunikation og møder</li>
+        <li>Personlig udvikling og feedback</li>
+      </ul>
+    </section>
+
+    <section id="rolle">
+      <h2>Bygningskonstruktørens rolle</h2>
+      <p>
+        Jeg har fået en tydelig forståelse af, at en bygningskonstruktør både arbejder teknisk og koordinerende.
+        Rollen kræver overblik, ansvar og evnen til at samarbejde med mange faggrupper.
+      </p>
+    </section>
+
+    <section id="emne">
+      <h2>7. semester & bachelor</h2>
+      <p>
+        Jeg har valgt parameterstyring i Revit som fokusområde til 7. semester.
+        Emnet er relevant fordi det har stor betydning for datakvalitet og projektering.
+      </p>
+    </section>
+
+    <section id="konklusion">
+      <h2>Konklusion</h2>
+      <p>
+        Praktikken har været meget lærerig både fagligt og personligt.
+        Jeg føler mig mere sikker i min rolle som bygningskonstruktør og er klar til næste skridt i uddannelsen.
+      </p>
+    </section>
 
   </div>
 

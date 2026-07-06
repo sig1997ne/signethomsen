@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="da">
 <head>
@@ -8,23 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f5f2ec;
-      color: #171717;
+    *{
+      box-sizing: border-box;
     }
 
-    :root {
+    :root{
       --line: rgba(0,0,0,0.12);
       --line-strong: rgba(0,0,0,0.24);
       --max: 1380px;
     }
 
-    /* LOGO + MENU */
-    .logo {
+    body{
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f2ec;
+      color: #171717;
+
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* LOGO */
+
+    .logo{
       position: fixed;
       top: 24px;
       left: 28px;
@@ -32,7 +40,9 @@
       z-index: 1000;
     }
 
-    .menu-btn {
+    /* MENU BUTTON */
+
+    .menu-btn{
       position: fixed;
       top: 26px;
       right: 26px;
@@ -44,230 +54,443 @@
       z-index: 1000;
     }
 
-    .menu-btn span {
+    .menu-btn span{
       position: absolute;
       width: 18px;
       height: 2px;
       background: #171717;
+      left: 13px;
     }
 
-    .menu-btn span:nth-child(1){ transform: translateY(-6px); }
-    .menu-btn span:nth-child(2){ transform: translateY(0); }
-    .menu-btn span:nth-child(3){ transform: translateY(6px); }
+    .menu-btn span:nth-child(1){
+      transform: translateY(-6px);
+    }
 
-    .menu {
+    .menu-btn span:nth-child(2){
+      transform: translateY(0);
+    }
+
+    .menu-btn span:nth-child(3){
+      transform: translateY(6px);
+    }
+
+    /* MENU */
+
+    .menu{
       position: fixed;
       top: 0;
       right: -320px;
       width: 320px;
       height: 100vh;
       background: rgba(250,248,243,0.98);
-      transition: 0.3s;
-      padding: 90px 30px;
+      transition: 0.3s ease;
+      padding: 100px 32px;
       z-index: 900;
+
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    .menu.open { right: 0; }
+    .menu.open{
+      right: 0;
+    }
+
+    .menu a{
+      text-decoration: none;
+      color: #171717;
+      font-size: 1rem;
+      font-weight: 500;
+    }
 
     /* PAGE */
-    .page-shell { padding: 110px 28px 60px; }
-    .page-inner { max-width: var(--max); margin: 0 auto; }
 
-    .page-frame {
+    .page-shell{
+      height: 100vh;
+      padding: 110px 28px 28px;
+    }
+
+    .page-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    .page-frame{
       border: 1px solid var(--line);
-      padding: 36px;
       background: rgba(255,255,255,0.28);
+
+      height: 100%;
+      padding: 30px;
+
+      display: grid;
+      grid-template-rows:
+        auto
+        auto
+        1fr
+        auto;
+
+      gap: 20px;
+
+      backdrop-filter: blur(8px);
     }
 
     /* HEADER */
-    .hero-head {
+
+    .hero-head{
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 25px;
+      gap: 20px;
     }
 
-    h1 {
+    h1{
       margin: 0;
-      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.95;
+      font-weight: 700;
     }
 
-    .back-btn {
+    .back-btn{
       border: 1px solid var(--line-strong);
       background: white;
       padding: 12px 18px;
       cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 500;
     }
 
-    .back-btn::before {
+    .back-btn:hover{
+      background: #171717;
+      color: white;
+    }
+
+    .back-btn::before{
       content: "← ";
     }
 
     /* TABS */
-    .category-grid {
+
+    .category-grid{
       display: flex;
       gap: 12px;
-      margin-bottom: 25px;
       flex-wrap: wrap;
     }
 
-    .category-card {
+    .category-card{
       border: 1px solid var(--line-strong);
       padding: 14px 18px;
       cursor: pointer;
       background: white;
-      flex: 1 1 200px;
+      flex: 1 1 220px;
+
+      transition: 0.25s ease;
+
+      font-size: 0.95rem;
+      font-weight: 500;
     }
 
-    .category-card.active {
+    .category-card:hover{
+      transform: translateY(-2px);
+    }
+
+    .category-card.active{
       background: #171717;
       color: white;
     }
 
     /* CONTENT */
-    .content-box {
+
+    .content-box{
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.45);
+
       padding: 24px;
+
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+
       line-height: 1.7;
-      margin-bottom: 25px;
     }
 
-    .hidden { display: none; }
+    .content-box h2{
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.5rem;
+    }
+
+    .content-box p{
+      margin: 0;
+      color: rgba(0,0,0,0.78);
+
+      font-size: 0.96rem;
+    }
+
+    .hidden{
+      display: none;
+    }
 
     /* GRADE */
-    .grade-badge {
-      margin-top: 16px;
+
+    .grade-badge{
+      margin-top: auto;
       margin-left: auto;
-      display: block;
+
       padding: 10px 16px;
+
       border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.8);
+
       font-weight: 600;
     }
 
     /* GALLERY */
-    .carousel {
+
+    .carousel{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 20px;
     }
 
-    .card {
+    .card{
       border: 1px solid var(--line);
       background: white;
-      padding: 12px;
+      overflow: hidden;
     }
 
-    .card img {
+    .card img{
       width: 100%;
-      height: 420px;
+      height: 180px;
       object-fit: cover;
+      display: block;
     }
+
+    .card p{
+      margin: 0;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
 
     @media(max-width: 900px){
-      .carousel { grid-template-columns: 1fr 1fr; }
+
+      body{
+        overflow: auto;
+        height: auto;
+      }
+
+      .page-shell{
+        height: auto;
+      }
+
+      .page-inner{
+        height: auto;
+      }
+
+      .page-frame{
+        height: auto;
+      }
+
+      .carousel{
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media(max-width: 600px){
-      .carousel { grid-template-columns: 1fr; }
+
+      .hero-head{
+        flex-direction: column;
+      }
+
+      .carousel{
+        grid-template-columns: 1fr;
+      }
+
+      .page-frame{
+        padding: 20px;
+      }
+
+      .page-shell{
+        padding: 100px 16px 20px;
+      }
+
+      h1{
+        font-size: 3rem;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
-<a href="index.html">
-  <img src="images/logo.png" class="logo">
-</a>
+  <!-- LOGO -->
 
-<button class="menu-btn" id="menuBtn">
-  <span></span><span></span><span></span>
-</button>
+  <a href="index.html">
+    <img src="images/logo.png" class="logo">
+  </a>
 
-<nav class="menu" id="menu">
-  <a href="index.html">Hjem</a>
-  <a href="index.html">Om mig</a>
-  <a href="index.html">Projekter</a>
-  <a href="index.html">CV</a>
-</nav>
+  <!-- MENU BUTTON -->
 
-<main class="page-shell">
-  <div class="page-inner">
-    <section class="page-frame">
+  <button class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 
-      <!-- HEADER -->
-      <div class="hero-head">
-        <h1>7. semester</h1>
-        <button class="back-btn" onclick="history.back()">Tilbage</button>
-      </div>
+  <!-- MENU -->
 
-      <!-- TABS -->
-      <div class="category-grid">
-        <button class="category-card active" data-tab="bachelor">Bachelorprojekt</button>
-        <button class="category-card" data-tab="undersogelse">Undersøgelse</button>
-      </div>
+  <nav class="menu" id="menu">
+    <a href="index.html">Hjem</a>
+    <a href="index.html">Om mig</a>
+    <a href="index.html">Projekter</a>
+    <a href="index.html">CV</a>
+  </nav>
 
-      <!-- BACHELOR -->
-      <div id="bachelor" class="content-box">
-        <h2>Bachelorprojekt </h2>
-        <p>
-          Bachelorprojektet er uddannelsens afsluttende projekt og omhandler projektering af en ny daginstitution i Smørum med fokus på bæredygtige konstruktionsvalg og videreudvikling af et eksisterende dispositionsforslag.
-          Vi har viderebearbejdet et modtaget arkitektprojekt gennem de efterfølgende faser, hvor fokus har været at få de tekniske løsninger til at hænge sammen med både arkitektur og udførelse. Det har især handlet om konstruktioner, brand, lyd og energi, samt at sikre at projektet kan bygges i praksis.
-          En vigtig del af arbejdet har også været BIM og digital projektering, hvor vi har arbejdet med modelstruktur og data. Her har vi blandt andet brugt Dynamo til at effektivisere arbejdsgange og sikre mere ensartet information i modellen.
-          Derudover har vi arbejdet med screeninger som LCA, BE18, dagslys og økonomi, som har været med til at kvalificere de valg, vi har truffet undervejs. 
-          Samlet har fokus været at skabe et projekt, der både opfylder kravene på papir og fungerer i praksis gennem en sammenhængende digital og teknisk projektering.
-        </p>
+  <!-- PAGE -->
 
-        <div class="grade-badge">Karakter: 4</div>
-      </div>
+  <main class="page-shell">
 
-      <!-- UNDERSØGELSE -->
-      <div id="undersogelse" class="content-box hidden">
-        <h2>Undersøgelse – parameterstyring i Revit</h2>
-        <p>
-          Jeg har arbejdet med, hvordan data bliver struktureret i BIM-modeller i Revit, og hvad det betyder for projekteringen.
-          Fokus har været på parameterstyring, og hvordan manglende ensartethed i opsætning og navngivning af parametre påvirker datakvalitet.
-          Gennem både skole og praktik har jeg oplevet, at modeller ofte bruges som fælles datagrundlag, men uden en klar struktur.
-          Det gør, at data bliver sværere at genbruge, og at mulighederne for automatisering – fx med Dynamo – ikke bliver udnyttet fuldt ud.
-          Jeg har derfor undersøgt, hvordan en mere systematisk parameterstruktur kan skabe bedre sammenhæng i modellen og styrke både kvalitet og arbejdsgange i projekteringen.
-        </p>
+    <div class="page-inner">
 
-        <div class="grade-badge">Karakter: 12</div>
-      </div>
+      <section class="page-frame">
 
-      <!-- GALLERY -->
-      <div class="carousel">
-        <div class="card"><img src="images/projektering/7sem/img1.jpg"><p>Side 1</p></div>
-        <div class="card"><img src="images/projektering/7sem/img2.jpg"><p>Side 2</p></div>
-        <div class="card"><img src="images/projektering/7sem/img3.jpg"><p>Side 3</p></div>
-      </div>
+        <!-- HEADER -->
 
-    </section>
-  </div>
-</main>
+        <div class="hero-head">
 
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('menu');
+          <h1>7. semester</h1>
 
-  menuBtn.onclick = () => menu.classList.toggle('open');
+          <button class="back-btn" onclick="history.back()">
+            Tilbage
+          </button>
 
-  const buttons = document.querySelectorAll('.category-card');
-  const sections = document.querySelectorAll('.content-box');
+        </div>
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
+        <!-- TABS -->
 
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+        <div class="category-grid">
 
-      sections.forEach(s => s.classList.add('hidden'));
-      document.getElementById(btn.dataset.tab).classList.remove('hidden');
+          <button class="category-card active" data-tab="bachelor">
+            Bachelorprojekt
+          </button>
+
+          <button class="category-card" data-tab="undersogelse">
+            Undersøgelse
+          </button>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <!-- BACHELOR -->
+
+        <div id="bachelor" class="content-box">
+
+          <h2>Bachelorprojekt</h2>
+
+          <p>
+            Bachelorprojektet er uddannelsens afsluttende projekt og omhandler projektering af en ny daginstitution i Smørum med fokus på bæredygtige konstruktionsvalg og videreudvikling af et eksisterende dispositionsforslag.
+            Vi har viderebearbejdet et modtaget arkitektprojekt gennem de efterfølgende faser, hvor fokus har været at få de tekniske løsninger til at hænge sammen med både arkitektur og udførelse.
+            Det har især handlet om konstruktioner, brand, lyd og energi, samt at sikre at projektet kan bygges i praksis.
+            En vigtig del af arbejdet har også været BIM og digital projektering, hvor vi har arbejdet med modelstruktur og data.
+            Her har vi blandt andet brugt Dynamo til at effektivisere arbejdsgange og sikre mere ensartet information i modellen.
+            Derudover har vi arbejdet med screeninger som LCA, BE18, dagslys og økonomi, som har været med til at kvalificere de valg, vi har truffet undervejs.
+            Samlet har fokus været at skabe et projekt, der både opfylder kravene på papir og fungerer i praksis gennem en sammenhængende digital og teknisk projektering.
+          </p>
+
+          <div class="grade-badge">
+            Karakter: 4
+          </div>
+
+        </div>
+
+        <!-- UNDERSØGELSE -->
+
+        <div id="undersogelse" class="content-box hidden">
+
+          <h2>Undersøgelse – parameterstyring i Revit</h2>
+
+          <p>
+            Jeg har arbejdet med, hvordan data bliver struktureret i BIM-modeller i Revit, og hvad det betyder for projekteringen.
+            Fokus har været på parameterstyring, og hvordan manglende ensartethed i opsætning og navngivning af parametre påvirker datakvalitet.
+            Gennem både skole og praktik har jeg oplevet, at modeller ofte bruges som fælles datagrundlag, men uden en klar struktur.
+            Det gør, at data bliver sværere at genbruge, og at mulighederne for automatisering – fx med Dynamo – ikke bliver udnyttet fuldt ud.
+            Jeg har derfor undersøgt, hvordan en mere systematisk parameterstruktur kan skabe bedre sammenhæng i modellen og styrke både kvalitet og arbejdsgange i projekteringen.
+          </p>
+
+          <div class="grade-badge">
+            Karakter: 12
+          </div>
+
+        </div>
+
+        <!-- GALLERY -->
+
+        <div class="carousel">
+
+          <div class="card">
+            <img src="images/projektering/7sem/img1.jpg">
+            <p>Side 1</p>
+          </div>
+
+          <div class="card">
+            <img src="images/projektering/7sem/img2.jpg">
+            <p>Side 2</p>
+          </div>
+
+          <div class="card">
+            <img src="images/projektering/7sem/img3.jpg">
+            <p>Side 3</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+
+    menuBtn.onclick = () => {
+      menu.classList.toggle('open');
+    };
+
+    const buttons = document.querySelectorAll('.category-card');
+    const sections = document.querySelectorAll('.content-box');
+
+    buttons.forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        buttons.forEach(b => {
+          b.classList.remove('active');
+        });
+
+        btn.classList.add('active');
+
+        sections.forEach(section => {
+          section.classList.add('hidden');
+        });
+
+        document
+          .getElementById(btn.dataset.tab)
+          .classList.remove('hidden');
+
+      });
+
     });
-  });
-</script>
+
+  </script>
 
 </body>
 </html>
+```

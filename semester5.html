@@ -1,567 +1,228 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>5. semester | Signe Thomsen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f5f2ec;
-      color: #171717;
-      overflow-x: hidden;
-    }
-
-    :root {
-      --muted: #686159;
-      --line: rgba(0, 0, 0, 0.12);
-      --line-strong: rgba(0, 0, 0, 0.24);
-      --max: 1380px;
-      --ease: cubic-bezier(.77, 0, .18, 1);
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .logo {
-      position: fixed;
-      top: 24px;
-      left: 28px;
-      height: 42px;
-      width: auto;
-      z-index: 230;
-    }
-
-    .menu-btn {
-      position: fixed;
-      top: 26px;
-      right: 26px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      z-index: 240;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-    }
-
-    .menu-btn span {
-      position: absolute;
-      width: 18px;
-      height: 2px;
-      background: #171717;
-      transition: transform .28s ease, opacity .28s ease;
-    }
-
-    .menu-btn span:nth-child(1) { transform: translateY(-6px); }
-    .menu-btn span:nth-child(2) { transform: translateY(0); }
-    .menu-btn span:nth-child(3) { transform: translateY(6px); }
-
-    .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
-    .menu-btn.open span:nth-child(2) { opacity: 0; }
-    .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
-
-    .menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.08);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s ease;
-      z-index: 180;
-    }
-
-    .menu-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 320px;
-      height: 100vh;
-      background: rgba(250, 248, 243, 0.98);
-      backdrop-filter: blur(12px);
-      border-left: 1px solid var(--line);
-      padding: 92px 34px 34px;
-      transition: right .34s ease;
-      z-index: 220;
-    }
-
-    .menu.open {
-      right: 0;
-    }
-
-    .menu-title {
-      font-size: .76rem;
-      text-transform: uppercase;
-      letter-spacing: .18rem;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .menu a,
-    .menu button {
-      display: block;
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 0 0 18px;
-      margin: 0 0 18px;
-      border-bottom: 1px solid var(--line);
-      font-size: 1.08rem;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      color: #171717;
-    }
-
-    .page-shell {
-      width: 100%;
-      min-height: 100vh;
-      padding: 110px 28px 60px;
-    }
-
-    .page-inner {
-      width: 100%;
-      max-width: var(--max);
-      margin: 0 auto;
-    }
-
-    .page-frame {
-      border: 1px solid var(--line);
-      padding: 36px;
-      background: rgba(255,255,255,0.28);
-    }
-
-    .hero-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin-bottom: 34px;
-      flex-wrap: wrap;
-    }
-
-    .hero-head h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2.6rem, 5vw, 4.8rem);
-      line-height: 1.02;
-      letter-spacing: -.05em;
-      font-weight: 700;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.6);
-      padding: 12px 18px;
-      cursor: pointer;
-      color: #171717;
-      transition: transform .22s ease, background .22s ease;
-      flex-shrink: 0;
-    }
-
-    .back-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.9);
-    }
-
-    .back-btn::before {
-      content: "←";
-      font-size: 1rem;
-      line-height: 1;
-    }
-
-    .category-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 34px;
-    }
-
-    .category-card {
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.48);
-      padding: 14px 18px;
-      cursor: pointer;
-      transition: transform .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
-      text-align: left;
-      min-width: 190px;
-      flex: 1 1 220px;
-    }
-
-    .category-card:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.88);
-      border-color: rgba(0,0,0,0.28);
-    }
-
-    .category-card.active {
-      background: #171717;
-      color: #fff;
-      border-color: #171717;
-    }
-
-    .category-card.active .category-meta,
-    .category-card.active p {
-      color: rgba(255,255,255,0.72);
-    }
-
-    .category-meta {
-      margin: 0 0 8px;
-      font-size: .72rem;
-      letter-spacing: .16rem;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .category-card h3 {
-      margin: 0 0 6px;
-      font-size: 1.08rem;
-      line-height: 1.2;
-      letter-spacing: -.02em;
-    }
-
-    .category-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: .9rem;
-    }
-
-    .gallery-wrap {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.34);
-      padding: 24px;
-    }
-
-    .gallery-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .gallery-head-left h2 {
-      margin: 0 0 8px;
-      font-size: clamp(1.8rem, 2.4vw, 2.5rem);
-      letter-spacing: -.03em;
-    }
-
-    .gallery-head-left p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .grade-badge {
-      border: 1px solid var(--line-strong);
-      padding: 10px 16px;
-      background: rgba(255,255,255,0.7);
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .carousel-wrapper {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform .45s ease-out;
-      will-change: transform;
-    }
-
-    .carousel-slide {
-      min-width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .preview-card {
-      display: block;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.45);
-      overflow: hidden;
-      transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
-    }
-
-    .preview-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.2);
-    }
-
-    .preview-image-wrap {
-      background: #e9e4db;
-      overflow: hidden;
-      height: 520px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .preview-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .preview-fallback {
-      position: absolute;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: .95rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.45));
-    }
-
-    .preview-content {
-      padding: 18px 18px 20px;
-    }
-
-    .preview-content h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-      letter-spacing: -.02em;
-    }
-
-    .preview-content p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    .carousel-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 26px;
-      gap: 16px;
-    }
-
-    .carousel-btn {
-      width: 46px;
-      height: 46px;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.55);
-      font-size: 24px;
-      cursor: pointer;
-      color: #171717;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
-      flex-shrink: 0;
-    }
-
-    .carousel-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.82);
-      border-color: rgba(0,0,0,0.28);
-    }
-
-    .carousel-dots {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex: 1;
-    }
-
-    .carousel-dot {
-      width: 9px;
-      height: 9px;
-      border: none;
-      background: rgba(0, 0, 0, .18);
-      cursor: pointer;
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .carousel-dot.active {
-      background: #171717;
-      transform: scale(1.18);
-    }
-
-    @media (max-width: 1100px) {
-      .carousel-slide {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .preview-image-wrap {
-        height: 440px;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .page-shell {
-        padding: 98px 18px 40px;
-      }
-
-      .page-frame {
-        padding: 22px;
-      }
-
-      .logo {
-        top: 20px;
-        left: 20px;
-        height: 34px;
-      }
-
-      .menu-btn {
-        top: 22px;
-        right: 22px;
-      }
-
-      .preview-image-wrap {
-        height: 420px;
-      }
-
-      .gallery-wrap {
-        padding: 18px;
-      }
-
-      .category-card {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5. semester | Signe Thomsen</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 🔥 ingen scroll */
+  font-family: Arial, sans-serif;
+  background: #f5f2ec;
+}
+
+/* CENTER SIDE */
+.page-shell {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.page-inner {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* FRAME */
+.page-frame {
+  width: 100%;
+  max-height: 95vh;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 24px;
+  background: rgba(255,255,255,0.35);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.hero-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.back-btn {
+  white-space: nowrap;
+  padding: 10px 14px;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: white;
+  cursor: pointer;
+}
+
+/* INTRO */
+.intro {
+  margin-top: 12px;
+  color: #666;
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+/* CATEGORY */
+.category-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.category-card {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: white;
+  cursor: pointer;
+}
+
+.category-card.active {
+  background: black;
+  color: white;
+}
+
+/* GALLERY */
+.gallery-wrap {
+  margin-top: 18px;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 18px;
+  background: rgba(255,255,255,0.4);
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* FIX: én linje */
+.grade-badge {
+  white-space: nowrap;
+  padding: 8px 12px;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: white;
+  font-size: 14px;
+}
+
+/* CAROUSEL */
+.carousel-wrapper {
+  flex: 1;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* SLIDES */
+.carousel-slide {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* CARD */
+.preview-card {
+  display: block;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: white;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* IMAGE FULL COVER */
+.preview-image-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .carousel-slide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-slide {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
+
 <body>
-  <a href="index.html">
-    <img src="images/logo.png" alt="Logo" class="logo">
-  </a>
 
-  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+<main class="page-shell">
+<div class="page-inner">
+<section class="page-frame">
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+<div class="hero-head">
+  <h1>5. semester</h1>
+  <button class="back-btn" onclick="history.back()">← Tilbage</button>
+</div>
 
-  <nav class="menu" id="menu">
-    <div class="menu-title">Navigation</div>
-    <a href="index.html">Hjem</a>
-    <a href="index.html">Om mig</a>
-    <a href="index.html">Projekter</a>
-    <a href="index.html">Fordybelse</a>
-    <a href="index.html">CV</a>
-    <a href="index.html">Kontakt</a>
-  </nav>
+<p class="intro">
+5. semester handler om renovering og eksisterende byggeri.
+Vi arbejder med analyse, projektering og tekniske løsninger.
+</p>
 
-  <main class="page-shell">
-    <div class="page-inner">
-      <section class="page-frame">
-        <div class="hero-head">
-          <div>
-            <h1>5. semester</h1>
-          </div>
+<div class="category-grid">
+  <button class="category-card active" data-cat="vue">VUE</button>
+  <button class="category-card" data-cat="lue">LUE</button>
+  <button class="category-card" data-cat="hoved">HOVED</button>
+</div>
 
-          <button class="back-btn" onclick="window.history.back()" type="button">Tilbage</button>
-        </div>
+<div class="gallery-wrap">
 
-        <section class="category-grid" id="categoryGrid">
-          <button class="category-card active" type="button" data-category="vue">
-            <h3>VUE</h3>
-          </button>
+  <div class="gallery-head">
+    <h2 id="title">VUE</h2>
+    <div class="grade-badge" id="grade">Karakter: 12</div>
+  </div>
 
-          <button class="category-card" type="button" data-category="lue">
-            <h3>LUE</h3>
-          </button>
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="track"></div>
+  </div>
 
-          <button class="category-card" type="button" data-category="hoved">
-            <h3>Hovedprojekt</h3>
-          </button>
-        </section>
+</div>
 
-        <section class="gallery-wrap">
-          <div class="gallery-head">
-            <div class="gallery-head-left">
-              <h2 id="galleryTitle">VUE</h2>
-              <p id="galleryText">Karakter 12. Klik på en side for at åbne den tilhørende PDF.</p>
-            </div>
-            <div class="grade-badge" id="galleryGrade">Karakter: 12</div>
-          </div>
+</section>
+</div>
+</main>
 
-          <div class="carousel-wrapper">
-            <div class="carousel-track" id="carouselTrack"></div>
-          </div>
-
-          <div class="carousel-controls">
-            <button class="carousel-btn" id="prevBtn" type="button" aria-label="Forrige">←</button>
-            <div class="carousel-dots" id="carouselDots"></div>
-            <button class="carousel-btn" id="nextBtn" type="button" aria-label="Næste">→</button>
-          </div>
-        </section>
-      </section>
-    </div>
-  </main>
-
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const menu = document.getElementById('menu');
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    function toggleMenu(forceOpen = null) {
-      const shouldOpen = forceOpen === null
-        ? !menu.classList.contains('open')
-        : forceOpen;
-
-      menu.classList.toggle('open', shouldOpen);
-      menuOverlay.classList.toggle('open', shouldOpen);
-      menuBtn.classList.toggle('open', shouldOpen);
-    }
-
-    menuBtn.addEventListener('click', () => toggleMenu());
-    menuOverlay.addEventListener('click', () => toggleMenu(false));
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') toggleMenu(false);
-    });
-
+<script>
 const galleryData = {
   vue: {
     title: 'VUE',
@@ -576,7 +237,7 @@ const galleryData = {
     title: 'LUE',
     grade: 'Karakter: 7',
     text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-    label: 'LUE',
+    label: 'lue',
     folder: 'images/projektering/5sem',
     prefix: 'lue',
     count: 5
@@ -585,162 +246,66 @@ const galleryData = {
     title: 'Hovedprojekt',
     grade: 'Karakter: 7',
     text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-    label: 'Hovedprojekt',
+    label: 'Hoved',
     folder: 'images/projektering/5sem',
     prefix: 'Hoved',
     count: 9
   }
 };
 
-    const categoryButtons = document.querySelectorAll('.category-card');
-    const galleryTitle = document.getElementById('galleryTitle');
-    const galleryText = document.getElementById('galleryText');
-    const galleryGrade = document.getElementById('galleryGrade');
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselDots = document.getElementById('carouselDots');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+let current = "vue";
+let currentSlide = 0;
+let totalSlides = 0;
 
-    let currentCategory = 'vue';
-    let currentSlide = 0;
-    let totalSlides = 0;
+const track = document.getElementById("track");
 
-    function getItemsPerSlide() {
-      if (window.innerWidth <= 760) return 1;
-      if (window.innerWidth <= 1100) return 2;
-      return 3;
-    }
+function render(cat) {
+  const d = galleryData[cat];
 
-    function buildSlides(items, itemsPerSlide) {
-      const slides = [];
-      for (let i = 0; i < items.length; i += itemsPerSlide) {
-        slides.push(items.slice(i, i + itemsPerSlide));
-      }
-      return slides;
-    }
+  document.getElementById("title").innerText = d.title;
+  document.getElementById("grade").innerText = d.grade;
 
-    function createItems(data) {
-      const items = [];
+  const items = [];
 
-      for (let i = 1; i <= data.count; i++) {
-        items.push({
-          title: `${data.label} ${i}`,
-          pdf: `${data.folder}/${data.prefix} (${i}).pdf`,
-          image: `${data.folder}/${data.prefix} (${i}).jpg`
-        });
-      }
+  for (let i = 1; i <= d.count; i++) {
+    items.push(`
+      <a class="preview-card" href="${d.folder}/${d.prefix} (${i}).pdf" target="_blank">
+        <div class="preview-image-wrap">
+          <img src="${d.folder}/${d.prefix} (${i}).jpg">
+        </div>
+      </a>
+    `);
+  }
 
-      return items;
-    }
+  const slides = [];
+  for (let i = 0; i < items.length; i += 3) {
+    slides.push(`<div class="carousel-slide">${items.slice(i, i + 3).join("")}</div>`);
+  }
 
-    function renderGallery(categoryKey) {
-      const data = galleryData[categoryKey];
-      const items = createItems(data);
-      const itemsPerSlide = getItemsPerSlide();
-      const slides = buildSlides(items, itemsPerSlide);
+  track.innerHTML = slides.join("");
 
-      galleryTitle.textContent = data.title;
-      galleryText.textContent = data.text;
-      galleryGrade.textContent = data.grade;
+  totalSlides = slides.length;
+  currentSlide = 0;
 
-      carouselTrack.innerHTML = '';
-      carouselDots.innerHTML = '';
+  update();
+}
 
-      slides.forEach((slideItems) => {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
+function update() {
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
 
-        slideItems.forEach((item) => {
-          const card = document.createElement('a');
-          card.className = 'preview-card';
-          card.href = item.pdf;
-          card.target = '_blank';
-          card.rel = 'noopener noreferrer';
+document.querySelectorAll(".category-card").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".category-card").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
-          card.innerHTML = `
-            <div class="preview-image-wrap">
-              <img
-                src="${item.image}"
-                alt="${item.title}"
-                loading="lazy"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              >
-              <div class="preview-fallback">
-                Previewbillede mangler.<br>
-                Klik for at åbne PDF.
-              </div>
-            </div>
-            <div class="preview-content">
-              <h3>${item.title}</h3>
-              <p>Åbn PDF</p>
-            </div>
-          `;
+    current = btn.dataset.cat;
+    render(current);
+  };
+});
 
-          slide.appendChild(card);
-        });
+render(current);
+</script>
 
-        carouselTrack.appendChild(slide);
-      });
-
-      totalSlides = slides.length;
-      currentSlide = 0;
-
-      for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Gå til slide ${i + 1}`);
-        dot.addEventListener('click', () => {
-          currentSlide = i;
-          updateCarousel();
-        });
-        carouselDots.appendChild(dot);
-      }
-
-      updateCarousel();
-    }
-
-    function updateCarousel() {
-      carouselTrack.style.transform = `translate3d(-${currentSlide * 100}%, 0, 0)`;
-
-      const dots = carouselDots.querySelectorAll('.carousel-dot');
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentSlide);
-      });
-    }
-
-    prevBtn.addEventListener('click', () => {
-      if (!totalSlides) return;
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateCarousel();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      if (!totalSlides) return;
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateCarousel();
-    });
-
-    categoryButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        currentCategory = button.dataset.category;
-
-        categoryButtons.forEach((btn) => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        renderGallery(currentCategory);
-      });
-    });
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        renderGallery(currentCategory);
-      }, 150);
-    });
-
-    renderGallery(currentCategory);
-  </script>
 </body>
 </html>

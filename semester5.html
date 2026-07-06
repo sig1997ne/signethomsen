@@ -15,19 +15,18 @@ html, body {
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 🔥 ingen scroll */
+  overflow: hidden;
   font-family: Arial, sans-serif;
   background: #f5f2ec;
 }
 
-/* CENTER SIDE */
+/* LAYOUT */
 .page-shell {
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
 }
 
 .page-inner {
@@ -38,7 +37,6 @@ html, body {
   align-items: center;
 }
 
-/* FRAME */
 .page-frame {
   width: 100%;
   max-height: 95vh;
@@ -64,7 +62,6 @@ h1 {
 }
 
 .back-btn {
-  white-space: nowrap;
   padding: 10px 14px;
   border: 1px solid rgba(0,0,0,0.3);
   background: white;
@@ -73,10 +70,8 @@ h1 {
 
 /* INTRO */
 .intro {
-  margin-top: 12px;
+  margin-top: 10px;
   color: #666;
-  line-height: 1.5;
-  max-width: 900px;
 }
 
 /* CATEGORY */
@@ -105,7 +100,6 @@ h1 {
   border: 1px solid rgba(0,0,0,0.12);
   padding: 18px;
   background: rgba(255,255,255,0.4);
-
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -118,13 +112,11 @@ h1 {
   align-items: center;
 }
 
-/* FIX: én linje */
 .grade-badge {
   white-space: nowrap;
   padding: 8px 12px;
   border: 1px solid rgba(0,0,0,0.3);
   background: white;
-  font-size: 14px;
 }
 
 /* CAROUSEL */
@@ -136,10 +128,10 @@ h1 {
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.45s ease;
 }
 
-/* SLIDES */
+/* SLIDE */
 .carousel-slide {
   min-width: 100%;
   display: grid;
@@ -152,20 +144,46 @@ h1 {
   display: block;
   border: 1px solid rgba(0,0,0,0.15);
   background: white;
-  height: 100%;
   overflow: hidden;
-}
-
-/* IMAGE FULL COVER */
-.preview-image-wrap {
-  width: 100%;
-  height: 100%;
 }
 
 .preview-image-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: white;
+  cursor: pointer;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border: none;
+  background: #bbb;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: black;
 }
 
 /* RESPONSIVE */
@@ -195,8 +213,7 @@ h1 {
 </div>
 
 <p class="intro">
-5. semester handler om renovering og eksisterende byggeri.
-Vi arbejder med analyse, projektering og tekniske løsninger.
+Renovering, analyse og projektering af eksisterende byggeri.
 </p>
 
 <div class="category-grid">
@@ -216,6 +233,12 @@ Vi arbejder med analyse, projektering og tekniske løsninger.
     <div class="carousel-track" id="track"></div>
   </div>
 
+  <div class="controls">
+    <button class="btn" id="prev">←</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="next">→</button>
+  </div>
+
 </div>
 
 </section>
@@ -223,49 +246,33 @@ Vi arbejder med analyse, projektering og tekniske løsninger.
 </main>
 
 <script>
-const galleryData = {
-  vue: {
-    title: 'VUE',
-    grade: 'Karakter: 12',
-    text: 'Karakter 12. Klik på en side for at åbne den tilhørende PDF.',
-    label: 'VUE',
-    folder: 'images/projektering/5sem',
-    prefix: 'VUE',
-    count: 40
-  },
-  lue: {
-    title: 'LUE',
-    grade: 'Karakter: 7',
-    text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-    label: 'lue',
-    folder: 'images/projektering/5sem',
-    prefix: 'lue',
-    count: 5
-  },
-  hoved: {
-    title: 'Hovedprojekt',
-    grade: 'Karakter: 7',
-    text: 'Karakter 7. Klik på en side for at åbne den tilhørende PDF.',
-    label: 'Hoved',
-    folder: 'images/projektering/5sem',
-    prefix: 'Hoved',
-    count: 9
-  }
+
+const data = {
+  vue: { title:"VUE", grade:"Karakter: 12", folder:"images/projektering/5sem", prefix:"VUE", count:40 },
+  lue: { title:"LUE", grade:"Karakter: 7", folder:"images/projektering/5sem", prefix:"lue", count:5 },
+  hoved: { title:"Hovedprojekt", grade:"Karakter: 7", folder:"images/projektering/5sem", prefix:"Hoved", count:9 }
 };
 
 let current = "vue";
-let currentSlide = 0;
+let slideIndex = 0;
 let totalSlides = 0;
 
 const track = document.getElementById("track");
+const dots = document.getElementById("dots");
 
-function render(cat) {
-  const d = galleryData[cat];
+function perSlide() {
+  if (window.innerWidth < 600) return 1;
+  if (window.innerWidth < 900) return 2;
+  return 3;
+}
 
-  document.getElementById("title").innerText = d.title;
-  document.getElementById("grade").innerText = d.grade;
+function build(cat) {
+  const d = data[cat];
 
-  const items = [];
+  document.getElementById("title").textContent = d.title;
+  document.getElementById("grade").textContent = d.grade;
+
+  let items = [];
 
   for (let i = 1; i <= d.count; i++) {
     items.push(`
@@ -277,34 +284,60 @@ function render(cat) {
     `);
   }
 
+  const size = perSlide();
   const slides = [];
-  for (let i = 0; i < items.length; i += 3) {
-    slides.push(`<div class="carousel-slide">${items.slice(i, i + 3).join("")}</div>`);
+
+  for (let i = 0; i < items.length; i += size) {
+    slides.push(`<div class="carousel-slide">${items.slice(i, i+size).join("")}</div>`);
   }
 
   track.innerHTML = slides.join("");
 
   totalSlides = slides.length;
-  currentSlide = 0;
+  slideIndex = 0;
+
+  dots.innerHTML = "";
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement("button");
+    d.className = "dot";
+    d.onclick = () => { slideIndex = i; update(); };
+    dots.appendChild(d);
+  }
 
   update();
 }
 
 function update() {
-  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  track.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+  document.querySelectorAll(".dot").forEach((d,i)=>{
+    d.classList.toggle("active", i === slideIndex);
+  });
 }
 
-document.querySelectorAll(".category-card").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".category-card").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+document.getElementById("prev").onclick = () => {
+  slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+  update();
+};
 
+document.getElementById("next").onclick = () => {
+  slideIndex = (slideIndex + 1) % totalSlides;
+  update();
+};
+
+document.querySelectorAll(".category-card").forEach(btn=>{
+  btn.onclick = () => {
+    document.querySelectorAll(".category-card").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
     current = btn.dataset.cat;
-    render(current);
+    build(current);
   };
 });
 
-render(current);
+window.addEventListener("resize", () => build(current));
+
+build(current);
+
 </script>
 
 </body>

@@ -1,1092 +1,3381 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signe Thomsen Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Signe Thomsen | Bygningskonstruktør</title>
+
+  <meta
+    name="description"
+    content="Signe Thomsen – nyuddannet bygningskonstruktør med interesse for BIM, Revit, projektering og digitale arbejdsgange."
+  >
+
+  <meta
+    name="author"
+    content="Signe Thomsen"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f5f2ec;
-      color: #171717;
-      overflow: hidden;
-    }
 
     :root {
-      --muted: #686159;
+      --background: #f5f2ec;
+      --text: #171717;
+      --muted: #716d66;
       --line: rgba(0, 0, 0, 0.12);
-      --line-strong: rgba(0, 0, 0, 0.24);
-      --max: 1380px;
-      --ease: cubic-bezier(.77, 0, .18, 1);
-      --blue: #3b82f6;
+      --soft: #e8e3da;
+
+      /*
+        DEN VIGTIGSTE INDSTILLING TIL SLANGEN
+        Jo højere tal, jo mere synlig.
+      */
+      --snake-color: rgba(23, 23, 23, 0.24);
     }
+
+
+    /* ==================================================
+       GENERAL
+    ================================================== */
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      margin: 0;
+      padding: 0;
+
+      font-family: "Inter", sans-serif;
+
+      background: var(--background);
+      color: var(--text);
+
+      position: relative;
+    }
+
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
 
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
+    /* ==================================================
+       SCROLL-SLANGE
+    ================================================== */
 
-    .logo {
-      position: fixed;
-      top: 24px;
-      left: 28px;
-      height: 42px;
-      width: auto;
-      z-index: 230;
-    }
-
-    .menu-btn {
-      position: fixed;
-      top: 26px;
-      right: 26px;
-      width: 44px;
-      height: 44px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      z-index: 240;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-    }
-
-    .menu-btn span {
+    .scroll-snake {
       position: absolute;
-      width: 18px;
-      height: 2px;
-      background: #171717;
-      transition: transform .28s ease, opacity .28s ease;
-    }
 
-    .menu-btn span:nth-child(1) { transform: translateY(-6px); }
-    .menu-btn span:nth-child(2) { transform: translateY(0); }
-    .menu-btn span:nth-child(3) { transform: translateY(6px); }
-
-    .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
-    .menu-btn.open span:nth-child(2) { opacity: 0; }
-    .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
-
-    .menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.08);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s ease;
-      z-index: 180;
-    }
-
-    .menu-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu {
-      position: fixed;
       top: 0;
-      right: -320px;
-      width: 320px;
-      height: 100vh;
-      background: rgba(250, 248, 243, 0.98);
-      backdrop-filter: blur(12px);
-      border-left: 1px solid var(--line);
-      padding: 92px 34px 34px;
-      transition: right .34s ease;
-      z-index: 220;
-    }
+      left: 0;
 
-    .menu.open {
-      right: 0;
-    }
-
-    .menu-title {
-      font-size: .76rem;
-      text-transform: uppercase;
-      letter-spacing: .18rem;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .menu button {
-      display: block;
       width: 100%;
-      background: none;
-      border: none;
-      padding: 0 0 18px;
-      margin: 0 0 18px;
-      border-bottom: 1px solid var(--line);
-      font-size: 1.08rem;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      color: #171717;
+      height: 100%;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      overflow: visible;
     }
 
-    #main-content {
-      width: 100vw;
-      height: 100vh;
+
+    .scroll-snake-path {
+      fill: none;
+
+      stroke: var(--snake-color);
+
+      stroke-width: 1.2;
+
+      stroke-linecap: round;
+
+      stroke-linejoin: round;
+
+      /*
+        JS ændrer disse værdier.
+      */
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+
+      transition:
+        stroke-dashoffset 0.12s linear;
+    }
+
+
+    /*
+      Små markeringer på knækpunkterne.
+      De er meget diskrete.
+    */
+
+    .snake-node {
+      fill: var(--background);
+
+      stroke: var(--snake-color);
+
+      stroke-width: 1;
+
+      opacity: 0;
+    }
+
+
+    /* ==================================================
+       INDHOLD
+    ================================================== */
+
+    .site-nav,
+    .hero,
+    .about,
+    .projects,
+    .profile {
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    /* ==================================================
+       NAVIGATION
+    ================================================== */
+
+    .site-nav {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      padding: 32px 6vw;
+
+      z-index: 20;
+    }
+
+
+    .site-nav-inner {
+      width: 100%;
+      max-width: 1300px;
+
+      margin: 0 auto;
+
+      display: flex;
+
+      justify-content: flex-end;
+
+      align-items: center;
+    }
+
+
+    .nav-links {
+      display: flex;
+
+      align-items: center;
+
+      gap: 34px;
+    }
+
+
+    .nav-links a {
+      position: relative;
+
+      font-size: 0.65rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.16rem;
+
+      color: var(--muted);
+
+      transition:
+        color 0.25s ease;
+    }
+
+
+    .nav-links a::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: -7px;
+
+      width: 100%;
+      height: 1px;
+
+      background: var(--text);
+
+      transform:
+        scaleX(0);
+
+      transform-origin: right;
+
+      transition:
+        transform 0.3s ease;
+    }
+
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+
+    .nav-links a:hover::after {
+      transform:
+        scaleX(1);
+
+      transform-origin: left;
+    }
+
+
+    /* ==================================================
+       HERO
+    ================================================== */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+
+      padding: 70px 6vw;
+
+      position: relative;
+
       overflow: hidden;
     }
 
-    .horizontal-sections {
-      display: flex;
-      width: 500vw;
-      height: 100vh;
-      transition: transform .95s var(--ease);
-      will-change: transform;
-    }
 
-    .panel {
-      width: 100vw;
-      height: 100vh;
-      flex: 0 0 100vw;
-      padding: 92px 7vw 46px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .panel::before {
-      content: '';
-      position: absolute;
-      inset: 18px;
-      border: 1px solid var(--line);
-      pointer-events: none;
-    }
-
-    .panel-inner {
+    .hero-inner {
       width: 100%;
-      max-width: var(--max);
-      position: relative;
-      z-index: 1;
-    }
+      max-width: 1300px;
 
-    .hero {
+      margin: 0 auto;
+
       display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 72px;
+
+      grid-template-columns:
+        0.8fr 1.2fr;
+
+      gap: 80px;
+
       align-items: center;
-      min-height: 72vh;
+
+      position: relative;
+
+      z-index: 2;
     }
 
-    .hero-copy {
-      max-width: 560px;
+
+    /* ==================================================
+       HERO TEXT
+    ================================================== */
+
+    .hero-text {
+      max-width: 500px;
+
+      position: relative;
+
+      z-index: 5;
     }
+
 
     .hero-kicker {
-      font-size: .82rem;
+      margin-bottom: 25px;
+
+      font-size: 0.68rem;
+
+      font-weight: 500;
+
       text-transform: uppercase;
-      letter-spacing: .18rem;
+
+      letter-spacing: 0.22rem;
+
       color: var(--muted);
-      margin-bottom: 20px;
     }
+
 
     .hero h1 {
-      font-size: clamp(3.3rem, 5vw, 5.4rem);
-      line-height: 1.02;
-      letter-spacing: -.05em;
-      margin: 0 0 22px;
-      font-weight: 700;
+      margin: 0;
+
+      font-size:
+        clamp(4rem, 7vw, 6.8rem);
+
+      line-height: 0.88;
+
+      letter-spacing: -0.07em;
+
+      font-weight: 500;
     }
 
-    .hero p {
-      font-size: 1.05rem;
+
+    .hero-description {
+      max-width: 430px;
+
+      margin: 35px 0 0;
+
+      font-size: 0.98rem;
+
       line-height: 1.9;
+
       color: var(--muted);
-      margin: 0 0 14px;
     }
 
-    .hero-tags,
-    .skill-list,
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+
+    /* ==================================================
+       HERO LINK
+    ================================================== */
+
+    .hero-link {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+      margin-top: 38px;
+
+      padding-bottom: 7px;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.45);
+
+      font-size: 0.78rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13rem;
+
+      transition:
+        opacity 0.25s ease;
     }
 
-    .hero-tags {
-      margin-top: 24px;
+
+    .hero-link:hover {
+      opacity: 0.55;
     }
+
+
+    .hero-link span {
+      font-size: 1rem;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+
+    .hero-link:hover span {
+      transform:
+        translateY(4px);
+    }
+
+
+    /* ==================================================
+       HERO VISUAL
+    ================================================== */
 
     .hero-visual {
       position: relative;
+
+      width: 100%;
+
+      min-height: 650px;
+
       display: flex;
-      justify-content: flex-end;
+
       align-items: center;
+
+      justify-content: center;
     }
 
-    .hero-shape-bg {
+
+    .hero-shape {
       position: absolute;
+
       width: 78%;
       height: 78%;
-      background: #efefef;
-      border-radius: 38% 42% 36% 34%;
-      left: 4%;
-      top: 13%;
+
+      right: 5%;
+      top: 11%;
+
+      background: var(--soft);
+
+      border-radius:
+        47% 53% 48% 52%
+        /
+        54% 43% 57% 46%;
+
+      transform:
+        rotate(-7deg);
+
+      overflow: hidden;
+
+      z-index: 1;
+
+      box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.08);
+    }
+
+
+    .hero-shape-outline {
+      position: absolute;
+
+      width: 78%;
+      height: 78%;
+
+      right: 1%;
+      top: 8%;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        47% 53% 48% 52%
+        /
+        54% 43% 57% 46%;
+
+      transform:
+        rotate(3deg);
+
       z-index: 0;
-    }
 
-    .hero-image-wrap {
-      position: relative;
-      z-index: 1;
-      width: min(100%, 760px);
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      clip-path: polygon(35% 0%, 100% 0%, 100% 70%, 65% 100%, 0% 100%, 0% 40%);
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.14);
-    }
-
-    .hero-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .45s ease;
-    }
-
-    .hero-image-wrap:hover img {
-      transform: scale(1.03);
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 54px;
-    }
-
-    .section-header h2 {
-      margin: 0;
-      font-size: clamp(2.2rem, 3.2vw, 3.25rem);
-      letter-spacing: -.03em;
-    }
-
-    .section-subline {
-      width: 82px;
-      height: 1px;
-      background: #171717;
-      opacity: .45;
-      margin: 14px auto 0;
-    }
-
-    .section-intro {
-      max-width: 680px;
-      margin: 18px auto 0;
-      text-align: center;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 0.98rem;
-    }
-
-    .about-mix {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .about-mix-grid {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 60px;
-      align-items: center;
-      min-height: 65vh;
-    }
-
-    .about-mix-image {
-      position: relative;
-    }
-
-    .about-mix-image img {
-      width: 100%;
-      max-width: 300px;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border: 1px solid var(--line);
-    }
-
-    .about-mix-image::before {
-      content: "";
-      position: absolute;
-      top: -14px;
-      left: -14px;
-      width: 70%;
-      height: 70%;
-      border: 1px solid var(--line);
-      z-index: -1;
-    }
-
-    .about-kicker {
-      font-size: .82rem;
-      text-transform: uppercase;
-      letter-spacing: .18rem;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .about-mix-content h2 {
-      margin: 0 0 18px;
-      font-size: clamp(2.2rem, 3vw, 3rem);
-      letter-spacing: -.03em;
-    }
-
-    .about-mix-content p {
-      margin: 0 0 14px;
-      line-height: 1.85;
-      color: var(--muted);
-      max-width: 860px;
-    }
-
-    .about-tags {
-      margin-top: 18px;
-    }
-
-    .tag {
-      border: 1px solid var(--line-strong);
-      padding: 9px 14px;
-      font-size: .85rem;
-      background: rgba(255,255,255,.52);
-    }
-
-    .carousel-wrapper {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform .45s ease-out;
-      will-change: transform;
-    }
-
-    .carousel-slide {
-      min-width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-    }
-
-    .project-card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      background: rgba(255,255,255,0.38);
-      border: 1px solid var(--line);
-      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-      overflow: hidden;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-      border-color: rgba(0,0,0,0.2);
-    }
-
-    .project-image-wrap {
-      overflow: hidden;
-      background: #ebe7dd;
-      position: relative;
-      isolation: isolate;
-    }
-
-    .project-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.38), rgba(0,0,0,0.02) 45%, transparent 70%);
-      opacity: .88;
-      z-index: 1;
       pointer-events: none;
     }
 
-    .project-card img {
-      width: 100%;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      transition: transform .55s ease, filter .35s ease;
-    }
 
-    .project-card:hover img {
-      transform: scale(1.05);
-      filter: saturate(1.03);
-    }
+    /* ==================================================
+       HERO SLIDESHOW
+    ================================================== */
 
-    .project-content {
-      padding: 22px 22px 24px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .project-meta {
-      margin: 0 0 10px;
-      font-size: .74rem;
-      letter-spacing: .16rem;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .project-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.28rem;
-      line-height: 1.2;
-      letter-spacing: -.02em;
-    }
-
-    .project-card p {
-      margin: 0;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .project-footer {
-      margin-top: auto;
-      padding-top: 18px;
-    }
-
-    .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      position: relative;
-      padding-bottom: 3px;
-    }
-
-    .project-link::before {
-      content: "→";
-      font-size: .95rem;
-      line-height: 1;
-    }
-
-    .project-link::after {
-      content: '';
+    .hero-slideshow {
       position: absolute;
-      left: 0;
-      bottom: -2px;
+
+      inset: 0;
+
       width: 100%;
-      height: 1px;
-      background: #171717;
-      transform: scaleX(.34);
-      transform-origin: left;
-      transition: transform .24s ease;
-    }
+      height: 100%;
 
-    .project-link:hover::after {
-      transform: scaleX(1);
-    }
+      overflow: hidden;
 
-    .deep-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22));
-    }
-
-    .deep-card .project-image-wrap::after {
-      background: linear-gradient(to top, rgba(23,23,23,0.52), rgba(23,23,23,0.08) 46%, transparent 72%);
-    }
-
-    .deep-accent {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
       z-index: 2;
-      color: white;
-      font-size: .78rem;
-      letter-spacing: .16rem;
-      text-transform: uppercase;
-      opacity: 0.9;
+
+      transform:
+        rotate(7deg)
+        scale(1.08);
     }
 
-    .carousel-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 34px;
-    }
 
-    .carousel-btn {
-      width: 46px;
-      height: 46px;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.42);
-      font-size: 24px;
-      cursor: pointer;
-      color: #171717;
-      opacity: .9;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
-    }
-
-    .carousel-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.82);
-      border-color: rgba(0,0,0,0.28);
-    }
-
-    .carousel-dots {
-      display: flex;
-      gap: 10px;
-    }
-
-    .carousel-dot {
-      width: 9px;
-      height: 9px;
-      border: none;
-      background: rgba(0, 0, 0, .18);
-      cursor: pointer;
-      transition: transform .2s ease, background .2s ease;
-    }
-
-    .carousel-dot.active {
-      background: #171717;
-      transform: scale(1.18);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 46px;
-      align-items: start;
-    }
-
-    .contact-info,
-    .contact-form-wrap {
-      text-align: center;
-    }
-
-    .contact-info h3,
-    .contact-form-wrap h3 {
-      margin: 0 0 14px;
-      font-size: 1.05rem;
-    }
-
-    .contact-info p {
-      line-height: 1.85;
-      color: var(--muted);
-      margin: 0 0 10px;
-    }
-
-    .contact-link {
-      display: inline-block;
-      position: relative;
-      margin-bottom: 8px;
-    }
-
-    .contact-link::after {
-      content: '';
+    .slide {
       position: absolute;
-      left: 0;
-      bottom: -2px;
+
       width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position:
+        center center;
+
+      opacity: 0;
+
+      transform:
+        translateX(25px);
+
+      transition:
+        opacity 0.9s ease,
+        transform 1s
+        cubic-bezier(.22,.61,.36,1);
+
+      filter: none;
+    }
+
+
+    .slide.active {
+      opacity: 1;
+
+      transform:
+        translateX(0);
+    }
+
+
+    .slide.leaving {
+      opacity: 0;
+
+      transform:
+        translateX(-25px);
+    }
+
+
+    .slide-info {
+      position: absolute;
+
+      left: 4%;
+
+      bottom: 20px;
+
+      z-index: 6;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      font-size: 0.62rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.18rem;
+
+      color:
+        rgba(23, 23, 23, 0.62);
+
+      pointer-events: none;
+    }
+
+
+    .slide-line {
+      width: 38px;
+
       height: 1px;
-      background: #171717;
-      transform: scaleX(.32);
-      transition: transform .24s ease;
+
+      background:
+        rgba(0, 0, 0, 0.35);
     }
 
-    .contact-link:hover::after {
-      transform: scaleX(1);
+
+    /* ==================================================
+       OM MIG
+    ================================================== */
+
+    .about {
+      min-height: 100vh;
+
+      padding: 120px 6vw;
+
+      position: relative;
+
+      overflow: hidden;
     }
 
-    .contact-form {
+
+    .about-inner {
+      width: 100%;
+      max-width: 1200px;
+
+      margin: 0 auto;
+
       display: grid;
-      gap: 12px;
-      max-width: 440px;
+
+      grid-template-columns:
+        0.9fr 1.1fr;
+
+      gap: 100px;
+
+      align-items: center;
+
+      position: relative;
+    }
+
+
+    /* ==================================================
+       ARKITEKTONISK BILLEDE
+    ================================================== */
+
+    .about-visual {
+      position: relative;
+
+      min-height: 560px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+
+    .about-line-one {
+      position: absolute;
+
+      width: 72%;
+      height: 78%;
+
+      border:
+        1px solid var(--line);
+
+      transform:
+        rotate(-7deg)
+        translate(-5px, 4px);
+
+      z-index: 0;
+    }
+
+
+    .about-line-two {
+      position: absolute;
+
+      width: 72%;
+      height: 78%;
+
+      border:
+        1px solid rgba(0, 0, 0, 0.07);
+
+      transform:
+        rotate(5deg)
+        translate(12px, -8px);
+
+      z-index: 0;
+    }
+
+
+    .about-line-three {
+      position: absolute;
+
+      width: 85px;
+
+      height: 1px;
+
+      background:
+        rgba(0, 0, 0, 0.3);
+
+      left: 8%;
+
+      top: 18%;
+
+      z-index: 1;
+    }
+
+
+    .about-line-four {
+      position: absolute;
+
+      width: 1px;
+
+      height: 90px;
+
+      background:
+        rgba(0, 0, 0, 0.18);
+
+      right: 12%;
+
+      bottom: 17%;
+
+      z-index: 1;
+    }
+
+
+    .about-image-wrap {
+      width: 58%;
+
+      max-width: 330px;
+
+      aspect-ratio: 0.82;
+
+      position: relative;
+
+      z-index: 2;
+
+      overflow: hidden;
+
+      background: var(--soft);
+
+      box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.07);
+
+      transform:
+        rotate(-1.5deg);
+    }
+
+
+    .about-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position: center;
+
+      display: block;
+
+      transform:
+        scale(1.015);
+    }
+
+
+    .about-name {
+      position: absolute;
+
+      left: 7%;
+
+      bottom: 20%;
+
+      z-index: 4;
+
+      writing-mode:
+        vertical-rl;
+
+      transform:
+        rotate(180deg);
+
+      font-size: 0.62rem;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.22rem;
+
+      color: var(--muted);
+    }
+
+
+    /* ==================================================
+       OM MIG TEKST
+    ================================================== */
+
+    .about-text {
+      max-width: 600px;
+    }
+
+
+    .about-kicker {
+      margin-bottom: 25px;
+
+      font-size: 0.68rem;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.22rem;
+
+      color: var(--muted);
+    }
+
+
+    .about h2 {
+      margin: 0;
+
+      max-width: 650px;
+
+      font-size:
+        clamp(2.7rem, 5vw, 5rem);
+
+      line-height: 0.98;
+
+      letter-spacing: -0.055em;
+
+      font-weight: 500;
+    }
+
+
+    .about-description {
+      max-width: 540px;
+
+      margin-top: 38px;
+
+      font-size: 0.98rem;
+
+      line-height: 1.9;
+
+      color: var(--muted);
+    }
+
+
+    .about-description p {
+      margin:
+        0 0 22px;
+    }
+
+
+    .about-description p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    .about-rule {
+      width: 55px;
+
+      height: 1px;
+
+      background:
+        rgba(0, 0, 0, 0.35);
+
+      margin:
+        35px 0 0;
+    }
+
+
+    /* ==================================================
+       PROJEKTER
+    ================================================== */
+
+    .projects {
+      padding:
+        130px 6vw 160px;
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+
+    .projects-inner {
+      width: 100%;
+      max-width: 1250px;
+
       margin: 0 auto;
     }
 
-    .contact-form input,
-    .contact-form textarea {
-      padding: 13px 14px;
-      border: 1px solid var(--line-strong);
-      background: transparent;
-      color: #171717;
+
+    .project {
+      display: grid;
+
+      grid-template-columns:
+        0.85fr 1.15fr;
+
+      gap: 65px;
+
+      align-items: center;
+
+      margin-bottom: 120px;
     }
 
-    .contact-form textarea {
-      min-height: 140px;
-      resize: vertical;
+
+    .project:last-child {
+      margin-bottom: 0;
     }
 
-    .contact-form button {
-      padding: 13px 16px;
-      border: 1px solid #171717;
-      background: #171717;
-      color: #fff;
-      cursor: pointer;
+
+    .project.reverse {
+      grid-template-columns:
+        1.15fr 0.85fr;
     }
 
-    @media (max-width: 980px) {
-      .hero,
-      .contact-grid,
-      .about-mix-grid {
-        grid-template-columns: 1fr;
+
+    .project-text {
+      max-width: 460px;
+    }
+
+
+    .project-number {
+      font-size: 0.65rem;
+
+      letter-spacing: 0.18rem;
+
+      color: var(--muted);
+
+      margin-bottom: 20px;
+    }
+
+
+    .project h3 {
+      margin: 0;
+
+      font-size:
+        clamp(2.5rem, 4vw, 4.3rem);
+
+      line-height: 0.95;
+
+      letter-spacing: -0.055em;
+
+      font-weight: 500;
+    }
+
+
+    .project-description {
+      margin-top: 30px;
+
+      max-width: 440px;
+
+      font-size: 0.95rem;
+
+      line-height: 1.85;
+
+      color: var(--muted);
+    }
+
+
+    /* ==================================================
+       PROJEKT SLIDESHOW
+    ================================================== */
+
+    .project-visual {
+      position: relative;
+
+      width: 100%;
+
+      min-height: 480px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+
+    .project-shape {
+      position: relative;
+
+      width: 88%;
+
+      height: 430px;
+
+      overflow: hidden;
+
+      background: var(--soft);
+
+      border-radius:
+        48% 52% 45% 55%
+        /
+        54% 44% 56% 46%;
+
+      transform:
+        rotate(-4deg);
+
+      box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.07);
+
+      z-index: 2;
+    }
+
+
+    .project-outline {
+      position: absolute;
+
+      width: 88%;
+
+      height: 430px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        48% 52% 45% 55%
+        /
+        54% 44% 56% 46%;
+
+      transform:
+        rotate(5deg);
+
+      z-index: 0;
+
+      pointer-events: none;
+    }
+
+
+    .project-slideshow {
+      position: absolute;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      transform:
+        rotate(4deg)
+        scale(1.08);
+
+      width: 100%;
+      height: 100%;
+    }
+
+
+    .project-slide {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      object-position:
+        center center;
+
+      opacity: 0;
+
+      transform:
+        translateX(30px);
+
+      transition:
+        opacity 0.9s ease,
+        transform 1s
+        cubic-bezier(.22,.61,.36,1);
+    }
+
+
+    .project-slide.active {
+      opacity: 1;
+
+      transform:
+        translateX(0);
+    }
+
+
+    .project-slide.leaving {
+      opacity: 0;
+
+      transform:
+        translateX(-30px);
+    }
+
+
+    /* ==================================================
+       SE MERE
+    ================================================== */
+
+    .project-more {
+      position: absolute;
+
+      bottom: 4px;
+
+      z-index: 10;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding-bottom: 7px;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.4);
+
+      font-size: 0.68rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.15rem;
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+
+    .project-more:hover {
+      opacity: 0.55;
+
+      transform:
+        translateY(3px);
+    }
+
+
+    .project:not(.reverse) .project-more {
+      right: 6%;
+    }
+
+
+    .project.reverse .project-more {
+      left: 6%;
+    }
+
+
+    /* ==================================================
+       LILLE LINJE
+    ================================================== */
+
+    .project-divider {
+      width: 45px;
+
+      height: 1px;
+
+      background:
+        rgba(0, 0, 0, 0.22);
+
+      margin-top: 35px;
+    }
+
+
+    /* ==================================================
+       KOMPETENCER / CV
+    ================================================== */
+
+    .profile {
+      padding:
+        150px 6vw 45px;
+
+      position: relative;
+
+      overflow: hidden;
+
+    }
+
+
+    .profile-inner {
+      width: 100%;
+
+      max-width: 1250px;
+
+      margin: 0 auto;
+
+      display: grid;
+
+      grid-template-columns:
+        0.8fr 1.2fr;
+
+      gap: 100px;
+    }
+
+
+    /* ==================================================
+       KOMPETENCER OVERSKRIFT
+    ================================================== */
+
+    .profile-heading {
+      position: relative;
+    }
+
+
+    .profile-kicker {
+      margin-bottom: 25px;
+
+      font-size: 0.68rem;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.22rem;
+
+      color: var(--muted);
+    }
+
+
+    .profile-heading h2 {
+      margin: 0;
+
+      font-size:
+        clamp(3rem, 5vw, 5.5rem);
+
+      line-height: 0.9;
+
+      letter-spacing: -0.065em;
+
+      font-weight: 500;
+    }
+
+
+    /* ==================================================
+       KOMPETENCER INDHOLD
+    ================================================== */
+
+    .profile-content {
+      display: flex;
+
+      flex-direction: column;
+    }
+
+
+    /* ==================================================
+       UDDANNELSE / ERHVERVSERFARING / KOMPETENCER
+    ================================================== */
+
+    .profile-block {
+      display: grid;
+
+      grid-template-columns:
+        150px 1fr;
+
+      gap: 30px;
+
+      padding: 28px 0;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+
+    .profile-label {
+      font-size: 0.62rem;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.17rem;
+
+      color: var(--muted);
+    }
+
+
+    .profile-value {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 6px;
+
+      font-size: 0.9rem;
+
+      line-height: 1.5;
+    }
+
+
+    .profile-value strong {
+      font-weight: 500;
+    }
+
+
+    .profile-value span {
+      color: var(--muted);
+    }
+
+
+    .profile-value a {
+      width: fit-content;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.25);
+
+      padding-bottom: 2px;
+
+      transition:
+        opacity 0.25s ease;
+    }
+
+
+    .profile-value a:hover {
+      opacity: 0.5;
+    }
+
+
+    /* ==================================================
+       KOMPETENCER
+    ================================================== */
+
+    .profile-skills {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 9px;
+    }
+
+
+    .profile-skills span {
+      padding:
+        8px 13px;
+
+      border:
+        1px solid var(--line);
+
+      font-size: 0.68rem;
+
+      letter-spacing: 0.04rem;
+
+      color: var(--muted);
+    }
+
+
+    /* ==================================================
+       KONTAKT
+    ================================================== */
+
+    .profile-contact {
+      margin-top: 0;
+    }
+
+
+    /* ==================================================
+       CV OG UDDANNELSESBEVIS
+    ================================================== */
+
+    .profile-cv {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+
+      padding-top: 38px;
+    }
+
+
+    .profile-cv-text p {
+      margin:
+        10px 0 0;
+
+      font-size: 0.82rem;
+
+      line-height: 1.6;
+
+      color: var(--muted);
+    }
+
+
+    .profile-buttons {
+      display: flex;
+
+      align-items: center;
+
+      gap: 30px;
+
+      flex-shrink: 0;
+    }
+
+
+    .cv-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      padding:
+        14px 0;
+
+      border-bottom:
+        1px solid rgba(0, 0, 0, 0.5);
+
+      font-size: 0.7rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.15rem;
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+
+    .cv-button span {
+      font-size: 1rem;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+
+    .cv-button:hover {
+      opacity: 0.55;
+
+      transform:
+        translateY(3px);
+    }
+
+
+    .cv-button:hover span {
+      transform:
+        translateY(3px);
+    }
+
+
+    /* ==================================================
+       TIL TOPPEN
+    ================================================== */
+
+    .back-to-top {
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      width: 100%;
+
+      margin-top: 75px;
+
+      padding-top: 22px;
+
+      border-top:
+        1px solid var(--line);
+
+      font-size: 0.62rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.16rem;
+
+      color: var(--muted);
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+
+    .back-to-top span {
+      margin-left: 12px;
+
+      font-size: 0.95rem;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+
+    .back-to-top:hover {
+      opacity: 0.55;
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    .back-to-top:hover span {
+      transform:
+        translateY(-3px);
+    }
+
+
+    /* ==================================================
+       FOOTER
+    ================================================== */
+
+    .profile-footer {
+      width: 100%;
+
+      max-width: 1250px;
+
+      margin:
+        90px auto 0;
+
+      padding-top: 18px;
+
+      border-top:
+        1px solid var(--line);
+
+      display: flex;
+
+      justify-content: space-between;
+
+      font-size: 0.58rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.15rem;
+
+      color: var(--muted);
+    }
+
+
+    /* ==================================================
+       RESPONSIVE
+    ================================================== */
+
+    @media (max-width: 850px) {
+
+      .scroll-snake-path {
+        stroke-width: 1;
       }
 
-      .carousel-slide {
-        grid-template-columns: 1fr;
+
+      .site-nav {
+        padding:
+          25px 30px;
       }
+
+
+      .nav-links {
+        gap: 20px;
+      }
+
+
+      .nav-links a {
+        font-size: 0.56rem;
+
+        letter-spacing:
+          0.11rem;
+      }
+
 
       .hero {
-        gap: 36px;
+        padding:
+          100px
+          30px
+          60px;
       }
 
-      .hero-copy,
-      .project-card,
-      .contact-info,
-      .contact-form-wrap,
-      .project-content {
-        text-align: center;
+
+      .hero::before {
+        inset: 10px;
       }
 
-      .hero-tags,
-      .about-tags,
-      .skill-list {
-        justify-content: center;
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
       }
 
-      .project-card p,
-      .about-mix-content p {
-        max-width: 100%;
+
+      .hero-text {
+        max-width: 600px;
       }
 
-      .hero-image-wrap {
-        width: min(100%, 430px);
-        margin: 0 auto;
+
+      .hero-visual {
+        min-height: 420px;
       }
 
-      .hero-shape-bg {
-        width: 82%;
-        height: 82%;
-        left: 9%;
-        top: 10%;
+
+      .hero-shape,
+      .hero-shape-outline {
+        width: 78%;
+
+        height: 78%;
+
+        right: 11%;
       }
 
-      .panel::before {
-        inset: 12px;
+
+      .hero-slideshow {
+        transform:
+          rotate(7deg)
+          scale(1.08);
       }
 
-      .menu-btn {
-        top: 22px;
-        right: 22px;
+
+      .about {
+        padding:
+          90px 30px;
       }
 
-      .logo {
-        top: 20px;
-        left: 20px;
-        height: 34px;
+
+      .about-inner {
+        grid-template-columns: 1fr;
+
+        gap: 55px;
       }
 
-      .about-mix-grid {
-        gap: 30px;
-        text-align: center;
-        min-height: auto;
+
+      .about-visual {
+        min-height: 420px;
+
+        order: 1;
       }
 
-      .about-mix-image img {
-        max-width: 220px;
-        margin: 0 auto;
+
+      .about-text {
+        order: 2;
       }
 
-      .project-card {
-        max-width: 520px;
-        margin: 0 auto;
+
+      .about-image-wrap {
+        width: 52%;
       }
+
+
+      .about-name {
+        left: 12%;
+
+        bottom: 18%;
+      }
+
+
+      .about-line-three {
+        left: 5%;
+
+        top: 16%;
+      }
+
+
+      .about-line-four {
+        right: 8%;
+
+        bottom: 15%;
+      }
+
+
+      .projects {
+        padding:
+          90px 30px
+          120px;
+      }
+
+
+      .project,
+      .project.reverse {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        margin-bottom: 90px;
+      }
+
+
+      .project-text {
+        max-width: 650px;
+
+        order: 1;
+      }
+
+
+      .project-visual {
+        min-height: 400px;
+
+        order: 2;
+      }
+
+
+      .project-shape,
+      .project-outline {
+        width: 88%;
+
+        height: 360px;
+      }
+
+
+      .project:not(.reverse) .project-more,
+      .project.reverse .project-more {
+        left: auto;
+
+        right: 8%;
+      }
+
+
+      .profile {
+        padding:
+          100px 30px
+          35px;
+      }
+
+
+      .profile-inner {
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+      }
+
+
+      .profile-heading h2 {
+        font-size: 4rem;
+      }
+
+
+      .profile-block {
+        grid-template-columns:
+          120px 1fr;
+
+        gap: 20px;
+      }
+
+
+      .profile-cv {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 25px;
+      }
+
+
+      .profile-buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+      }
+
+
+      .profile-footer {
+        margin-top: 70px;
+
+        gap: 20px;
+
+        flex-direction: column;
+      }
+
     }
+
+
+    /* ==================================================
+       SMALL MOBILE
+    ================================================== */
+
+    @media (max-width: 500px) {
+
+      .scroll-snake-path {
+        stroke-width: 0.9;
+      }
+
+
+      .site-nav {
+        padding:
+          22px 24px;
+      }
+
+
+      .nav-links {
+        gap: 13px;
+      }
+
+
+      .nav-links a {
+        font-size: 0.5rem;
+
+        letter-spacing:
+          0.08rem;
+      }
+
+
+      .hero h1 {
+        font-size: 3.8rem;
+      }
+
+
+      .hero-description {
+        font-size: 0.92rem;
+      }
+
+
+      .hero-visual {
+        min-height: 320px;
+      }
+
+
+      .hero-shape,
+      .hero-shape-outline {
+        width: 88%;
+
+        height: 82%;
+
+        right: 6%;
+      }
+
+
+      .hero-slideshow {
+        transform:
+          rotate(7deg)
+          scale(1.08);
+      }
+
+
+      .slide-info {
+        font-size: 0.52rem;
+      }
+
+
+      .about {
+        padding:
+          80px 24px;
+      }
+
+
+      .about h2 {
+        font-size: 2.8rem;
+      }
+
+
+      .about-image-wrap {
+        width: 62%;
+      }
+
+
+      .about-visual {
+        min-height: 360px;
+      }
+
+
+      .about-description {
+        font-size: 0.92rem;
+      }
+
+
+      .about-name {
+        left: 7%;
+
+        font-size: 0.54rem;
+      }
+
+
+      .projects {
+        padding:
+          80px 24px
+          100px;
+      }
+
+
+      .project {
+        margin-bottom: 70px;
+      }
+
+
+      .project h3 {
+        font-size: 2.8rem;
+      }
+
+
+      .project-description {
+        font-size: 0.92rem;
+      }
+
+
+      .project-visual {
+        min-height: 330px;
+      }
+
+
+      .project-shape,
+      .project-outline {
+        width: 94%;
+
+        height: 290px;
+      }
+
+
+      .project-more {
+        font-size: 0.58rem;
+      }
+
+
+      .profile {
+        padding:
+          80px 24px
+          30px;
+      }
+
+
+      .profile-heading h2 {
+        font-size: 3.3rem;
+      }
+
+
+      .profile-block {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+
+        padding: 24px 0;
+      }
+
+
+      .profile-skills {
+        gap: 7px;
+      }
+
+
+      .profile-skills span {
+        font-size: 0.6rem;
+
+        padding:
+          7px 10px;
+      }
+
+
+      .profile-footer {
+        font-size: 0.5rem;
+      }
+
+
+      .back-to-top {
+        margin-top: 55px;
+
+        padding-top: 18px;
+
+        font-size: 0.54rem;
+      }
+
+    }
+
   </style>
+
 </head>
-<body>
-  <img src="images/logo.png" alt="Logo" class="logo">
 
-  <button class="menu-btn" id="menuBtn" aria-label="Åbn menu" type="button">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+<body id="top">
 
-  <nav class="menu" id="menu">
-    <div class="menu-title">Navigation</div>
-    <button data-panel="0" type="button">Hjem</button>
-    <button data-panel="1" type="button">Om mig</button>
-    <button data-panel="2" type="button">Projekter</button>
-    <button data-panel="3" type="button">Kontakt</button>
+
+  <!-- ==================================================
+       SCROLL-SLANGE
+
+       Denne SVG bliver automatisk tegnet ud fra
+       placeringen af dine sektioner.
+
+       Den ligger bag alt indhold.
+  ================================================== -->
+
+  <svg
+    class="scroll-snake"
+    id="scrollSnake"
+    aria-hidden="true"
+  >
+
+    <path
+      class="scroll-snake-path"
+      id="snakePath"
+    ></path>
+
+  </svg>
+
+
+  <!-- ==================================================
+       NAVIGATION
+  ================================================== -->
+
+  <nav class="site-nav">
+
+    <div class="site-nav-inner">
+
+      <div class="nav-links">
+
+        <a href="#om-mig">
+          Om mig
+        </a>
+
+        <a href="#projekter">
+          Projekter
+        </a>
+
+        <a href="#kompetencer">
+          Kontakt
+        </a>
+
+      </div>
+
+    </div>
+
   </nav>
 
-  <main id="main-content">
-    <div class="horizontal-sections" id="horizontal-sections">
 
-     <!-- Hjem -->
-<section class="panel">
-  <div class="panel-inner hero">
+  <!-- ==================================================
+       HERO
+  ================================================== -->
 
-    <div class="hero-copy">
-      <div class="hero-kicker">Signe Thomsen · Bygningskonstruktør 2026</div>
-      <h1>Portfolio</h1>
+  <section class="hero">
 
-      <p>
-        Velkommen til mit portfolio, hvor jeg viser udvalgte projekter fra min uddannelse som bygningskonstruktør.
-      </p>
+    <div class="hero-inner">
 
-      <p>
-        Jeg arbejder især med BIM, projektering og digitale arbejdsgange, og er optaget af, hvordan struktur og automatisering kan styrke byggeprocesser.
-      </p>
-    </div>
 
-    <div class="hero-visual">
-      <div class="hero-shape-bg"></div>
-      <div class="hero-image-wrap">
-        <img src="images/forside.png" alt="Forsideprojekt" fetchpriority="high">
+      <div class="hero-text">
+
+        <div class="hero-kicker">
+          Bygningskonstruktør · 2026
+        </div>
+
+
+        <h1>
+          Signe<br>
+          Thomsen
+        </h1>
+
+
+        <p class="hero-description">
+          Nyuddannet bygningskonstruktør med interesse for
+          BIM, Revit og smartere digitale arbejdsgange.
+        </p>
+
+
+        <a
+          href="#om-mig"
+          class="hero-link"
+        >
+          Se mit arbejde
+
+          <span>↓</span>
+
+        </a>
+
       </div>
-    </div>
 
-  </div>
-</section>
 
-      <!-- Om mig -->
-      <section class="panel">
-        <div class="panel-inner about-mix">
-          <div class="about-mix-grid">
-            <div class="about-mix-image">
-              <img src="images/1757448441921.jpg" alt="Signe Thomsen">
-            </div>
+      <div class="hero-visual">
 
-            <div class="about-mix-content">
-              <div class="about-kicker">Om mig</div>
-              <h2>Signe Thomsen</h2>
+        <div class="hero-shape-outline"></div>
 
-<p>
-  Jeg er uddannet bygningskonstruktør og har især interesse for projektering, BIM og digitale arbejdsgange. Jeg synes, det er spændende at arbejde med Revit, 3D-modellering og finde løsninger, der gør projekterne mere overskuelige og effektive.
-</p>
 
-<p>
-  Jeg kan godt lide at kombinere det tekniske med det kreative, og jeg motiveres af at se et projekt udvikle sig fra idé til færdigt materiale. Især arbejdet med BIM og automatisering interesserer mig, fordi jeg synes, det er fedt at optimere workflows og gøre hverdagen lettere gennem digitale værktøjer.
-</p>
+        <div class="hero-shape">
 
-<p>
-  Under min uddannelse og praktik har jeg arbejdet med projektering, tegninger og koordinering mellem fag, og jeg trives bedst i et miljø, hvor man samarbejder og hjælper hinanden. Jeg er lærenem, struktureret og tager ansvar for mine opgaver, men jeg er også nysgerrig på at lære mere og udvikle mig fagligt. Som person er jeg rolig, positiv og detaljeorienteret, og jeg går op i at lave et ordentligt stykke arbejde og bidrager gerne med idéer og løsninger, når der er brug for det.
-</p>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-    <!-- Projekter -->
-<section class="panel">
-  <div class="panel-inner">
-    <div class="section-header">
-      <h2>Projekter</h2>
-      <div class="section-subline"></div>
-      <p class="section-intro">
-        Semesterprojekter med fokus på projektering, byggeteknik,
-        detaljering og digitale værktøjer.
-      </p>
-    </div>
-
-    <div class="carousel-wrapper" data-carousel="projekter">
-      <div class="carousel-track">
-
-        <!-- Slide 1: 7 + 6 + 5 -->
-        <div class="carousel-slide">
-
-          <article class="project-card deep-card">
-           <div class="project-image-wrap">
-  <img src="images/7sem.png" alt="7. semester projekt" loading="eager">
-
-  <div class="deep-accent">Bachelor</div>
-
-  <!-- Under udarbejdelse overlay -->
-  <div style="
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,0.35);
-    color:white;
-    font-size:0.95rem;
-    letter-spacing:0.18rem;
-    text-transform:uppercase;
-    z-index:2;
-    font-weight:600;
-  ">
-    Under udarbejdelse
-  </div>
-</div>
-            <div class="project-content">
-              <div class="project-meta">7. semester</div>
-              <h3>Afsluttende bachelorprojekt</h3>
-              <p>Helhedsorienteret afslutningsprojekt med fokus på projektering, analyse og dokumentation.</p>
-              <div class="project-footer">
-                <a href="semester7.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/6sem.png" alt="6. semester projekt" loading="eager">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">6. semester</div>
-              <h3>Praktikforløb</h3>
-              <p>      Praktik i en tegnestue med fokus på projektering og deltagelse i reelle byggeprojekter.</p>
-              <div class="project-footer">
-                <a href="semester6.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/5sem.png" alt="5. semester projekt" loading="eager">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">5. semester</div>
-              <h3>Renovering</h3>
-              <p>Projekt med fokus på renovering og samspil mellem eksisterende og nye løsninger.</p>
-              <div class="project-footer">
-                <a href="semester5.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
+          <div
+            class="hero-slideshow"
+            id="vue-slideshow"
+          ></div>
 
         </div>
 
-        <!-- Slide 2: 4 + 3 -->
-        <div class="carousel-slide">
 
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/4sem.png" alt="4. semester projekt" loading="eager">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">4. semester</div>
-              <h3>Etagebolig</h3>
-              <p>Tværfagligt boligprojekt med fokus på detaljering og opbygning.</p>
-              <div class="project-footer">
-                <a href="semester4.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
+        <div class="slide-info">
 
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/3sem.png" alt="3. semester projekt" loading="eager">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">3. semester</div>
-              <h3>Erhverv</h3>
-              <p>Industribyggeri med fokus på teknik, præfabrikation og konstruktion.</p>
-              <div class="project-footer">
-                <a href="semester3.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
+          <span class="slide-line"></span>
 
-        </div>
-
-        <!-- Slide 3: 2 + 1 -->
-        <div class="carousel-slide">
-
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/2sem.png" alt="2. semester projekt" loading="lazy">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">2. semester</div>
-              <h3>Byggeproces</h3>
-              <p>Fokus på planlægning, samarbejde og procesforståelse.</p>
-              <div class="project-footer">
-                <a href="semester2.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-image-wrap">
-              <img src="images/1sem.png" alt="1. semester projekt" loading="lazy">
-            </div>
-            <div class="project-content">
-              <div class="project-meta">1. semester</div>
-              <h3>Boligbyggeri</h3>
-              <p>Grundlæggende forståelse for konstruktion og materialer.</p>
-              <div class="project-footer">
-                <a href="semester1.html" class="project-link">Læs mere</a>
-              </div>
-            </div>
-          </article>
+          <span>
+            Udvalgt projekt
+          </span>
 
         </div>
 
       </div>
 
-      <div class="carousel-controls">
-        <button class="carousel-btn prev" type="button">←</button>
-        <div class="carousel-dots"></div>
-        <button class="carousel-btn next" type="button">→</button>
-      </div>
     </div>
-  </div>
-</section>
 
-      <!-- Kontakt -->
-      <section class="panel">
-        <div class="panel-inner">
-          <div class="section-header">
-            <h2>Kontakt</h2>
-            <div class="section-subline"></div>
-          </div>
+  </section>
 
-          <div class="contact-form-wrap">
-            <h3>Skriv til mig</h3>
-            <form class="contact-form" action="https://formspree.io/f/xnqklrbr" method="POST">
-              <input type="text" name="name" placeholder="Dit navn" required>
-              <input type="email" name="email" placeholder="Din email" required>
-              <textarea name="message" placeholder="Din besked" required></textarea>
-              <button type="submit">Send</button>
-            </form>
-          </div>
+
+  <!-- ==================================================
+       OM MIG
+  ================================================== -->
+
+  <section
+    class="about"
+    id="om-mig"
+  >
+
+    <div class="about-inner">
+
+
+      <div class="about-visual">
+
+        <div class="about-line-one"></div>
+
+        <div class="about-line-two"></div>
+
+        <div class="about-line-three"></div>
+
+        <div class="about-line-four"></div>
+
+
+        <div class="about-image-wrap">
+
+          <img
+            src="images/1757448441921.jpg"
+            alt="Portræt af Signe Thomsen"
+            class="about-image"
+            loading="lazy"
+          >
+
         </div>
-      </section>
+
+
+        <div class="about-name">
+          Signe Thomsen
+        </div>
+
+      </div>
+
+
+      <div class="about-text">
+
+        <div class="about-kicker">
+          Om mig
+        </div>
+
+
+        <h2>
+          Hvis noget kan gøres smartere,
+          hvorfor så gøre det besværligt?
+        </h2>
+
+
+        <div class="about-rule"></div>
+
+
+        <div class="about-description">
+
+          <p>
+            Jeg er typen, der hurtigt begynder at tænke:
+            <em>Det må kunne gøres nemmere.</em>
+          </p>
+
+
+          <p>
+            Det er nok også derfor, jeg har fået en særlig
+            interesse for BIM, Revit og automatisering.
+            Jeg kan godt lide at forstå, hvordan ting hænger
+            sammen – og finde løsninger, der gør arbejdet
+            mere enkelt, ensartet og effektivt.
+          </p>
+
+
+          <p>
+            Jeg er nyuddannet bygningskonstruktør, men jeg
+            kommer ikke kun med interesse for det tekniske.
+            Jeg sætter også pris på godt samarbejde, en
+            uformel omgangstone og et sted, hvor der er
+            plads til at være menneske.
+          </p>
+
+        </div>
+
+      </div>
 
     </div>
-  </main>
+
+  </section>
+
+
+  <!-- ==================================================
+       PROJEKTER
+  ================================================== -->
+
+  <section
+    class="projects"
+    id="projekter"
+  >
+
+    <div class="projects-inner">
+
+
+      <!-- ==================================================
+           PROJEKT 1
+      ================================================== -->
+
+      <article
+        class="project project-1"
+      >
+
+        <div class="project-text">
+
+          <div class="project-number">
+            01 · PROJEKT
+          </div>
+
+
+          <h3>
+            Projektering
+          </h3>
+
+
+          <div class="project-divider"></div>
+
+
+          <p class="project-description">
+            Gennem mine projekter på uddannelsen har jeg
+            arbejdet med projektering fra de tidlige idéer
+            til mere detaljerede løsninger. Jeg har blandt
+            andet arbejdet med tegningsmateriale,
+            modellering og koordinering.
+          </p>
+
+        </div>
+
+
+        <div class="project-visual">
+
+          <div class="project-outline"></div>
+
+
+          <div class="project-shape">
+
+            <div
+              class="project-slideshow"
+              data-project="projektering"
+            ></div>
+
+          </div>
+
+
+          <a
+            href="projektering.html"
+            class="project-more"
+            aria-label="Se mere om projektet Projektering"
+          >
+            Se mere
+
+            <span>→</span>
+
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- ==================================================
+           PROJEKT 2
+      ================================================== -->
+
+      <article
+        class="project reverse project-2"
+      >
+
+        <div class="project-visual">
+
+          <div class="project-outline"></div>
+
+
+          <div class="project-shape">
+
+            <div
+              class="project-slideshow"
+              data-project="automatisering"
+            ></div>
+
+          </div>
+
+
+          <a
+            href="automatisering.html"
+            class="project-more"
+            aria-label="Se mere om projektet Automatisering"
+          >
+            Se mere
+
+            <span>→</span>
+
+          </a>
+
+        </div>
+
+
+        <div class="project-text">
+
+          <div class="project-number">
+            02 · PROJEKT
+          </div>
+
+
+          <h3>
+            Automatisering
+          </h3>
+
+
+          <div class="project-divider"></div>
+
+
+          <p class="project-description">
+            Jeg er nysgerrig på, hvordan gentagne
+            arbejdsgange kan automatiseres, så tiden
+            bruges på det, der faktisk kræver faglig
+            vurdering. Jeg har blandt andet arbejdet
+            med Dynamo, Revit og digitale arbejdsgange
+            for at gøre processer mere effektive.
+          </p>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       KOMPETENCER / CV
+  ================================================== -->
+
+  <section
+    class="profile"
+    id="kompetencer"
+  >
+
+    <div class="profile-inner">
+
+
+      <div class="profile-heading">
+
+        <div class="profile-kicker">
+          Kompetencer
+        </div>
+
+
+        <h2>
+          Skal vi<br>
+          tage en snak?
+        </h2>
+
+      </div>
+
+
+      <div class="profile-content">
+
+
+        <!-- UDDANNELSE -->
+
+        <div class="profile-block">
+
+          <div class="profile-label">
+            Uddannelse
+          </div>
+
+
+          <div class="profile-value">
+
+            <strong>
+              Bygningskonstruktør
+            </strong>
+
+            <span>
+              VIA University College · Horsens · 2026
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ERHVERVSERFARING -->
+
+        <div class="profile-block">
+
+          <div class="profile-label">
+            Erhvervserfaring
+          </div>
+
+
+          <div class="profile-value">
+
+            <strong>
+              Bygningskonstruktør · Praktikant
+            </strong>
+
+            <span>
+              RUM.as · Horsens · Aug. 2025 – Jan. 2026
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- KOMPETENCER -->
+
+        <div class="profile-block">
+
+          <div class="profile-label">
+            Kompetencer
+          </div>
+
+
+          <div class="profile-skills">
+
+            <span>
+              Revit
+            </span>
+
+            <span>
+              Dynamo
+            </span>
+
+            <span>
+              BIM
+            </span>
+
+            <span>
+              Projektering
+            </span>
+
+            <span>
+              Automatisering
+            </span>
+
+            <span>
+              Modellering
+            </span>
+
+            <span>
+              NBS Nordic
+            </span>
+
+            <span>
+              Molio
+            </span>
+
+            <span>
+              Excel
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- KONTAKT -->
+
+        <div class="profile-block profile-contact">
+
+          <div class="profile-label">
+            Kontakt
+          </div>
+
+
+          <div class="profile-value">
+
+            <a href="mailto:sig97ne@gmail.com">
+              sig97ne@gmail.com
+            </a>
+
+
+            <a href="tel:+4526227106">
+              +45 26 22 71 06
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- CV -->
+
+        <div class="profile-cv">
+
+          <div class="profile-cv-text">
+
+            <div class="profile-label">
+              Dokumenter
+            </div>
+
+
+            <p>
+              Se mit CV og mit uddannelsesbevis.
+            </p>
+
+          </div>
+
+
+          <div class="profile-buttons">
+
+            <a
+              href="CV-Signe-Thomsen.pdf"
+              class="cv-button"
+              download
+            >
+
+              Download CV
+
+              <span>
+                ↓
+              </span>
+
+            </a>
+
+
+            <a
+              href="Uddannelsesbevis-Signe-Thomsen.pdf"
+              class="cv-button"
+              target="_blank"
+              rel="noopener"
+            >
+
+              Se uddannelsesbevis
+
+              <span>
+                ↗
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         TIL TOPPEN
+    ================================================== -->
+
+    <a
+      href="#top"
+      class="back-to-top"
+      aria-label="Gå til toppen af siden"
+    >
+
+      Til toppen
+
+      <span>
+        ↑
+      </span>
+
+    </a>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <div class="profile-footer">
+
+      <span>
+        Signe Thomsen
+      </span>
+
+
+      <span>
+        Bygningskonstruktør · 2026
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       JAVASCRIPT
+  ================================================== -->
 
   <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const menu = document.getElementById('menu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const sections = document.getElementById('horizontal-sections');
-    const menuButtons = document.querySelectorAll('.menu button[data-panel]');
-    const carousels = document.querySelectorAll('.carousel-wrapper');
 
-    let panel = 0;
-    let animating = false;
 
-    function setActiveMenu() {
-      menuButtons.forEach((button, index) => {
-        button.style.opacity = index === panel ? '0.45' : '1';
-      });
+    /* ==================================================
+       HERO SLIDESHOW
+       VUE 17 → 33
+    ================================================== */
+
+    const firstSlide = 17;
+
+    const lastSlide = 33;
+
+    const slideTime = 6000;
+
+
+    const heroSlideshow =
+      document.getElementById(
+        "vue-slideshow"
+      );
+
+
+    const heroSlides = [];
+
+
+    for (
+      let i = firstSlide;
+      i <= lastSlide;
+      i++
+    ) {
+
+      const image =
+        document.createElement("img");
+
+
+      image.src =
+        `images/projektering/5sem/VUE (${i}).jpg`;
+
+
+      image.alt =
+        `VUE projektering ${i}`;
+
+
+      image.classList.add(
+        "slide"
+      );
+
+
+      if (i === firstSlide) {
+
+        image.classList.add(
+          "active"
+        );
+
+      }
+
+
+      heroSlideshow.appendChild(
+        image
+      );
+
+
+      heroSlides.push(
+        image
+      );
+
     }
 
-    function toggleMenu(forceOpen = null) {
-      const shouldOpen = forceOpen === null
-        ? !menu.classList.contains('open')
-        : forceOpen;
 
-      menu.classList.toggle('open', shouldOpen);
-      menuOverlay.classList.toggle('open', shouldOpen);
-      menuBtn.classList.toggle('open', shouldOpen);
-    }
+    let heroCurrent = 0;
 
-    function goToPanel(index) {
-      const max = menuButtons.length - 1;
-      panel = Math.max(0, Math.min(index, max));
-      sections.style.transform = `translateX(-${panel * 100}vw)`;
-      setActiveMenu();
 
-      animating = true;
+    function nextHeroSlide() {
+
+      const oldSlide =
+        heroSlides[heroCurrent];
+
+
+      heroCurrent++;
+
+
+      if (
+        heroCurrent >=
+        heroSlides.length
+      ) {
+
+        heroCurrent = 0;
+
+      }
+
+
+      const newSlide =
+        heroSlides[heroCurrent];
+
+
+      oldSlide.classList.remove(
+        "active"
+      );
+
+      oldSlide.classList.add(
+        "leaving"
+      );
+
+
+      newSlide.classList.add(
+        "active"
+      );
+
+
       setTimeout(() => {
-        animating = false;
-      }, 720);
+
+        oldSlide.classList.remove(
+          "leaving"
+        );
+
+      }, 1000);
+
     }
 
-    menuBtn.addEventListener('click', () => toggleMenu());
-    menuOverlay.addEventListener('click', () => toggleMenu(false));
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') toggleMenu(false);
-      if (event.key === 'ArrowRight') goToPanel(panel + 1);
-      if (event.key === 'ArrowLeft') goToPanel(panel - 1);
-    });
+    setInterval(
+      nextHeroSlide,
+      slideTime
+    );
 
-    menuButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        goToPanel(Number(button.dataset.panel));
-        toggleMenu(false);
-      });
-    });
 
-    function setupCarousel(wrapper) {
-      const track = wrapper.querySelector('.carousel-track');
-      const slides = wrapper.querySelectorAll('.carousel-slide');
-      const prev = wrapper.querySelector('.prev');
-      const next = wrapper.querySelector('.next');
-      const dotsContainer = wrapper.querySelector('.carousel-dots');
+    /* ==================================================
+       PROJEKT SLIDESHOWS
+    ================================================== */
 
-      if (!track || !slides.length || !dotsContainer) return;
+    const projectImages = {
 
-      let current = 0;
-      dotsContainer.innerHTML = '';
+      projektering: [
 
-      slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        dot.type = 'button';
-        dot.setAttribute('aria-label', `Gå til slide ${index + 1}`);
-        dot.addEventListener('click', () => showSlide(index));
-        dotsContainer.appendChild(dot);
-      });
+        "images/projektering/5sem/VUE (17).jpg",
 
-      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+        "images/projektering/5sem/VUE (18).jpg",
 
-      function showSlide(index) {
-        current = (index + slides.length) % slides.length;
-        track.style.transform = `translate3d(-${current * 100}%, 0, 0)`;
+        "images/projektering/5sem/VUE (19).jpg",
 
-        dots.forEach((dot, dotIndex) => {
-          dot.classList.toggle('active', dotIndex === current);
-        });
+        "images/projektering/5sem/VUE (20).jpg",
+
+        "images/projektering/5sem/VUE (21).jpg",
+
+        "images/projektering/5sem/VUE (22).jpg"
+
+      ],
+
+
+      automatisering: [
+
+        "images/automatisering/automatisering-1.jpg",
+
+        "images/automatisering/automatisering-2.jpg",
+
+        "images/automatisering/automatisering-3.jpg",
+
+        "images/automatisering/automatisering-4.jpg"
+
+      ]
+
+    };
+
+
+    const projectSlideshows =
+      document.querySelectorAll(
+        ".project-slideshow"
+      );
+
+
+    projectSlideshows.forEach(
+      slideshow => {
+
+        const projectName =
+          slideshow.dataset.project;
+
+
+        const images =
+          projectImages[projectName];
+
+
+        if (!images) {
+          return;
+        }
+
+
+        const slides = [];
+
+
+        images.forEach(
+          (src, index) => {
+
+            const image =
+              document.createElement(
+                "img"
+              );
+
+
+            image.src = src;
+
+
+            image.alt =
+              `${projectName} projekt`;
+
+
+            image.classList.add(
+              "project-slide"
+            );
+
+
+            image.loading =
+              "lazy";
+
+
+            if (index === 0) {
+
+              image.classList.add(
+                "active"
+              );
+
+            }
+
+
+            slideshow.appendChild(
+              image
+            );
+
+
+            slides.push(
+              image
+            );
+
+          }
+        );
+
+
+        let current = 0;
+
+
+        function nextProjectSlide() {
+
+          if (
+            slides.length <= 1
+          ) {
+
+            return;
+
+          }
+
+
+          const oldSlide =
+            slides[current];
+
+
+          current++;
+
+
+          if (
+            current >=
+            slides.length
+          ) {
+
+            current = 0;
+
+          }
+
+
+          const newSlide =
+            slides[current];
+
+
+          oldSlide.classList.remove(
+            "active"
+          );
+
+          oldSlide.classList.add(
+            "leaving"
+          );
+
+
+          newSlide.classList.add(
+            "active"
+          );
+
+
+          setTimeout(() => {
+
+            oldSlide.classList.remove(
+              "leaving"
+            );
+
+          }, 1000);
+
+        }
+
+
+        setInterval(
+          nextProjectSlide,
+          5200
+        );
+
+      }
+    );
+
+
+    /* ==================================================
+       SCROLL-SLANGE
+       
+       Denne del bygger automatisk en bane baseret
+       på sektionernes faktiske placering.
+
+       Det betyder:
+       Hvis du ændrer tekst, billeder eller højde,
+       følger slangen stadig med.
+    ================================================== */
+
+    const snake =
+      document.getElementById(
+        "scrollSnake"
+      );
+
+
+    const snakePath =
+      document.getElementById(
+        "snakePath"
+      );
+
+
+    /*
+      Vi bruger disse elementer som
+      "knækpunkter" i banen.
+    */
+
+    const hero =
+      document.querySelector(
+        ".hero"
+      );
+
+
+    const about =
+      document.querySelector(
+        ".about"
+      );
+
+
+    const project1 =
+      document.querySelector(
+        ".project-1"
+      );
+
+
+    const project2 =
+      document.querySelector(
+        ".project-2"
+      );
+
+
+    const profile =
+      document.querySelector(
+        ".profile"
+      );
+
+
+    /*
+      Hvor langt inde fra kanten slangen ligger.
+
+      Desktop:
+      4vw = cirka 4% af skærmens bredde.
+
+      Det gør den minimalistisk og holder den
+      uden for selve indholdet.
+    */
+
+    function getSnakeX(side) {
+
+      const width =
+        window.innerWidth;
+
+
+      /*
+        På desktop ligger den ca. 3.5vw fra kanten.
+      */
+
+      if (width > 850) {
+
+        return side === "left"
+          ? width * 0.035
+          : width * 0.965;
+
       }
 
-      if (prev) {
-        prev.addEventListener('click', () => showSlide(current - 1));
-      }
 
-      if (next) {
-        next.addEventListener('click', () => showSlide(current + 1));
-      }
+      /*
+        På tablet/mobil ligger den tættere på kanten.
+      */
 
-      showSlide(0);
+      return side === "left"
+        ? 14
+        : width - 14;
+
     }
 
-    carousels.forEach(setupCarousel);
-    setActiveMenu();
 
-    window.addEventListener('wheel', (event) => {
-      if (menu.classList.contains('open')) return;
-      if (animating) return;
-      if (event.target.closest('.carousel-wrapper')) return;
-      if (Math.abs(event.deltaY) < 24) return;
+    /*
+      Hent et elements position på hele siden.
+    */
 
-      if (event.deltaY > 0) goToPanel(panel + 1);
-      else goToPanel(panel - 1);
-    }, { passive: true });
+    function getPagePosition(element) {
+
+      const rect =
+        element.getBoundingClientRect();
+
+
+      return {
+
+        top:
+          rect.top +
+          window.scrollY,
+
+        bottom:
+          rect.bottom +
+          window.scrollY
+
+      };
+
+    }
+
+
+    /*
+      Bygger selve snake-path'en.
+    */
+
+    function buildSnake() {
+
+      if (
+        !hero ||
+        !about ||
+        !project1 ||
+        !project2 ||
+        !profile
+      ) {
+
+        return;
+
+      }
+
+
+      const heroPos =
+        getPagePosition(hero);
+
+
+      const aboutPos =
+        getPagePosition(about);
+
+
+      const project1Pos =
+        getPagePosition(project1);
+
+
+      const project2Pos =
+        getPagePosition(project2);
+
+
+      const profilePos =
+        getPagePosition(profile);
+
+
+      const left =
+        getSnakeX("left");
+
+
+      const right =
+        getSnakeX("right");
+
+
+      /*
+        Vi lægger linjen lidt inde i
+        mellemrummene mellem sektionerne.
+
+        Det er dét, der gør at den ikke
+        skærer gennem tekst/billeder.
+      */
+
+      const gapHeroAbout =
+        (
+          heroPos.bottom +
+          aboutPos.top
+        ) / 2;
+
+
+      const gapAboutProjects =
+        (
+          aboutPos.bottom +
+          project1Pos.top
+        ) / 2;
+
+
+      const gapProject1Project2 =
+        (
+          project1Pos.bottom +
+          project2Pos.top
+        ) / 2;
+
+
+      const gapProject2Profile =
+        (
+          project2Pos.bottom +
+          profilePos.top
+        ) / 2;
+
+
+      /*
+        Startpunkt.
+
+        Hero starter øverst til venstre.
+      */
+
+      const startY =
+        heroPos.top +
+        Math.min(
+          window.innerHeight * 0.20,
+          180
+        );
+
+
+      /*
+        Vi bygger en klassisk 90-graders
+        arkitektonisk snake.
+
+        Hero
+          |
+          |
+          └──────────────>
+                         |
+                         |
+                         |
+        <────────────────┘
+        |
+        |
+        └──────────────>
+                         |
+                         |
+        <────────────────┘
+        |
+        |
+        CV
+      */
+
+      const path = [
+
+        `M ${left} ${startY}`,
+
+        `L ${left} ${gapHeroAbout}`,
+
+        `L ${right} ${gapHeroAbout}`,
+
+        `L ${right} ${gapAboutProjects}`,
+
+        `L ${left} ${gapAboutProjects}`,
+
+        `L ${left} ${gapProject1Project2}`,
+
+        `L ${right} ${gapProject1Project2}`,
+
+        `L ${right} ${gapProject2Profile}`,
+
+        `L ${left} ${gapProject2Profile}`,
+
+        `L ${left} ${profilePos.bottom}`
+
+      ].join(" ");
+
+
+      /*
+        SVG skal være lige så høj som hele siden.
+      */
+
+      snake.setAttribute(
+        "width",
+        window.innerWidth
+      );
+
+
+      snake.setAttribute(
+        "height",
+        document.documentElement.scrollHeight
+      );
+
+
+      snake.setAttribute(
+        "viewBox",
+        `0 0 ${window.innerWidth} ${document.documentElement.scrollHeight}`
+      );
+
+
+      snakePath.setAttribute(
+        "d",
+        path
+      );
+
+
+      /*
+        Beregn længden på hele linjen.
+      */
+
+      const length =
+        snakePath.getTotalLength();
+
+
+      snakePath.style.strokeDasharray =
+        length;
+
+
+      snakePath.style.strokeDashoffset =
+        length;
+
+
+      /*
+        Gem længden globalt.
+      */
+
+      window.snakeLength =
+        length;
+
+    }
+
+
+    /*
+      Scroll-animation.
+
+      Linjen bliver tegnet efter hvor langt
+      brugeren har scrollet.
+    */
+
+    function updateSnake() {
+
+      if (
+        !window.snakeLength
+      ) {
+
+        return;
+
+      }
+
+
+      const scrollTop =
+        window.scrollY;
+
+
+      const documentHeight =
+        document.documentElement.scrollHeight;
+
+
+      const viewportHeight =
+        window.innerHeight;
+
+
+      /*
+        Hvor meget af siden der reelt kan scrolles.
+      */
+
+      const maxScroll =
+        Math.max(
+          1,
+          documentHeight -
+          viewportHeight
+        );
+
+
+      /*
+        Scroll progress:
+        0 = toppen
+        1 = bunden
+      */
+
+      let progress =
+        scrollTop /
+        maxScroll;
+
+
+      progress =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            progress
+          )
+        );
+
+
+      /*
+        Lidt ekstra fart.
+
+        1.15 betyder at linjen kommer
+        en smule foran scrollingen.
+      */
+
+      progress =
+        Math.min(
+          1,
+          progress * 1.15
+        );
+
+
+      const offset =
+        window.snakeLength *
+        (1 - progress);
+
+
+      snakePath.style.strokeDashoffset =
+        offset;
+
+    }
+
+
+    /*
+      Vi undgår at recalculere hele SVG'en
+      100 gange i sekundet.
+    */
+
+    let snakeTicking = false;
+
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        if (
+          !snakeTicking
+        ) {
+
+          window.requestAnimationFrame(
+            () => {
+
+              updateSnake();
+
+              snakeTicking =
+                false;
+
+            }
+          );
+
+          snakeTicking = true;
+
+        }
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /*
+      Ved resize skal banen bygges igen,
+      fordi sektionernes placering kan ændre sig.
+    */
+
+    let resizeTimer;
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        clearTimeout(
+          resizeTimer
+        );
+
+
+        resizeTimer =
+          setTimeout(
+            () => {
+
+              buildSnake();
+
+              updateSnake();
+
+            },
+            150
+          );
+
+      }
+    );
+
+
+    /*
+      Første opbygning.
+    */
+
+    window.addEventListener(
+      "load",
+      () => {
+
+        /*
+          Lille delay så billeder og
+          fonts når at få korrekt højde.
+        */
+
+        setTimeout(
+          () => {
+
+            buildSnake();
+
+            updateSnake();
+
+          },
+          250
+        );
+
+      }
+    );
+
+
+    /*
+      Ekstra rebuild når fonts er færdige.
+    */
+
+    if (
+      document.fonts &&
+      document.fonts.ready
+    ) {
+
+      document.fonts.ready.then(
+        () => {
+
+          buildSnake();
+
+          updateSnake();
+
+        }
+      );
+
+    }
+
   </script>
+
+
 </body>
+
 </html>

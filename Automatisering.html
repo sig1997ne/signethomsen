@@ -21,7 +21,6 @@
   rel="stylesheet"
 >
 
-
 <style>
 
 /* =========================================================
@@ -39,6 +38,7 @@
   --muted:#716d66;
   --line:rgba(0,0,0,.12);
   --soft:#e8e3da;
+  --dark:#242321;
 }
 
 html{
@@ -47,9 +47,7 @@ html{
 
 body{
   margin:0;
-
   font-family:"Inter",sans-serif;
-
   background:var(--background);
   color:var(--text);
 }
@@ -66,10 +64,8 @@ a{
 
 .nav{
   position:absolute;
-
   top:0;
   left:0;
-
   width:100%;
 
   padding:32px 6vw;
@@ -78,7 +74,7 @@ a{
   justify-content:flex-end;
   align-items:center;
 
-  z-index:20;
+  z-index:50;
 }
 
 .nav-links{
@@ -88,17 +84,15 @@ a{
 
 .nav-links a{
   font-size:.65rem;
-
   text-transform:uppercase;
   letter-spacing:.15rem;
-
   color:var(--muted);
 
   transition:.25s;
 }
 
 .nav-links a:hover{
-  opacity:.5;
+  opacity:.45;
 }
 
 
@@ -107,12 +101,9 @@ a{
    ========================================================= */
 
 .page-hero{
-  min-height:75vh;
+  min-height:88vh;
 
-  padding:150px 6vw 100px;
-
-  display:flex;
-  align-items:flex-end;
+  padding:150px 6vw 110px;
 
   position:relative;
   overflow:hidden;
@@ -133,7 +124,6 @@ a{
 
 .architecture-lines{
   position:absolute;
-
   inset:0;
 
   pointer-events:none;
@@ -146,13 +136,13 @@ a{
 
   position:absolute;
 
-  width:60vw;
-  height:72vh;
+  width:58vw;
+  height:70vh;
 
   right:-12vw;
-  top:4vh;
+  top:5vh;
 
-  border:1px solid rgba(23,23,23,.20);
+  border:1px solid rgba(23,23,23,.18);
 
   transform:skewY(-10deg);
 }
@@ -162,13 +152,13 @@ a{
 
   position:absolute;
 
-  width:38vw;
-  height:46vh;
+  width:35vw;
+  height:44vh;
 
-  right:7vw;
-  top:16vh;
+  right:8vw;
+  top:17vh;
 
-  border:1px solid rgba(23,23,23,.16);
+  border:1px solid rgba(23,23,23,.15);
 
   transform:skewY(-10deg);
 }
@@ -176,7 +166,7 @@ a{
 .arch-line{
   position:absolute;
 
-  background:rgba(23,23,23,.15);
+  background:rgba(23,23,23,.14);
 }
 
 .arch-line-1{
@@ -217,10 +207,10 @@ a{
   width:72vw;
   height:1px;
 
-  background:rgba(23,23,23,.13);
-
   right:-8vw;
   top:19vh;
+
+  background:rgba(23,23,23,.12);
 
   transform:rotate(-20deg);
 
@@ -242,6 +232,8 @@ a{
   border:1px solid rgba(0,0,0,.14);
 
   pointer-events:none;
+
+  z-index:10;
 }
 
 
@@ -257,34 +249,25 @@ a{
 
   position:relative;
 
-  z-index:5;
-}
-
-.page-kicker,
-.semester-number,
-.project-type,
-.slideshow-label,
-.slideshow-counter,
-.highlight-label,
-.semester-project-label{
-  text-transform:uppercase;
-  color:var(--muted);
+  z-index:20;
 }
 
 .page-kicker{
   margin-bottom:25px;
 
   font-size:.68rem;
-
   font-weight:500;
 
   letter-spacing:.22rem;
+  text-transform:uppercase;
+
+  color:var(--muted);
 }
 
 .page-hero h1{
   margin:0;
 
-  max-width:1000px;
+  max-width:900px;
 
   font-size:clamp(4rem,9vw,8.5rem);
 
@@ -298,7 +281,7 @@ a{
 .page-intro{
   max-width:570px;
 
-  margin-top:45px;
+  margin-top:42px;
 
   font-size:.98rem;
 
@@ -335,11 +318,83 @@ a{
 
 
 /* =========================================================
-   INDHOLD
+   HERO BILLEDE
+   ========================================================= */
+
+.hero-image{
+  position:absolute;
+
+  width:min(43vw,560px);
+
+  right:7vw;
+  bottom:-25px;
+
+  z-index:15;
+
+  transform:rotate(-2deg);
+}
+
+.hero-image-frame{
+  position:relative;
+
+  padding:14px;
+
+  background:rgba(245,242,236,.72);
+
+  border:1px solid rgba(0,0,0,.18);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.12);
+}
+
+.hero-image-frame:before{
+  content:"";
+
+  position:absolute;
+
+  inset:-12px;
+
+  border:1px solid rgba(0,0,0,.16);
+
+  pointer-events:none;
+}
+
+.hero-image img{
+  display:block;
+
+  width:100%;
+  height:auto;
+
+  max-height:52vh;
+
+  object-fit:contain;
+
+  background:#eeebe4;
+}
+
+.hero-image-caption{
+  display:flex;
+
+  justify-content:space-between;
+
+  padding:13px 2px 0;
+
+  font-size:.55rem;
+
+  text-transform:uppercase;
+
+  letter-spacing:.14rem;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   SEKTIONER
    ========================================================= */
 
 .sections{
-  padding:80px 6vw 150px;
+  padding:90px 6vw 150px;
 }
 
 .sections-inner{
@@ -349,14 +404,21 @@ a{
   margin:auto;
 }
 
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
 .section{
+  position:relative;
+
   display:grid;
 
   grid-template-columns:.35fr 1.65fr;
 
   gap:80px;
 
-  padding:80px 0;
+  padding:110px 0;
 
   border-top:1px solid var(--line);
 }
@@ -366,9 +428,15 @@ a{
 }
 
 .section-number{
-  font-size:.65rem;
+  padding-top:8px;
+
+  font-size:.62rem;
+
+  text-transform:uppercase;
 
   letter-spacing:.18rem;
+
+  color:var(--muted);
 }
 
 .section-content{
@@ -390,9 +458,9 @@ a{
 .section-description{
   max-width:720px;
 
-  margin-top:30px;
+  margin-top:34px;
 
-  font-size:.95rem;
+  font-size:.94rem;
 
   line-height:1.9;
 
@@ -400,7 +468,7 @@ a{
 }
 
 .section-description p{
-  margin:0 0 20px;
+  margin:0 0 22px;
 }
 
 .section-description p:last-child{
@@ -409,205 +477,75 @@ a{
 
 
 /* =========================================================
-   SLIDESHOW
+   DEKORATIV LINJE
    ========================================================= */
 
-.slideshow{
-  margin-top:50px;
+.section-content:after{
+  content:"";
 
-  width:100%;
-
-  overflow:hidden;
-}
-
-.slideshow-header{
-  display:flex;
-
-  justify-content:space-between;
-  align-items:flex-end;
-
-  margin-bottom:18px;
-}
-
-.slideshow-label,
-.slideshow-counter{
-  font-size:.62rem;
-
-  letter-spacing:.16rem;
-}
-
-.slideshow-counter{
-  letter-spacing:.12rem;
-}
-
-.slider-window{
-  width:100%;
-
-  overflow:hidden;
-}
-
-.slider-track{
-  display:flex;
-
-  gap:12px;
-
-  transition:
-    transform .55s cubic-bezier(.22,.61,.36,1);
-}
-
-.slide{
-  flex:0 0 calc((100% - 24px)/3);
-
-  min-width:0;
-
-  aspect-ratio:1.35;
-
-  background:var(--soft);
-
-  overflow:hidden;
-
-  position:relative;
-}
-
-.slide a{
   display:block;
 
-  width:100%;
-  height:100%;
-
-  cursor:pointer;
-}
-
-.slide img{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  object-fit:contain;
-
-  background:var(--soft);
-
-  transition:
-    transform .6s cubic-bezier(.22,.61,.36,1);
-}
-
-.slide:hover img{
-  transform:scale(1.025);
-}
-
-
-/* =========================================================
-   SLIDER CONTROLS
-   ========================================================= */
-
-.slider-controls{
-  margin-top:18px;
-
-  display:flex;
-
-  justify-content:space-between;
-  align-items:center;
-}
-
-.slider-buttons{
-  display:flex;
-
-  gap:8px;
-}
-
-.slider-button{
-  width:42px;
-  height:42px;
-
-  border:1px solid var(--line);
-
-  background:transparent;
-
-  font-family:inherit;
-
-  cursor:pointer;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:1rem;
-
-  transition:.25s;
-}
-
-.slider-button:hover{
-  background:var(--soft);
-}
-
-.slider-button:disabled{
-  opacity:.3;
-
-  cursor:default;
-}
-
-.slider-progress{
-  height:1px;
-
-  flex:1;
-
-  margin-left:25px;
-
-  background:var(--line);
-
-  position:relative;
-}
-
-.slider-progress-bar{
-  position:absolute;
-
-  inset:0 auto auto 0;
+  width:70px;
 
   height:1px;
 
-  width:0;
+  margin-top:45px;
 
   background:var(--text);
 
-  transition:width .4s ease;
+  opacity:.35;
 }
 
 
 /* =========================================================
-   AUTOMATISERING FLOW
+   AUTOMATISERINGER
    ========================================================= */
 
-.automation-flow{
-  margin-top:50px;
+.automation-grid{
+  margin-top:60px;
 
   display:grid;
 
-  grid-template-columns:
-    repeat(3,1fr);
+  grid-template-columns:repeat(2,1fr);
 
-  gap:1px;
-
-  background:var(--line);
-
-  border:1px solid var(--line);
+  gap:35px;
 }
 
-.flow-item{
-  min-height:150px;
+.automation-item{
+  position:relative;
 
-  padding:25px;
+  padding:34px 0 38px;
 
-  background:var(--background);
+  border-top:1px solid var(--line);
 
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:space-between;
+  transition:.3s;
 }
 
-.flow-number{
+.automation-item:after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:0;
+
+  width:0;
+  height:1px;
+
+  background:var(--text);
+
+  transition:.4s;
+}
+
+.automation-item:hover:after{
+  width:100%;
+}
+
+.automation-number{
+  display:block;
+
+  margin-bottom:35px;
+
   font-size:.58rem;
 
   letter-spacing:.16rem;
@@ -615,126 +553,173 @@ a{
   color:var(--muted);
 }
 
-.flow-item h3{
-  margin:25px 0 0;
+.automation-item h3{
+  margin:0 0 13px;
 
-  font-size:1.2rem;
+  font-size:1.15rem;
 
   font-weight:500;
 
   letter-spacing:-.03em;
 }
 
+.automation-item p{
+  margin:0;
 
-/* =========================================================
-   HIGHLIGHTS
-   ========================================================= */
+  font-size:.79rem;
 
-.highlight-list{
-  margin-top:45px;
+  line-height:1.8;
 
-  display:grid;
-
-  grid-template-columns:repeat(2,1fr);
-
-  gap:1px;
-
-  background:var(--line);
-
-  border:1px solid var(--line);
-}
-
-.highlight{
-  padding:25px;
-
-  background:var(--background);
-}
-
-.highlight-label{
-  display:block;
-
-  margin-bottom:10px;
-
-  font-size:.58rem;
-
-  letter-spacing:.15rem;
-}
-
-.highlight strong{
-  font-size:.88rem;
-
-  font-weight:500;
+  color:var(--muted);
 }
 
 
 /* =========================================================
-   RAPPORT
+   WORKFLOW
    ========================================================= */
 
-.report{
-  margin-top:45px;
+.workflow{
+  margin-top:60px;
 
-  padding:30px;
+  padding:32px 0;
 
-  border:1px solid var(--line);
-
-  background:var(--soft);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
 
   display:flex;
 
-  justify-content:space-between;
-
   align-items:center;
 
-  gap:30px;
+  justify-content:space-between;
+
+  gap:15px;
 }
 
-.report-info span{
+.workflow-step{
+  flex:1;
+
+  text-align:center;
+}
+
+.workflow-number{
   display:block;
 
   margin-bottom:10px;
 
-  font-size:.58rem;
-
-  text-transform:uppercase;
+  font-size:.55rem;
 
   letter-spacing:.15rem;
 
   color:var(--muted);
 }
 
-.report-info strong{
-  font-size:1rem;
+.workflow-name{
+  font-size:.78rem;
 
   font-weight:500;
 }
 
-.report-button{
-  flex-shrink:0;
+.workflow-arrow{
+  color:var(--muted);
 
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  padding-bottom:6px;
-
-  border-bottom:1px solid rgba(0,0,0,.4);
-
-  font-size:.62rem;
-
-  text-transform:uppercase;
-
-  letter-spacing:.14rem;
-
-  transition:.25s;
+  font-size:.9rem;
 }
 
-.report-button:hover{
-  opacity:.55;
 
-  transform:translateX(3px);
+/* =========================================================
+   TILGANG
+   ========================================================= */
+
+.approach{
+  margin-top:60px;
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:35px;
+}
+
+.approach-item{
+  position:relative;
+
+  padding:34px 0;
+
+  border-top:1px solid var(--line);
+}
+
+.approach-item:before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:-1px;
+
+  width:35px;
+  height:1px;
+
+  background:var(--text);
+}
+
+.approach-number{
+  display:block;
+
+  margin-bottom:35px;
+
+  font-size:.58rem;
+
+  letter-spacing:.16rem;
+
+  color:var(--muted);
+}
+
+.approach-item h3{
+  margin:0 0 12px;
+
+  font-size:1.1rem;
+
+  font-weight:500;
+
+  letter-spacing:-.03em;
+}
+
+.approach-item p{
+  margin:0;
+
+  font-size:.78rem;
+
+  line-height:1.75;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   FREMHÆVET TEKST
+   ========================================================= */
+
+.statement{
+  margin-top:65px;
+
+  padding:45px 0;
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.statement p{
+  margin:0;
+
+  max-width:800px;
+
+  font-size:clamp(1.5rem,2.8vw,2.4rem);
+
+  line-height:1.25;
+
+  letter-spacing:-.045em;
+
+  font-weight:400;
 }
 
 
@@ -765,6 +750,27 @@ footer{
    RESPONSIVE
    ========================================================= */
 
+@media(max-width:1000px){
+
+  .hero-image{
+    width:42vw;
+
+    right:5vw;
+
+    opacity:.9;
+  }
+
+  .page-hero h1{
+    max-width:650px;
+  }
+
+  .page-intro{
+    max-width:500px;
+  }
+
+}
+
+
 @media(max-width:850px){
 
   .nav{
@@ -780,15 +786,46 @@ footer{
   }
 
   .page-hero{
-    padding:130px 30px 80px;
+    min-height:auto;
+
+    padding:130px 30px 70px;
   }
 
   .page-hero:before{
     inset:10px;
   }
 
+  .page-hero-inner{
+    display:flex;
+
+    flex-direction:column;
+  }
+
+  .page-hero h1{
+    font-size:clamp(4rem,12vw,7rem);
+  }
+
+  .page-intro{
+    max-width:520px;
+  }
+
+  .hero-image{
+    position:relative;
+
+    width:70%;
+
+    max-width:600px;
+
+    right:auto;
+    bottom:auto;
+
+    margin:80px 5% 0 auto;
+
+    transform:rotate(-2deg);
+  }
+
   .sections{
-    padding:60px 30px 100px;
+    padding:55px 30px 100px;
   }
 
   .section{
@@ -796,33 +833,27 @@ footer{
 
     gap:25px;
 
-    padding:65px 0;
+    padding:75px 0;
   }
 
-  .automation-flow{
+  .section-content{
+    max-width:100%;
+  }
+
+  .automation-grid{
     grid-template-columns:1fr;
+
+    gap:0;
   }
 
-  .highlight-list{
+  .approach{
     grid-template-columns:1fr;
+
+    gap:0;
   }
 
-  .report{
-    flex-direction:column;
-
-    align-items:flex-start;
-  }
-
-  .slide{
-    flex:0 0 calc((100% - 12px)/2);
-  }
-
-  footer{
-    padding:25px 30px;
-
-    flex-direction:column;
-
-    gap:12px;
+  .workflow{
+    gap:10px;
   }
 
 }
@@ -834,25 +865,84 @@ footer{
     display:none;
   }
 
+  .page-hero{
+    padding:110px 25px 60px;
+  }
+
   .page-hero h1{
     font-size:4rem;
   }
 
-  .page-intro,
-  .section-description{
-    font-size:.92rem;
+  .page-intro{
+    margin-top:30px;
+
+    font-size:.9rem;
+  }
+
+  .hero-image{
+    width:92%;
+
+    margin:65px auto 0;
+
+    transform:rotate(-1deg);
+  }
+
+  .hero-image-frame{
+    padding:9px;
+  }
+
+  .hero-image-frame:before{
+    inset:-7px;
+  }
+
+  .sections{
+    padding:40px 25px 80px;
+  }
+
+  .section{
+    padding:65px 0;
   }
 
   .section h2{
     font-size:3rem;
   }
 
-  .slide{
-    flex:0 0 100%;
+  .section-description{
+    font-size:.9rem;
   }
 
-  .slider-progress{
+  .workflow{
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:20px;
+  }
+
+  .workflow-step{
+    text-align:left;
+  }
+
+  .workflow-arrow{
     display:none;
+  }
+
+  .statement{
+    margin-top:45px;
+
+    padding:35px 0;
+  }
+
+  .statement p{
+    font-size:1.45rem;
+  }
+
+  footer{
+    padding:25px;
+
+    flex-direction:column;
+
+    gap:12px;
   }
 
 }
@@ -900,17 +990,25 @@ footer{
 
 <header class="page-hero">
 
+
+  <!-- ARKITEKTONISKE LINJER -->
+
   <div class="architecture-lines">
 
     <div class="arch-line arch-line-1"></div>
+
     <div class="arch-line arch-line-2"></div>
+
     <div class="arch-line arch-line-3"></div>
+
     <div class="arch-line arch-line-4"></div>
 
     <div class="arch-diagonal"></div>
 
   </div>
 
+
+  <!-- HERO INDHOLD -->
 
   <div class="page-hero-inner">
 
@@ -923,22 +1021,61 @@ footer{
     </h1>
 
     <p class="page-intro">
-      Jeg interesserer mig for, hvordan digitale værktøjer
-      kan bruges til at gøre projekteringen mere effektiv
-      og skabe mere sammenhæng i arbejdet med BIM-data.
-      Gennem min uddannelse har jeg især arbejdet med Revit,
-      Dynamo og Excel og undersøgt, hvordan gentagne
-      arbejdsprocesser kan automatiseres og struktureres.
+
+      Jeg arbejder med automatisering som en måde at
+      effektivisere projekteringen og skabe bedre struktur
+      i arbejdet med BIM-data. Gennem min uddannelse har
+      jeg især arbejdet med Revit, Dynamo, Excel og Python
+      og undersøgt, hvordan digitale arbejdsgange kan gøres
+      mere enkle og effektive.
+
     </p>
 
-    <a href="index.html" class="back-link">
+    <a
+      href="index.html"
+      class="back-link"
+    >
       ← Tilbage til forsiden
     </a>
 
   </div>
 
+
+  <!-- HERO BILLEDE -->
+
+  <div class="hero-image">
+
+    <div class="hero-image-frame">
+
+      <img
+        src="images/automatisering/automatisering(1).png"
+        alt="Eksempel på automatisering i Dynamo"
+      >
+
+      <div class="hero-image-caption">
+
+        <span>
+          Dynamo · Revit
+        </span>
+
+        <span>
+          01
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
 </header>
 
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
 
 <main class="sections">
 
@@ -955,96 +1092,47 @@ footer{
     01 · Dynamo
   </div>
 
+
   <div class="section-content">
 
     <h2>
-      Dynamo
+      Når Revit
+      <br>
+      kan mere
     </h2>
+
 
     <div class="section-description">
 
       <p>
-        Dynamo har været mit primære værktøj til at arbejde
-        med automatisering i Revit. Jeg har brugt det til
-        at undersøge, hvordan gentagne opgaver kan gøres
-        mere effektive og hvordan information kan behandles
-        mere ensartet.
+
+        Min interesse for automatisering opstod gennem arbejdet
+        med Revit, hvor jeg begyndte at undersøge, hvordan
+        gentagne opgaver kunne håndteres mere effektivt.
+        Dynamo blev derfor et naturligt værktøj til at afprøve
+        forskellige løsninger.
+
       </p>
+
 
       <p>
-        Arbejdet har blandt andet omfattet parametre,
-        datahåndtering og samspillet mellem Revit og Excel.
-        Det har samtidig givet mig en større forståelse for,
-        hvordan struktureringen af information har betydning
-        for mulighederne for at automatisere.
+
+        Jeg har arbejdet med både standardnoder, forskellige
+        Dynamo-pakker og Python. Det har givet mig erfaring
+        med at bevæge mig mellem en visuel programmeringsform
+        og mere avanceret scripting, når en opgave kræver det.
+
       </p>
 
-    </div>
 
+      <p>
 
-    <div
-      class="slideshow"
-      data-slider
-      data-folder="automatisering"
-      data-files="Dynamo (1),Dynamo (2),Dynamo (3)"
-    >
+        For mig handler automatisering dog ikke om at
+        automatisere mest muligt. Det handler om at finde de
+        steder i en arbejdsgang, hvor en automatisering faktisk
+        giver en fordel.
 
-      <div class="slideshow-header">
-
-        <span class="slideshow-label">
-          Dynamo scripts
-        </span>
-
-        <span class="slideshow-counter">
-
-          <span data-current>1</span>
-          /
-          <span data-total>3</span>
-
-        </span>
-
-      </div>
-
-
-      <div class="slider-window">
-
-        <div class="slider-track"></div>
-
-      </div>
-
-
-      <div class="slider-controls">
-
-        <div class="slider-buttons">
-
-          <button
-            class="slider-button"
-            data-prev
-            type="button"
-            aria-label="Forrige billeder"
-          >
-            ←
-          </button>
-
-          <button
-            class="slider-button"
-            data-next
-            type="button"
-            aria-label="Næste billeder"
-          >
-            →
-          </button>
-
-        </div>
-
-
-        <div class="slider-progress">
-
-          <div class="slider-progress-bar"></div>
-
-        </div>
-
-      </div>
+      </p>
 
     </div>
 
@@ -1053,232 +1141,296 @@ footer{
 </section>
 
 
+
 <!-- =========================================================
-     02 · AUTOMATISERING I PRAKSIS
+     02 · MINE SCRIPTS
      ========================================================= -->
 
 <section class="section">
 
   <div class="section-number">
-    02 · I praksis
+    02 · Mine scripts
   </div>
+
 
   <div class="section-content">
 
     <h2>
-      Automatisering
+      Fra gentagelse
       <br>
-      i praksis
+      til arbejdsgang
     </h2>
+
 
     <div class="section-description">
 
       <p>
-        For mig handler automatisering ikke om at automatisere
-        alt. Det handler om at identificere de dele af en
-        arbejdsgang, hvor det giver mening at bruge digitale
-        værktøjer til at reducere gentagelser og skabe et
-        mere ensartet resultat.
+
+        Mine scripts er udviklet ud fra konkrete opgaver,
+        hvor jeg oplevede, at den samme information skulle
+        behandles igen og igen. I stedet for at fokusere på
+        selve scriptet har jeg derfor arbejdet med at forstå
+        arbejdsgangen og finde ud af, hvor automatisering
+        kunne skabe mest værdi.
+
       </p>
 
+
       <p>
-        I mine projekter har jeg især arbejdet med sammenhængen
-        mellem Revit, parametre, data og Dynamo. På den måde
-        bliver automatisering en naturlig del af BIM-processen
-        frem for et værktøj, der står alene.
+
+        Det har blandt andet ført til løsninger til sortering
+        af Sheets, oprydning i Families og udveksling af
+        information mellem Revit og Excel.
+
       </p>
 
     </div>
 
 
-    <div class="highlight-list">
+    <div class="automation-grid">
 
-      <div class="highlight">
 
-        <span class="highlight-label">
+      <div class="automation-item">
+
+        <span class="automation-number">
+          01 · Sheets
+        </span>
+
+        <h3>
+          Strukturering af Sheets
+        </h3>
+
+        <p>
+
+          Jeg har arbejdet med et script, der tager
+          udgangspunkt i Sheet Number og bruger informationen
+          til automatisk at strukturere tegningsmaterialet.
+          På den måde kan blandt andet projekteringsfase og
+          View Type håndteres mere ensartet.
+
+        </p>
+
+      </div>
+
+
+      <div class="automation-item">
+
+        <span class="automation-number">
+          02 · Families
+        </span>
+
+        <h3>
+          Oprydning i modellen
+        </h3>
+
+        <p>
+
+          Et andet script undersøger loadable families og
+          deres symbols for at identificere elementer,
+          som ikke længere bliver anvendt i projektet.
+          Det kan bruges som hjælp til at holde modellen
+          mere overskuelig.
+
+        </p>
+
+      </div>
+
+
+      <div class="automation-item">
+
+        <span class="automation-number">
+          03 · Excel
+        </span>
+
+        <h3>
+          Revit og Excel
+        </h3>
+
+        <p>
+
+          Jeg har arbejdet med at eksportere information
+          fra Revit til Excel, hvor data kan bearbejdes
+          mere samlet. Efterfølgende kan de ændrede
+          oplysninger føres tilbage til Revit.
+
+        </p>
+
+      </div>
+
+
+      <div class="automation-item">
+
+        <span class="automation-number">
+          04 · Python
+        </span>
+
+        <h3>
+          Når standardværktøjerne ikke rækker
+        </h3>
+
+        <p>
+
+          Python har jeg brugt som supplement til Dynamo,
+          når standardnoderne ikke kunne løse den ønskede
+          opgave. Det har blandt andet givet mig erfaring
+          med at arbejde tættere på Revit gennem Revit API.
+
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     03 · PARAMETERSTYRING
+     ========================================================= -->
+
+<section class="section">
+
+  <div class="section-number">
+    03 · Parameterstyring
+  </div>
+
+
+  <div class="section-content">
+
+    <h2>
+      Revit
+      <br>
+      ↔ Excel
+    </h2>
+
+
+    <div class="section-description">
+
+      <p>
+
+        Et af mine mere omfattende workflows arbejder med
+        typeinformation og parameterstyring. Her har jeg
+        bygget en sammenhængende arbejdsgang, hvor Dynamo
+        bruges til at flytte information mellem Revit og
+        Excel.
+
+      </p>
+
+
+      <p>
+
+        Formålet er at gøre større mængder information lettere
+        at arbejde med. Data kan eksporteres fra Revit,
+        bearbejdes i Excel og derefter importeres igen.
+        Det giver en mere overskuelig måde at håndtere
+        information på, når mange elementer skal behandles.
+
+      </p>
+
+
+      <p>
+
+        Jeg har blandt andet arbejdet med type ID, keynote,
+        navn, opbygning og antal forekomster. Ved ændringer
+        af keynotes indgår også Revit's keynote-tabel som en
+        del af arbejdsgangen.
+
+      </p>
+
+    </div>
+
+
+    <div class="workflow">
+
+
+      <div class="workflow-step">
+
+        <span class="workflow-number">
+          01
+        </span>
+
+        <span class="workflow-name">
           Revit
         </span>
 
-        <strong>
-          Modellering · Parametre · Information
-        </strong>
-
       </div>
 
 
-      <div class="highlight">
+      <span class="workflow-arrow">
+        →
+      </span>
 
-        <span class="highlight-label">
-          Dynamo
+
+      <div class="workflow-step">
+
+        <span class="workflow-number">
+          02
         </span>
 
-        <strong>
-          Automatisering · Data · Gentagne processer
-        </strong>
+        <span class="workflow-name">
+          Eksport
+        </span>
 
       </div>
 
 
-      <div class="highlight">
+      <span class="workflow-arrow">
+        →
+      </span>
 
-        <span class="highlight-label">
+
+      <div class="workflow-step">
+
+        <span class="workflow-number">
+          03
+        </span>
+
+        <span class="workflow-name">
           Excel
         </span>
 
-        <strong>
-          Datahåndtering · Strukturering · Udveksling
-        </strong>
-
       </div>
 
 
-      <div class="highlight">
-
-        <span class="highlight-label">
-          BIM
-        </span>
-
-        <strong>
-          Struktur · Klassifikation · Informationsniveau
-        </strong>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     03 · BACHELORPROJEKT
-     ========================================================= -->
-
-<section class="section">
-
-  <div class="section-number">
-    03 · Bachelor
-  </div>
-
-  <div class="section-content">
-
-    <h2>
-      Bachelorprojekt
-    </h2>
-
-    <div class="section-description">
-
-      <p>
-        Mit bachelorprojekt omhandlede projekteringen af en
-        ny daginstitution i Smørum. Projektet samlede mange
-        af de kompetencer, jeg havde opbygget gennem uddannelsen,
-        herunder projektering, Revit, BIM og arbejdet med
-        struktureret information.
-      </p>
-
-      <p>
-        I forbindelse med projektet arbejdede jeg med digitale
-        arbejdsgange og automatisering som en del af den samlede
-        projekteringsproces. Det gav mig mulighed for at arbejde
-        med automatisering i en konkret projekteringssammenhæng
-        frem for kun som et isoleret værktøj.
-      </p>
-
-    </div>
-
-
-    <div
-      class="slideshow"
-      data-slider
-      data-folder="automatisering"
-      data-files="Bachelor (1),Bachelor (2),Bachelor (3)"
-    >
-
-      <div class="slideshow-header">
-
-        <span class="slideshow-label">
-          Bachelorprojekt
-        </span>
-
-        <span class="slideshow-counter">
-
-          <span data-current>1</span>
-          /
-          <span data-total>3</span>
-
-        </span>
-
-      </div>
-
-
-      <div class="slider-window">
-
-        <div class="slider-track"></div>
-
-      </div>
-
-
-      <div class="slider-controls">
-
-        <div class="slider-buttons">
-
-          <button
-            class="slider-button"
-            data-prev
-            type="button"
-            aria-label="Forrige billeder"
-          >
-            ←
-          </button>
-
-          <button
-            class="slider-button"
-            data-next
-            type="button"
-            aria-label="Næste billeder"
-          >
-            →
-          </button>
-
-        </div>
-
-
-        <div class="slider-progress">
-
-          <div class="slider-progress-bar"></div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="report">
-
-      <div class="report-info">
-
-        <span>
-          Dokumentation
-        </span>
-
-        <strong>
-          Bachelorrapport
-        </strong>
-
-      </div>
-
-
-      <a
-        href="filer/Bachelorrapport.pdf"
-        target="_blank"
-        rel="noopener"
-        class="report-button"
-      >
-        Åbn rapport
+      <span class="workflow-arrow">
         →
-      </a>
+      </span>
+
+
+      <div class="workflow-step">
+
+        <span class="workflow-number">
+          04
+        </span>
+
+        <span class="workflow-name">
+          Import
+        </span>
+
+      </div>
+
+
+      <span class="workflow-arrow">
+        →
+      </span>
+
+
+      <div class="workflow-step">
+
+        <span class="workflow-number">
+          05
+        </span>
+
+        <span class="workflow-name">
+          Revit
+        </span>
+
+      </div>
+
 
     </div>
 
@@ -1287,75 +1439,192 @@ footer{
 </section>
 
 
+
 <!-- =========================================================
-     04 · MIN TILGANG
+     04 · ERFARING
      ========================================================= -->
 
 <section class="section">
 
   <div class="section-number">
-    04 · Min tilgang
+    04 · Erfaring
   </div>
+
 
   <div class="section-content">
 
     <h2>
-      Fra manuelt
+      Det vigtigste
       <br>
-      til automatiseret
+      er processen
     </h2>
+
 
     <div class="section-description">
 
       <p>
-        Jeg ser automatisering som en måde at forbedre en
-        arbejdsgang på. Først skal processen forstås og
-        struktureres, og derefter kan man vurdere, hvor
-        automatisering giver værdi.
+
+        Arbejdet med automatisering har lært mig, at den
+        tekniske løsning kun er én del af opgaven. Før jeg
+        begynder at udvikle et script, forsøger jeg først at
+        forstå, hvad der faktisk tager tid, hvor fejl kan
+        opstå, og hvilken information der skal behandles.
+
+      </p>
+
+
+      <p>
+
+        Det har også gjort mig mere bevidst om, at en
+        automatisering skal være til at forstå og anvende
+        bagefter. En løsning er ikke nødvendigvis god,
+        bare fordi den kan udføre en opgave automatisk.
+
+      </p>
+
+
+      <p>
+
+        Jeg ser derfor Dynamo som et værktøj til at forbedre
+        en eksisterende arbejdsgang – ikke som et mål i sig
+        selv.
+
       </p>
 
     </div>
 
 
-    <div class="automation-flow">
+    <div class="approach">
 
-      <div class="flow-item">
 
-        <span class="flow-number">
+      <div class="approach-item">
+
+        <span class="approach-number">
           01
         </span>
 
         <h3>
-          Identificere
+          Forstå
         </h3>
+
+        <p>
+
+          Først undersøger jeg den eksisterende arbejdsgang
+          og forsøger at finde det konkrete problem.
+
+        </p>
 
       </div>
 
 
-      <div class="flow-item">
+      <div class="approach-item">
 
-        <span class="flow-number">
+        <span class="approach-number">
           02
         </span>
 
         <h3>
-          Strukturere
+          Vurdér
         </h3>
+
+        <p>
+
+          Derefter vurderer jeg, om Revit allerede har en
+          funktion, der kan løse opgaven.
+
+        </p>
 
       </div>
 
 
-      <div class="flow-item">
+      <div class="approach-item">
 
-        <span class="flow-number">
+        <span class="approach-number">
           03
         </span>
 
         <h3>
-          Automatisere
+          Forbedr
         </h3>
 
+        <p>
+
+          Hvis automatisering giver mening, udvikler jeg en
+          løsning, der gør processen mere enkel og robust.
+
+        </p>
+
       </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     05 · AFSLUTNING
+     ========================================================= -->
+
+<section class="section">
+
+  <div class="section-number">
+    05 · Tilgang
+  </div>
+
+
+  <div class="section-content">
+
+    <h2>
+      Struktur
+      <br>
+      før automatisering
+    </h2>
+
+
+    <div class="section-description">
+
+      <p>
+
+        Min erfaring med Dynamo, Revit, Excel og Python har
+        givet mig en større forståelse for, hvordan modeller,
+        data og arbejdsgange hænger sammen.
+
+      </p>
+
+
+      <p>
+
+        Jeg er især interesseret i de steder, hvor BIM og
+        automatisering kan bruges til at skabe bedre struktur
+        og frigive tid fra gentagne opgaver.
+
+      </p>
+
+
+      <p>
+
+        For mig er den gode automatisering derfor ikke den
+        mest avancerede løsning, men den løsning der giver
+        mening i den daglige projektering.
+
+      </p>
+
+    </div>
+
+
+    <div class="statement">
+
+      <p>
+
+        God automatisering handler ikke om at
+        automatisere mest muligt – men om at
+        skabe en bedre arbejdsgang.
+
+      </p>
 
     </div>
 
@@ -1367,6 +1636,7 @@ footer{
 </div>
 
 </main>
+
 
 
 <!-- =========================================================
@@ -1384,341 +1654,6 @@ footer{
   </span>
 
 </footer>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
-
-<script>
-
-const imagePath = "images/";
-
-
-document.querySelectorAll("[data-slider]").forEach(slider => {
-
-  const folder = slider.dataset.folder;
-
-  const track =
-    slider.querySelector(".slider-track");
-
-  let files = [];
-
-
-  /* =======================================================
-     FASTE FILNAVNE
-     ======================================================= */
-
-  if(slider.dataset.files){
-
-    files =
-      slider.dataset.files
-        .split(",")
-        .map(file => file.trim());
-
-  }
-
-
-  /* =======================================================
-     OPRET SLIDES
-     ======================================================= */
-
-  files.forEach(file => {
-
-    const encodedFile =
-      encodeURIComponent(file);
-
-
-    const jpg =
-      `${imagePath}${folder}/${encodedFile}.jpg`;
-
-
-    const pdf =
-      `${imagePath}${folder}/${encodedFile}.pdf`;
-
-
-    const slide =
-      document.createElement("div");
-
-    slide.className = "slide";
-
-
-    slide.innerHTML = `
-
-      <a
-        href="${pdf}"
-        target="_blank"
-        rel="noopener"
-        title="Åbn PDF"
-      >
-
-        <img
-          src="${jpg}"
-          alt="${folder} – ${file}"
-          loading="lazy"
-        >
-
-      </a>
-
-    `;
-
-
-    track.appendChild(slide);
-
-  });
-
-
-  /* =======================================================
-     ELEMENTER
-     ======================================================= */
-
-  const slides =
-    [...track.children];
-
-  const prev =
-    slider.querySelector("[data-prev]");
-
-  const next =
-    slider.querySelector("[data-next]");
-
-  const current =
-    slider.querySelector("[data-current]");
-
-  const total =
-    slider.querySelector("[data-total]");
-
-  const progress =
-    slider.querySelector(".slider-progress-bar");
-
-
-  let position = 0;
-
-  let startX = 0;
-
-
-  /* =======================================================
-     SYNLIGE SLIDES
-     ======================================================= */
-
-  function visibleSlides(){
-
-    if(window.innerWidth <= 500){
-
-      return 1;
-
-    }
-
-    if(window.innerWidth <= 850){
-
-      return 2;
-
-    }
-
-    return 3;
-
-  }
-
-
-  /* =======================================================
-     MAKSIMAL POSITION
-     ======================================================= */
-
-  function maxPosition(){
-
-    return Math.max(
-      0,
-      slides.length - visibleSlides()
-    );
-
-  }
-
-
-  /* =======================================================
-     UPDATE
-     ======================================================= */
-
-  function update(){
-
-    const visible =
-      visibleSlides();
-
-    const gap = 12;
-
-    const width =
-      slider
-        .querySelector(".slider-window")
-        .offsetWidth;
-
-    const slideWidth =
-      (
-        width -
-        gap * (visible - 1)
-      ) / visible;
-
-    const max =
-      maxPosition();
-
-
-    position =
-      Math.min(position,max);
-
-
-    track.style.transform =
-      `translateX(-${position * (slideWidth + gap)}px)`;
-
-
-    prev.disabled =
-      position <= 0;
-
-
-    next.disabled =
-      position >= max;
-
-
-    if(current){
-
-      current.textContent =
-        Math.min(
-          position + 1,
-          slides.length
-        );
-
-    }
-
-
-    if(total){
-
-      total.textContent =
-        slides.length;
-
-    }
-
-
-    if(progress){
-
-      progress.style.width =
-        max
-          ? `${position / max * 100}%`
-          : "100%";
-
-    }
-
-  }
-
-
-  /* =======================================================
-     NEXT
-     ======================================================= */
-
-  next.addEventListener("click",() => {
-
-    if(position < maxPosition()){
-
-      position++;
-
-      update();
-
-    }
-
-  });
-
-
-  /* =======================================================
-     PREVIOUS
-     ======================================================= */
-
-  prev.addEventListener("click",() => {
-
-    if(position > 0){
-
-      position--;
-
-      update();
-
-    }
-
-  });
-
-
-  /* =======================================================
-     TOUCH
-     ======================================================= */
-
-  track.addEventListener(
-    "touchstart",
-    e => {
-
-      startX =
-        e.touches[0].clientX;
-
-    },
-    {
-      passive:true
-    }
-  );
-
-
-  track.addEventListener(
-    "touchend",
-    e => {
-
-      const distance =
-        startX -
-        e.changedTouches[0].clientX;
-
-
-      if(Math.abs(distance) < 50){
-
-        return;
-
-      }
-
-
-      if(
-        distance > 0 &&
-        position < maxPosition()
-      ){
-
-        position++;
-
-      }
-
-
-      if(
-        distance < 0 &&
-        position > 0
-      ){
-
-        position--;
-
-      }
-
-
-      update();
-
-    }
-  );
-
-
-  /* =======================================================
-     RESIZE
-     ======================================================= */
-
-  window.addEventListener(
-    "resize",
-    update
-  );
-
-
-  /* =======================================================
-     START
-     ======================================================= */
-
-  update();
-
-});
-
-</script>
 
 
 </body>

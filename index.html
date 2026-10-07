@@ -53,10 +53,6 @@
       --line: rgba(0, 0, 0, 0.12);
       --soft: #e8e3da;
 
-      /*
-        DEN VIGTIGSTE INDSTILLING TIL SLANGEN
-        Jo højere tal, jo mere synlig.
-      */
       --snake-color: rgba(23, 23, 23, 0.24);
     }
 
@@ -121,9 +117,6 @@
 
       stroke-linejoin: round;
 
-      /*
-        JS ændrer disse værdier.
-      */
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
 
@@ -131,11 +124,6 @@
         stroke-dashoffset 0.12s linear;
     }
 
-
-    /*
-      Små markeringer på knækpunkterne.
-      De er meget diskrete.
-    */
 
     .snake-node {
       fill: var(--background);
@@ -295,10 +283,6 @@
       z-index: 2;
     }
 
-
-    /* ==================================================
-       HERO TEXT
-    ================================================== */
 
     .hero-text {
       max-width: 500px;
@@ -607,10 +591,6 @@
       position: relative;
     }
 
-
-    /* ==================================================
-       ARKITEKTONISK BILLEDE
-    ================================================== */
 
     .about-visual {
       position: relative;
@@ -1134,7 +1114,6 @@
       position: relative;
 
       overflow: hidden;
-
     }
 
 
@@ -1153,10 +1132,6 @@
       gap: 100px;
     }
 
-
-    /* ==================================================
-       KOMPETENCER OVERSKRIFT
-    ================================================== */
 
     .profile-heading {
       position: relative;
@@ -1192,20 +1167,12 @@
     }
 
 
-    /* ==================================================
-       KOMPETENCER INDHOLD
-    ================================================== */
-
     .profile-content {
       display: flex;
 
       flex-direction: column;
     }
 
-
-    /* ==================================================
-       UDDANNELSE / ERHVERVSERFARING / KOMPETENCER
-    ================================================== */
 
     .profile-block {
       display: grid;
@@ -1276,10 +1243,6 @@
     }
 
 
-    /* ==================================================
-       KOMPETENCER
-    ================================================== */
-
     .profile-skills {
       display: flex;
 
@@ -1304,18 +1267,10 @@
     }
 
 
-    /* ==================================================
-       KONTAKT
-    ================================================== */
-
     .profile-contact {
       margin-top: 0;
     }
 
-
-    /* ==================================================
-       CV OG UDDANNELSESBEVIS
-    ================================================== */
 
     .profile-cv {
       display: flex;
@@ -1486,6 +1441,8 @@
       letter-spacing: 0.15rem;
 
       color: var(--muted);
+
+      gap: 20px;
     }
 
 
@@ -1919,11 +1876,6 @@
 
   <!-- ==================================================
        SCROLL-SLANGE
-
-       Denne SVG bliver automatisk tegnet ud fra
-       placeringen af dine sektioner.
-
-       Den ligger bag alt indhold.
   ================================================== -->
 
   <svg
@@ -2146,9 +2098,7 @@
     <div class="projects-inner">
 
 
-      <!-- ==================================================
-           PROJEKT 1
-      ================================================== -->
+      <!-- PROJEKT 1 -->
 
       <article
         class="project project-1"
@@ -2211,9 +2161,7 @@
       </article>
 
 
-      <!-- ==================================================
-           PROJEKT 2
-      ================================================== -->
+      <!-- PROJEKT 2 -->
 
       <article
         class="project reverse project-2"
@@ -2497,6 +2445,11 @@
         Bygningskonstruktør · 2026
       </span>
 
+
+      <span id="visitor-count">
+        Besøgende
+      </span>
+
     </div>
 
   </section>
@@ -2654,12 +2607,17 @@
       ],
 
 
-automatisering: [
-  "images/automatisering/automatisering(1).png",
-  "images/automatisering/automatisering(2).png",
-  "images/automatisering/automatisering(3).png",
-  "images/automatisering/automatisering(4).png"
-]
+      automatisering: [
+
+        "images/automatisering/automatisering(1).png",
+
+        "images/automatisering/automatisering(2).png",
+
+        "images/automatisering/automatisering(3).png",
+
+        "images/automatisering/automatisering(4).png"
+
+      ]
 
     };
 
@@ -2807,13 +2765,6 @@ automatisering: [
 
     /* ==================================================
        SCROLL-SLANGE
-       
-       Denne del bygger automatisk en bane baseret
-       på sektionernes faktiske placering.
-
-       Det betyder:
-       Hvis du ændrer tekst, billeder eller højde,
-       følger slangen stadig med.
     ================================================== */
 
     const snake =
@@ -2827,11 +2778,6 @@ automatisering: [
         "snakePath"
       );
 
-
-    /*
-      Vi bruger disse elementer som
-      "knækpunkter" i banen.
-    */
 
     const hero =
       document.querySelector(
@@ -2863,25 +2809,11 @@ automatisering: [
       );
 
 
-    /*
-      Hvor langt inde fra kanten slangen ligger.
-
-      Desktop:
-      4vw = cirka 4% af skærmens bredde.
-
-      Det gør den minimalistisk og holder den
-      uden for selve indholdet.
-    */
-
     function getSnakeX(side) {
 
       const width =
         window.innerWidth;
 
-
-      /*
-        På desktop ligger den ca. 3.5vw fra kanten.
-      */
 
       if (width > 850) {
 
@@ -2892,20 +2824,12 @@ automatisering: [
       }
 
 
-      /*
-        På tablet/mobil ligger den tættere på kanten.
-      */
-
       return side === "left"
         ? 14
         : width - 14;
 
     }
 
-
-    /*
-      Hent et elements position på hele siden.
-    */
 
     function getPagePosition(element) {
 
@@ -2927,10 +2851,6 @@ automatisering: [
 
     }
 
-
-    /*
-      Bygger selve snake-path'en.
-    */
 
     function buildSnake() {
 
@@ -2975,14 +2895,6 @@ automatisering: [
         getSnakeX("right");
 
 
-      /*
-        Vi lægger linjen lidt inde i
-        mellemrummene mellem sektionerne.
-
-        Det er dét, der gør at den ikke
-        skærer gennem tekst/billeder.
-      */
-
       const gapHeroAbout =
         (
           heroPos.bottom +
@@ -3011,12 +2923,6 @@ automatisering: [
         ) / 2;
 
 
-      /*
-        Startpunkt.
-
-        Hero starter øverst til venstre.
-      */
-
       const startY =
         heroPos.top +
         Math.min(
@@ -3024,29 +2930,6 @@ automatisering: [
           180
         );
 
-
-      /*
-        Vi bygger en klassisk 90-graders
-        arkitektonisk snake.
-
-        Hero
-          |
-          |
-          └──────────────>
-                         |
-                         |
-                         |
-        <────────────────┘
-        |
-        |
-        └──────────────>
-                         |
-                         |
-        <────────────────┘
-        |
-        |
-        CV
-      */
 
       const path = [
 
@@ -3073,10 +2956,6 @@ automatisering: [
       ].join(" ");
 
 
-      /*
-        SVG skal være lige så høj som hele siden.
-      */
-
       snake.setAttribute(
         "width",
         window.innerWidth
@@ -3101,10 +2980,6 @@ automatisering: [
       );
 
 
-      /*
-        Beregn længden på hele linjen.
-      */
-
       const length =
         snakePath.getTotalLength();
 
@@ -3117,22 +2992,11 @@ automatisering: [
         length;
 
 
-      /*
-        Gem længden globalt.
-      */
-
       window.snakeLength =
         length;
 
     }
 
-
-    /*
-      Scroll-animation.
-
-      Linjen bliver tegnet efter hvor langt
-      brugeren har scrollet.
-    */
 
     function updateSnake() {
 
@@ -3157,10 +3021,6 @@ automatisering: [
         window.innerHeight;
 
 
-      /*
-        Hvor meget af siden der reelt kan scrolles.
-      */
-
       const maxScroll =
         Math.max(
           1,
@@ -3168,12 +3028,6 @@ automatisering: [
           viewportHeight
         );
 
-
-      /*
-        Scroll progress:
-        0 = toppen
-        1 = bunden
-      */
 
       let progress =
         scrollTop /
@@ -3189,13 +3043,6 @@ automatisering: [
           )
         );
 
-
-      /*
-        Lidt ekstra fart.
-
-        1.15 betyder at linjen kommer
-        en smule foran scrollingen.
-      */
 
       progress =
         Math.min(
@@ -3214,11 +3061,6 @@ automatisering: [
 
     }
 
-
-    /*
-      Vi undgår at recalculere hele SVG'en
-      100 gange i sekundet.
-    */
 
     let snakeTicking = false;
 
@@ -3253,11 +3095,6 @@ automatisering: [
     );
 
 
-    /*
-      Ved resize skal banen bygges igen,
-      fordi sektionernes placering kan ændre sig.
-    */
-
     let resizeTimer;
 
 
@@ -3286,18 +3123,9 @@ automatisering: [
     );
 
 
-    /*
-      Første opbygning.
-    */
-
     window.addEventListener(
       "load",
       () => {
-
-        /*
-          Lille delay så billeder og
-          fonts når at få korrekt højde.
-        */
 
         setTimeout(
           () => {
@@ -3313,10 +3141,6 @@ automatisering: [
       }
     );
 
-
-    /*
-      Ekstra rebuild når fonts er færdige.
-    */
 
     if (
       document.fonts &&
@@ -3334,6 +3158,50 @@ automatisering: [
       );
 
     }
+
+
+  </script>
+
+
+  <!-- ==================================================
+       GOATCOUNTER
+  ================================================== -->
+
+  <script
+    data-goatcounter="https://sig97ne.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+  </script>
+
+
+  <script>
+
+    var visitorCounter =
+      setInterval(
+        function () {
+
+          if (
+            window.goatcounter &&
+            window.goatcounter.visit_count
+          ) {
+
+            clearInterval(
+              visitorCounter
+            );
+
+
+            window.goatcounter.visit_count({
+
+              append:
+                "#visitor-count"
+
+            });
+
+          }
+
+        },
+        100
+      );
 
   </script>
 
